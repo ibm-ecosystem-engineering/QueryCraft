@@ -1,0 +1,9 @@
+File-Name,Base Model,Evaluation set,Ex-accuracy,PP-Ex-accuracy,R,precision,Training Set,LORA Alpha,LORA Dropout,Finetune Strategy,Target Modules,Task Type,Epoch,Learning Rate,Loss,Eval Loss,Eval Runtime,Eval Samples/Second,Eval Steps/Second,Logging Steps,Max Steps
+"dfoutput_finetune-codellama-instruct-7b_19Oct_Generation21OCT_EX.csv
+",CodeLlama 7B Instruct,Spider dev,55.23,60.07,16,32 bits,Spider Train,16,0.1,LoRA,,,10,,,,,,,,123
+"dfoutput_finetune-codellama-instruct-7b_21Oct_Generation22OCT_EX.csv
+",CodeLlama 7B Instruct,Spider dev,55.62,61.24,64,32 bits,Spider Train,16,0.1,LoRA,,,20,,,,,,,,246
+exp_finetune-codellama-instruct-7b_spider_29Oct_dataCollator_EX.csv,CodeLlama-7b-Instruct-hf,Spider dev,53.15,58.27,64,8,spiderTrainSetNewContext.csv,8,0.1,LORA,"['q_proj', 'k_proj', 'v_proj', 'o_proj']",CAUSAL_LM,9.75,0,1.0866,1.030525804,98.8904,7.079,0.89,10,120
+exp_finetune-codellama-13b_spider_8Dec_EX.csv,CodeLlama 13B Instruct,Spider dev,53.87%,59.96%,16,16bits,Spider Train,16,0.1,LoRA,"['q_proj', 'k_proj', 'v_proj', 'o_proj']",CAUSAL_LM,,0.0002,,,,,,,10000
+"exp_finetune-codellama-13b_spider_8Dec_new_infernace_EX.csv
+",CodeLlama 13B Instruct,Spider dev,53.29%,58.32%,16,16bits,Spider Train,16,0.1,LoRA,"['q_proj', 'k_proj', 'v_proj', 'o_proj']",CAUSAL_LM,,0.0002,,,,,,,10000

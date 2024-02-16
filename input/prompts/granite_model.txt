@@ -1,0 +1,7 @@
+"""
+    SQL query to answer the following question:
+    {question}
+
+    Database schema:
+    {context}
+    """
