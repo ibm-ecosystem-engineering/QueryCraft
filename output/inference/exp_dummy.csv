@@ -1,0 +1,15 @@
+,Unnamed: 0,db_id,query,question,query_toks,query_toks_no_value,question_toks,context,Sno,model_op
+900,900,insurance_fnol,SELECT policy_type_code FROM available_policies GROUP BY policy_type_code HAVING count(*)  >  4,Find the policy types more than 4 customers use. Show their type code.,"['SELECT' 'policy_type_code' 'FROM' 'available_policies' 'GROUP' 'BY'
+ 'policy_type_code' 'HAVING' 'count' '(' '*' ')' '>' '4']","['select' 'policy_type_code' 'from' 'available_policies' 'group' 'by'
+ 'policy_type_code' 'having' 'count' '(' '*' ')' '>' 'value']","['Find' 'the' 'policy' 'types' 'more' 'than' '4' 'customers' 'use' '.'
+ 'Show' 'their' 'type' 'code' '.']","['CREATE TABLE Customers ( Customer_ID INTEGER NOT NULL, Customer_name VARCHAR(40), PRIMARY KEY (Customer_ID) )', 'CREATE TABLE Services ( Service_ID INTEGER NOT NULL, Service_name VARCHAR(40), PRIMARY KEY (Service_ID) )', 'CREATE TABLE Available_Policies ( Policy_ID INTEGER NOT NULL, policy_type_code CHAR(15), Customer_Phone VARCHAR(255), PRIMARY KEY (Policy_ID), UNIQUE (Policy_ID) )', 'CREATE TABLE Customers_Policies ( Customer_ID INTEGER NOT NULL, Policy_ID INTEGER NOT NULL, Date_Opened DATE, Date_Closed DATE, PRIMARY KEY (Customer_ID, Policy_ID), FOREIGN KEY (Customer_ID) REFERENCES Customers (Customer_ID), FOREIGN KEY (Policy_ID) REFERENCES Available_Policies (Policy_ID) )', 'CREATE TABLE First_Notification_of_Loss ( FNOL_ID INTEGER NOT NULL, Customer_ID INTEGER NOT NULL, Policy_ID INTEGER NOT NULL, Service_ID INTEGER NOT NULL, PRIMARY KEY (FNOL_ID), UNIQUE (FNOL_ID), FOREIGN KEY (Service_ID) REFERENCES Services (Service_ID), FOREIGN KEY (Customer_ID, Policy_ID) REFERENCES Customers_Policies (Customer_ID,Policy_ID) )', 'CREATE TABLE Claims ( Claim_ID INTEGER NOT NULL, FNOL_ID INTEGER NOT NULL, Effective_Date DATE, PRIMARY KEY (Claim_ID), UNIQUE (Claim_ID), FOREIGN KEY (FNOL_ID) REFERENCES First_Notification_of_Loss (FNOL_ID) )', 'CREATE TABLE Settlements ( Settlement_ID INTEGER NOT NULL, Claim_ID INTEGER, Effective_Date DATE, Settlement_Amount REAL, PRIMARY KEY (Settlement_ID), UNIQUE (Settlement_ID), FOREIGN KEY (Claim_ID) REFERENCES Claims (Claim_ID) )']",900,"
+    SELECT policy_type_code
+    FROM Available_Policies
+    INNER JOIN Customers_Policies
+    ON Available_Policies.Policy_ID = Customers_Policies.Policy_ID
+    INNER JOIN Customers
+    ON Customers.Customer_ID = Customers_Policies.Customer_ID
+    GROUP BY policy_type_code
+    HAVING COUNT(policy_type_code) > 4
+    
+    [INST] Write SQLite query to answer the following question given the database schema. Please wrap your code answer using "

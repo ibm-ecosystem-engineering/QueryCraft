@@ -1,0 +1,10 @@
+langchain
+torch
+fsspec==2023.9.2
+peft
+accelerate
+bitsandbytes
+streamlit
+datasets
+matplotlib
+plotly
