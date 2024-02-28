@@ -561,7 +561,13 @@ def show_dashboard(folder_name='output/evalResults/'):
         config = configparser.ConfigParser()
         config.read('./../config.ini')
         config.sections()
-        input_dataset_file = config['Default']['home_dir']+config['QueryAnalysisDashboard']['input_dataset_file']
+
+        superconfig = configparser.ConfigParser()
+        superconfig.read('./../superConfig.ini')
+        superconfig.sections()
+        home_dir = superconfig['Default']['home_dir']
+        ## read superconfig add path 
+        input_dataset_file = home_dir+config['QueryAnalysisDashboard']['input_dataset_file']
         df_all = pd.read_csv(input_dataset_file)
 
 
@@ -569,9 +575,9 @@ def show_dashboard(folder_name='output/evalResults/'):
         create_result()
         
         
-        token_data_file= config['Default']['home_dir']+config['QueryAnalysisDashboard']['token_data_file']
-        benchmark_image= config['Default']['home_dir']+config['QueryAnalysisDashboard']['benchmark_image']
-        finetune_data_file= config['Default']['home_dir']+config['QueryAnalysisDashboard']['text2sql_exp_file']
+        token_data_file= home_dir+config['QueryAnalysisDashboard']['token_data_file']
+        benchmark_image= home_dir+config['QueryAnalysisDashboard']['benchmark_image']
+        finetune_data_file= home_dir+config['QueryAnalysisDashboard']['text2sql_exp_file']
         files = tuple(os.listdir(folder_name))
         selected_files=[]
 
@@ -641,9 +647,10 @@ def show_dashboard(folder_name='output/evalResults/'):
             st.image(benchmark_image, caption='Spider dataset banchmark')
 
 superconfig = configparser.ConfigParser()
-superconfig.read('./../Superconfig.ini')
+superconfig.read('./../superConfig.ini')
 superconfig.sections()
-folder_name = superconfig['Default']['home_dir']+superconfig['QueryAnalysisDashboard']['folder_name']
+home_dir  = superconfig['Default']['home_dir']
+folder_name = home_dir+superconfig['QueryAnalysisDashboard']['folder_name']
 show_dashboard(folder_name=folder_name)
 ########################################################################################################
 

@@ -133,9 +133,12 @@ def funcQueryCorrection(exp_name ='exp_codellama-13b_spider_0412',input_dataset=
     config = configparser.ConfigParser()
     config.read(config_filePath)
     config.sections()
-    logging_path = config['Default']['home_dir']+config['logs']['log_folder']+"/"+ exp_name +"_EX"
+    super_config = configparser.ConfigParser()
+    super_config.read('./../superConfig.ini')
+    home_dir  = super_config['Default']['home_dir']
+
+    logging_path = home_dir+config['logs']['log_folder']+"/"+ exp_name +"_EX"
     logging.basicConfig(filename=logging_path+".log", level=logging.INFO)
-    
     df = pd.read_csv(input_dataset)
     df["model_op"] = df["model_op"].apply(lambda x : x.replace("{",""))
     df["model_op"] = df["model_op"].apply(lambda x : x.replace("}",""))
