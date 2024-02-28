@@ -8,3 +8,5 @@ streamlit
 datasets
 matplotlib
 plotly
+ibm-watsonx-ai
+ibm_db

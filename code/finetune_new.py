@@ -28,8 +28,13 @@ def funcFinetune(exp_name="expDummy",data_collator="DataCollatorForSeq2Seq",mode
         config = configparser.ConfigParser()
         config.read(config_filePath)
         config.sections()
+
+        super_config = configparser.ConfigParser()
+        super_config.read('./../superConfig.ini')
+        home_dir  = super_config['Default']['home_dir']
+
         #User Config
-        logging_path = config['Default']['home_dir']+config['logs']['log_folder']+ exp_name
+        logging_path = home_dir+config['logs']['log_folder']+ exp_name
 
         base_model = model_name
         finetuningMethod = finetune_type
@@ -41,8 +46,8 @@ def funcFinetune(exp_name="expDummy",data_collator="DataCollatorForSeq2Seq",mode
         batch_size = int(config['Finetune']['batch_size'])
         num_train_epochs = int(config['Finetune']['num_train_epochs'])
         per_device_train_batch_size = int(config['Finetune']['per_device_train_batch_size'])
-        output_dir =  config['Default']['home_dir']+"output/model/"+ exp_name
-        prompt_file_path = config['Default']['home_dir']+prompt_file_path
+        output_dir =  home_dir+"output/model/"+ exp_name
+        prompt_file_path = home_dir+prompt_file_path
 
         LoRA_r = int(config['Finetune']['LoRA_r'])
         LoRA_dropout = float(config['Finetune']['LoRA_dropout'])
@@ -50,7 +55,7 @@ def funcFinetune(exp_name="expDummy",data_collator="DataCollatorForSeq2Seq",mode
         target_modules = config['Finetune']['target_modules']
         #LoRA_taskType = config['Finetune']['LoRA_taskType']
 
-        train_dataset = config['Default']['home_dir']+train_dataset
+        #train_dataset = home_dir+train_dataset
 
         logging.basicConfig(filename=logging_path+".log", level=logging.INFO)
 
@@ -125,7 +130,7 @@ def funcFinetune(exp_name="expDummy",data_collator="DataCollatorForSeq2Seq",mode
         dataTrainTest = data.train_test_split(test_size=val_set_size, shuffle=True, seed=42)
         tokenized_train_dataset = dataTrainTest["train"].shuffle().map(generate_and_tokenize_prompt)
         tokenized_val_dataset = dataTrainTest["test"].shuffle().map(generate_and_tokenize_prompt)
-        dataTrainTest["test"].to_csv(config['Default']['home_dir']+"input/datasets/"+exp_name+"_validSet.csv")
+        dataTrainTest["test"].to_csv(home_dir+"input/datasets/"+exp_name+"_validSet.csv")
 
 
 

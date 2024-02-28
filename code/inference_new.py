@@ -27,9 +27,13 @@ def funcInference(exp_name="expDummy",
     config.read('./../config.ini')
     config.sections()
     
-    input_dataset = config['Default']['home_dir']+input_dataset
+    super_config = configparser.ConfigParser()
+    super_config.read('./../superConfig.ini')
+    home_dir  = super_config['Default']['home_dir']
+
+    input_dataset = home_dir+input_dataset
     base_model = model_name
-    logging_path = config['Default']['home_dir']+config['logs']['log_folder']+ exp_name+"_infer"
+    logging_path = home_dir+config['logs']['log_folder']+ exp_name+"_infer"
     logging.basicConfig(filename=logging_path+".log", level=logging.INFO)
     logging.info("EXPERIMENT :"+exp_name)
     logging.info(" Input Set : "+ input_dataset)
@@ -138,10 +142,10 @@ def funcInference(exp_name="expDummy",
             device_map=device_map,
             )
         if(finetuned_model!="NA"):
-            finetuned_model = config['Default']['home_dir']+finetuned_model
+            #finetuned_model = config['Default']['home_dir']+finetuned_model
             model = PeftModel.from_pretrained(model, finetuned_model)
         eos_token_id = tokenizer.convert_tokens_to_ids(["```"])[0]
         df_validation["model_op"] = df_validation.apply(resultGenerator,axis=1)
         
-    df_validation.to_csv(config['Default']['home_dir']+"output/inference/"+exp_name+".csv")
-    return ("Inference completed successfully, output file is saved at :",config['Default']['home_dir']+"output/inference/"+exp_name+".csv")
+    df_validation.to_csv(home_dir+"output/inference/"+exp_name+"_inference.csv")
+    return ("Inference completed successfully, output file is saved at :",home_dir+"output/inference/"+exp_name+"_inference.csv")

@@ -25,13 +25,12 @@ def create_result():
     superconfig.sections()
 
     ### EXP FILE
-    EXP = superconfig['QueryAnalysisDashboard']['exp_name'] 
-    home_dir = config['Default']['home_dir']
-
+    EXP = superconfig['Default']['exp_name'] 
+    home_dir = superconfig['Default']['home_dir']
 
 
     # Start MLflow run with a dynamic run name
-    text2sql_exp_file = config['Default']['home_dir']+ config['QueryAnalysisDashboard']['text2sql_exp_file']
+    text2sql_exp_file = home_dir+ config['QueryAnalysisDashboard']['text2sql_exp_file']
 
     # Check if SQL_Leaderboard.csv file exists in the artifacts directory
     if os.path.isfile(text2sql_exp_file):
@@ -48,7 +47,7 @@ def create_result():
 
     #step-1
     #User Config
-    trainDataset = config['Default']['home_dir']+superconfig['Finetune']['train_dataset']  
+    trainDataset = superconfig['Finetune']['train_dataset']  
     base_model = superconfig['Finetune']['model_name'] 
     finetuningMethod = superconfig['Finetune']['finetune_type'] 
     precision = config['Finetune']['precision'] 
@@ -56,13 +55,13 @@ def create_result():
     LoRA_dropout = float(config['Finetune']['LoRA_dropout'])
     batch_size = int(config['Finetune']['batch_size'])
     per_device_train_batch_size = int(config['Finetune']['per_device_train_batch_size'])
-    output_dir =  config['Default']['home_dir']+"output/model/"+ superconfig['QueryAnalysisDashboard']['exp_name']
+    output_dir =  home_dir+"output/model/"+ superconfig['Default']['exp_name']
     target_modules = config['Finetune']['target_modules']
-    logging_path = config['Default']['home_dir']+config['logs']['log_folder']+ superconfig['QueryAnalysisDashboard']['exp_name']
+    logging_path = home_dir+config['logs']['log_folder']+ superconfig['Default']['exp_name']
 
     #step-2
     # Set the path to the directory containing checkpoint folders
-    checkpoint_dir = config['Default']['home_dir'] + "/output/model/" + superconfig['QueryAnalysisDashboard']['exp_name']
+    checkpoint_dir = home_dir + "/output/model/" + superconfig['Default']['exp_name']
 
     # Function to extract the checkpoint number from a folder name
     def get_checkpoint_number(folder_name):
@@ -121,7 +120,7 @@ def create_result():
 
     #step-3
     try:
-        log_file_path = config['Default']['home_dir'] + config['logs']['log_folder'] + superconfig['QueryAnalysisDashboard']['exp_name'] + ".log"
+        log_file_path = home_dir + config['logs']['log_folder'] + superconfig['Default']['exp_name'] + ".log"
 
         # Define a dictionary to store the parameters and their values
         parameters = {}
@@ -148,7 +147,7 @@ def create_result():
     #Step-4 Ex_accuracy
 
     try:
-        log_file_path = config['Default']['home_dir'] + config['logs']['log_folder']  + config['QueryAnalysisDashboard']['exp_name'] + "_EX.log"
+        log_file_path = home_dir + config['logs']['log_folder']  + superconfig['Default']['exp_name'] + "_EX.log"
 
         Ex_accuracy = None
         PP_Ex_accuracy = None
@@ -168,7 +167,7 @@ def create_result():
                         pp_ex_parameter_value = parts[1].strip()
                         PP_Ex_accuracy = round(float(pp_ex_parameter_value) * 100, 2)
 
-        #print(f"EX Accuracy: {Ex_accuracy}")
+        print(f"EX Accuracy: {Ex_accuracy}")
 
         target_modules = str(target_modules)
 
@@ -202,7 +201,7 @@ def create_result():
         # Create a DataFrame from the data
         new_leaderboard = pd.DataFrame(data,index=[0])
         new_leaderboard = new_leaderboard.sort_values(by='Base Model')
-        # print(new_leaderboard)
+        print(new_leaderboard)
 
         # Get the selected columns from the config file
         selected_columns = config['QueryAnalysisDashboard']['selected_columns'].split(', ')
@@ -229,5 +228,7 @@ def create_result():
 
         # Save SQL leaderboard to the CSV file
         SQL_leaderboard.to_csv(text2sql_exp_file, index=False)
-    except:
-        print("No new experiement available")
+        print("Save ---",text2sql_exp_file)
+    except Exception as e:
+        print("Error---",e)
+        print("No new experiement available",text2sql_exp_file)

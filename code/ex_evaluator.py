@@ -375,7 +375,13 @@ def ex_evalution(dbType='sqlite',exp_name='exp_codellama-13b_spider_0412',input_
     config = configparser.ConfigParser()
     config.read(config_filePath)
     config.sections()
-    logging_path = config['Default']['home_dir']+config['logs']['log_folder']+"/"+ exp_name +"_EX"
+
+    super_config = configparser.ConfigParser()
+    super_config.read('./../superConfig.ini')
+    home_dir  = super_config['Default']['home_dir']
+
+
+    logging_path = home_dir+config['logs']['log_folder']+"/"+ exp_name +"_EX"
     logging.basicConfig(filename=logging_path+".log", level=logging.INFO)
 
     ######################################################################################################
@@ -403,5 +409,5 @@ def ex_evalution(dbType='sqlite',exp_name='exp_codellama-13b_spider_0412',input_
     logging.info("PP EX Accuracy :"+str(EXAccuracyPP))
     print("PP EX Accuracy :",str(EXAccuracyPP))
     print("EX Accuracy :",str(EXAccuracy))
-    df.to_csv(config['Default']['home_dir']+"output/evalResults/"+exp_name+"_EX.csv")
+    df.to_csv(home_dir+"output/evalResults/"+exp_name+"_exEvaluator.csv")
     print("File saved succesfully")

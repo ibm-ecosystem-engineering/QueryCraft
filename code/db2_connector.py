@@ -4,7 +4,13 @@ import configparser
 
 # Read configuration from config.ini file
 config = configparser.ConfigParser()
-config.read('../config.ini')
+config.read('./../config.ini')
+
+super_config = configparser.ConfigParser()
+super_config.read('./../superConfig.ini')
+# home_dir  = super_config['Default']['home_dir']
+
+
 
 # User Config
 dsn_database = config['DataIngestion']["dsn_database"]
@@ -14,8 +20,8 @@ dsn_hostname = config['DataIngestion']["dsn_hostname"]
 dsn_port = config['DataIngestion']["dsn_port"]
 dsn_protocol = config['DataIngestion']["dsn_protocol"]
 dsn_driver = config['DataIngestion']["dsn_driver"]
-filename = config['DataIngestion']["filename"]
-table_name = config['DataIngestion']["table_name"]
+filename = super_config['DataIngestion']["filename"]
+table_name = super_config['DataIngestion']["table_name"]
 
 
 def db2_connector():

@@ -5,8 +5,11 @@ import configparser
 import glob
 
 config = configparser.ConfigParser()
-config.read('../config.ini')
+config.read('./../config.ini')
 
+super_config = configparser.ConfigParser()
+super_config.read('./../superConfig.ini')
+home_dir  = super_config['Default']['home_dir']
 # User Config
 dsn_database = config['DataIngestion']["dsn_database"]
 dsn_uid = config['DataIngestion']["dsn_uid"]
@@ -16,11 +19,9 @@ dsn_port = config['DataIngestion']["dsn_port"]
 dsn_protocol = config['DataIngestion']["dsn_protocol"]
 dsn_driver = config['DataIngestion']["dsn_driver"]
 
-output_file = config['ContextRetriever']["output_file"]
 
-
-def funcContextRetriever(db_type, input_file, database_folder='input/spider/database/'):
-    
+def funcContextRetriever(exp_name,db_type, input_file, database_folder='input/spider/database/'):
+    output_file = home_dir+"input/datasets/"+exp_name+"_contextRetriever.csv"
     def contextFinder(db):
         if db_type == 'db2':
             return contextFinderDb2(db)
@@ -28,15 +29,11 @@ def funcContextRetriever(db_type, input_file, database_folder='input/spider/data
             return contextFinderSqlite(db,database_folder)
         else:
             raise ValueError("Invalid database type. Supported types: 'db2', 'sqlite'")
-    
-            
-    database_folder = config['Default']['home_dir'] + database_folder
     df_train = pd.read_csv(input_file)
-    
     df_train["context"] = df_train["db_id"].apply(contextFinder)
-    df_train.to_csv("../input/datasets/"+output_file)
+    df_train.to_csv(output_file)
     
-    return "Generated Retriver file: "+"../input/datasets/"+output_file
+    return "Generated Retriver file:"+output_file
     
     
 def contextFinderDb2(table_name):

@@ -4,7 +4,7 @@ import configparser
 
 # Read configuration from config.ini file
 config = configparser.ConfigParser()
-config.read('../config.ini')
+config.read('./../config.ini')
 
 # User Config
 dsn_database = config['DataIngestion']["dsn_database"]
