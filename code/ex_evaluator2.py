@@ -32,24 +32,16 @@ import pandas as pd
 import configparser
 import logging
 import re
-######################################################################################################
-config = configparser.ConfigParser()
-config.read('../config.ini')
-config.sections()
 
-logging_path = config['Default']['home_dir']+config['logs']['log_folder']+"/"+ config['EXEvaluator']['EXP'] +"_EX"
-logging.basicConfig(filename=logging_path+".log", level=logging.INFO)
-
-######################################################################################################
-# Read the inference dataset
-######################################################################################################
-df = pd.read_csv(config['Default']['home_dir']+config['EXEvaluator']['input_dataset'])
-database_folder = config['Default']['home_dir']+config['ContextRetriever']['input_database_folder']
-print("reading the file :",config['EXEvaluator']['input_dataset'])
+import db2_connector
+import ibm_db
 
 ######################################################################################################
 # EX Match Logic
 ######################################################################################################
+def hello(name):
+    print("helloooo",name)
+
 def error_handling(e):
     error ="None"
     if 'no such column' in e:
@@ -207,12 +199,11 @@ def result_eq(result1, result2, order_matters):
     return False,result
 
 
-def eval_exec_match(db, db2, p_str, g_str):
+def eval_exec_match_sqlite(db, db2, p_str, g_str):
     """
     return 1 if the values between prediction and gold are matching
     in the corresponding index. Currently not support multiple col_unit(pairs).
     """
-
     error ='None'
     result = "error"
     conn = sqlite3.connect(db2)
@@ -241,122 +232,107 @@ def eval_exec_match(db, db2, p_str, g_str):
     value,result = result_eq(p_res, q_res, order_matters=orders_matter)
     return value,error,result
 
-def formaterAndCaller(row):
+
+
+
+def eval_exec_match_db2(db2_conn,db2_conn1, p_str, g_str):
+    import ibm_db
+    """
+    return 1 if the values between prediction and gold are matching
+    in the corresponding index. Currently not support multiple col_unit(pairs).
+    """
+    error ='None'
+    result = "error"
+    try:
+        stmt = ibm_db.exec_immediate(db2_conn, p_str)
+        p_res = ibm_db.fetch_assoc(stmt)
+    except Exception as e:
+        # import ipdb; ipdb.set_trace()
+        error =error_handling(str(e))
+        return False,error,result
+    try:
+        stmt = ibm_db.exec_immediate(db2_conn1, g_str)
+        q_res = ibm_db.fetch_assoc(stmt)
+    except Exception as e:
+        error =error_handling(str(e))
+        return False,error,result
+    
+    ##orders_matter = 'order by' in g_str.lower()
+    orders_matter = False
+    value,result = result_eq(p_res, q_res, order_matters=orders_matter)
+    return value,error,result
+
+
+def formaterAndCaller(row,database_folder):
     db = database_folder+row["db_id"]+"/"+row["db_id"]+".sqlite"
     g_str = row["query"]+";"
-    p_str =row["model_op1"]
+    p_str =row["model_op"]
+    
+    ## For query correction:
+    p_str_p =row["model_op1"]
     print("I am at row:",row["Sno"])
-    g_str_p,p_str_p = queryPostProcessing(row)
     eval_score,e,r = eval_exec_match(db,db,p_str, g_str)
-    eval_score1 ,error,result = eval_exec_match(db,db,p_str_p, g_str_p)
+    eval_score1 ,error,result = eval_exec_match(db,db,p_str_p, g_str)
     
     return eval_score,eval_score1,error,result
-
-def replace_cur_year(query: str) -> str:
-    return re.sub(
-        "YEAR\s*\(\s*CURDATE\s*\(\s*\)\s*\)\s*", "2020", query, flags=re.IGNORECASE
-    )
-
-def queryPostProcessing(row):
-    g_str =''
-    p_str=''
-    if ';' not in row["query"]:
-        g_str = row["query"]+" ;"
-    else:
-        g_str = row["query"]
-    
-    if ';' not in row["model_op"]:
-        p_str = row["model_op"]+" ;"
-    else:
-        p_str = row["model_op"].split(";")[0]
-        
-        
-     
-    p_str = p_str.replace("> =", ">=").replace("< =", "<=").replace("! =", "!=")
-    
-    g_str = g_str.replace('``` ',"").replace('`',"")
-    p_str = p_str.replace('``` ',"").replace('`',"")
-    p_str = p_str.replace('### Expected Output:   ',"").replace('`',"")
-    p_str = p_str.replace('Note:',"")
-    p_str = p_str.replace(' Ex',"")
-    p_str = p_str.replace('Here is the',"")
-    p_str = p_str.split("### Explanation:")[0]
-    p_str = p_str.split("Explanation: ")[0]
-    p_str = p_str.split(": Explanation:")[0]
-    p_str = p_str.split("Explanation:")[0]
-    
-    p_str = p_str.replace('ILIKE',"LIKE")
-    p_str = p_str.replace('ilike',"LIKE")
-    
-    if "### Response:" in p_str:
-        p_str = p_str.split("### Response:")[1]
-    p_str = p_str.replace("###","")
-    
-    
-   
-    p_str_val = p_str.split(": Answer:")
-    if len(p_str_val) ==2:
-        p_str = p_str_val[1]
-    p_str_val = p_str.split(": Query:")
-    if len(p_str_val) ==2:
-        p_str = p_str_val[1]
-    
-    if "This query" in p_str:
-         p_str = p_str.split("This query")[0]
-    if "The query" in p_str:
-         p_str = p_str.split("The query")[0]     
-    if "The above query" in p_str:
-         p_str = p_str.split("The above query")[0]
-    if "planation:" in p_str:
-         p_str = p_str.split("planation:")[0]
-    if "This queries" in p_str:
-         p_str = p_str.split("This queries")[0]
-    if "noqa: E501" in p_str:
-         p_str = p_str.split("noqa: E501")[0]
-   
-
-
-    p_str = p_str.split(": Result:")[0]
-    p_str = p_str.split("INST ")[0]
-    p_str = p_str.split(" INST")[0]
-    p_str = p_str.split(" find ")[0]
-    p_str = p_str.split(" INST)")[0]
-    
-    
-    p_str = p_str.strip()
-    g_str = g_str.strip()
-    p_str = p_str.replace("#","")
-    p_str = reformat_query(p_str)
-    p_str = replace_cur_year(p_str)
-    
-    if "select" in p_str.lower():
-        if ':' in p_str:
-            p_str=p_str.replace(":","")
-        if ';' not in p_str:
-            p_str=p_str+' ;'
-    return g_str, p_str
-
   
+def formaterAndCaller_db2(row):
+    conn = db2_connector.db2_connector()
+
+    g_str = row["query"]+";"
+    p_str =row["model_op"]
     
-df["model_op"] = df["model_op"].apply(lambda x : x.replace("{",""))
-df["model_op"] = df["model_op"].apply(lambda x : x.replace("}",""))
-for index, row in df.iterrows():
-    evalScore,value,error,result = formaterAndCaller(row)
-    df.at[index,"evalScore"] = evalScore
-    df.at[index,"evalScorePostProcessing"] = value
-    df.at[index,"error_type"] = error
-    df.at[index,"result"] = result
+    ## For query correction:
+    p_str_p =row["model_op1"]
+    print("I am at row:",row["Sno"])
+    eval_score,e,r = eval_exec_match_db2(conn,conn,p_str, g_str)
+    eval_score1 ,error,result = eval_exec_match_db2(conn,conn,p_str_p, g_str)
+    
+    return eval_score,eval_score1,error,result
+    
 
+    
+def ex_evalution(dbType,input_dataset,database_folder):
+    print("readingggggg eval")
+    config_filePath="./../config.ini"
+    config = configparser.ConfigParser()
+    config.read(config_filePath)
+    config.sections()
+    logging_path = config['Default']['home_dir']+config['logs']['log_folder']+"/"+ config['EXEvaluator']['EXP'] +"_EX"
+    logging.basicConfig(filename=logging_path+".log", level=logging.INFO)
 
-
-
-EXAccuracy = sum(df["evalScore"])/len(df["evalScore"])
-EXAccuracyPP = sum(df["evalScorePostProcessing"])/len(df["evalScorePostProcessing"])
-
-logging.info("EX Accuracy :"+str(EXAccuracy))
-
-logging.info("PP EX Accuracy :"+str(EXAccuracyPP))
-print("PP EX Accuracy :",str(EXAccuracyPP))
-print("EX Accuracy :",str(EXAccuracy))
-df.to_csv(config['Default']['home_dir']+"output/evalResults/"+config['EXEvaluator']['EXP']+"_EX.csv")
-print("File saved succesfully")
+    ######################################################################################################
+    # Read the inference dataset
+    ######################################################################################################
+    df = pd.DataFrame()
+    if input_dataset == '':
+        df = pd.read_csv(config['Default']['home_dir']+config['EXEvaluator']['input_dataset'])
+    else:
+        df = pd.read_csv(input_dataset)
+        
+    if dbType =='sqlite':
+        if database_folder == '':
+            database_folder = config['Default']['home_dir']+config['ContextRetriever']['input_database_folder']            
+        print("reading the file :",config['EXEvaluator']['input_dataset'])
+        for index, row in df.iterrows():
+            print("Helloo---")
+            evalScore,value,error,result = formaterAndCaller_sqlite(row,database_folder)
+            df.at[index,"evalScore"] = evalScore
+            df.at[index,"evalScorePostProcessing"] = value
+            df.at[index,"error_type"] = error
+            df.at[index,"result"] = result
+    else :
+        for index, row in df.iterrows():
+            evalScore,value,error,result = formaterAndCaller_db2(row)
+            df.at[index,"evalScore"] = evalScore
+            df.at[index,"evalScorePostProcessing"] = value
+            df.at[index,"error_type"] = error
+            df.at[index,"result"] = result
+    EXAccuracy = sum(df["evalScore"])/len(df["evalScore"])
+    EXAccuracyPP = sum(df["evalScorePostProcessing"])/len(df["evalScorePostProcessing"])
+    logging.info("EX Accuracy :"+str(EXAccuracy))
+    logging.info("PP EX Accuracy :"+str(EXAccuracyPP))
+    print("PP EX Accuracy :",str(EXAccuracyPP))
+    print("EX Accuracy :",str(EXAccuracy))
+    df.to_csv(config['Default']['home_dir']+"output/evalResults/"+config['EXEvaluator']['EXP']+"_EX.csv")
+    print("File saved succesfully")

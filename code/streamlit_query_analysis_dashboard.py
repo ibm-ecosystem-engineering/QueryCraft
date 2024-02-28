@@ -33,9 +33,7 @@ from pipeline_result_csv_gen import create_result
 
 
 ######################################################################################################
-config = configparser.ConfigParser()
-config.read('config.ini')
-config.sections()
+
 ################################################################################################
 st.set_page_config(layout="wide")
 
@@ -133,19 +131,8 @@ def calculate_classification(df):
         df.at[index,'count'] =count
     return df
 
-################################################################################################
-input_dataset_file = config['Default']['home_dir']+config['QueryAnalysisDashboard']['input_dataset_file']
-df_all = pd.read_csv(input_dataset_file)
+###############################################################################################
 
-########################################################################################################
-
-#Evaluation Analysis 
-create_result()
-
-########################################################################################################
-
-
-########################################################################################################
 
 #Query Analysis 
 ########################################################################################################
@@ -252,18 +239,6 @@ def create_graph_new(df):
 #Query Analysis Dashboard Heatmap
 
 ########################################################################################################
-
-folder_name = config['Default']['home_dir']+config['QueryAnalysisDashboard']['folder_name']
-token_data_file= config['Default']['home_dir']+config['QueryAnalysisDashboard']['token_data_file']
-benchmark_image= config['Default']['home_dir']+config['QueryAnalysisDashboard']['benchmark_image']
-finetune_data_file= config['Default']['home_dir']+config['QueryAnalysisDashboard']['text2sql_exp_file']
-files = tuple(os.listdir(folder_name))
-selected_files=[]
-
-for file in files:
-    if 'ipynb_checkpoints' not in file:
-        selected_files.append(file)
-files = tuple(selected_files)
 
 def clean_model_name(file):
     # Define the patterns to remove from the file name
@@ -489,23 +464,25 @@ def get_evaluationscore(folder_name,files):
  
     eval_score_list = []
     for file in files:
-        df_eval = pd.read_csv(folder_name+file)
-        ## upadate the dict
-        model_name = file.split("_")
-        eval_score = sum(df_eval["evalScore"])/len(df_eval["evalScore"])*100
-        evalScorePostProcessing = sum(df_eval["evalScorePostProcessing"])/len(df_eval["evalScorePostProcessing"])*100
-        result = df_eval["result"].value_counts()
-        if 'Partial Match' in result:
-            value = (result['Partial Match'])/len(df_eval["evalScore"])*100
-        else:
-            value =0
-        eval_score_list.append({'Model name': str(model_name[1].replace("finetune-","")), 'Accuracy': str(round(eval_score, 2)), 'Post processing accuracy': str(round(evalScorePostProcessing, 2)), 'Partial Match': str(round(value, 2)),'File_name': str(file)})
-     
-    
-    eval_score_df = pd.DataFrame(eval_score_list)
-    st.dataframe(eval_score_df)
+        if '.DS_Store' not in file:
+            print('file-name',file)
+            df_eval = pd.read_csv(folder_name+file,encoding='utf-8')
+            ## upadate the dict
+            model_name = file.split("_")
+            eval_score = sum(df_eval["evalScore"])/len(df_eval["evalScore"])*100
+            evalScorePostProcessing = sum(df_eval["evalScorePostProcessing"])/len(df_eval["evalScorePostProcessing"])*100
+            result = df_eval["result"].value_counts()
+            if 'Partial Match' in result:
+                value = (result['Partial Match'])/len(df_eval["evalScore"])*100
+            else:
+                value =0
+            eval_score_list.append({'Model name': str(model_name[1].replace("finetune-","")), 'Accuracy': str(round(eval_score, 2)), 'Post processing accuracy': str(round(evalScorePostProcessing, 2)), 'Partial Match': str(round(value, 2)),'File_name': str(file)})
 
-def get_evaluationscoreCheckBox(folder_name,files):
+
+        eval_score_df = pd.DataFrame(eval_score_list)
+        st.dataframe(eval_score_df)
+
+def get_evaluationscoreCheckBox(folder_name,files,finetune_data_file):
  
     eval_score_list = []
     for file in files:
@@ -576,11 +553,36 @@ def getQueryAnalysisdashboard(folder_name,select_files):
     st.subheader('Query classification level analysis after post processing',divider='rainbow')
     get_heatmap_new(folder_name,files)
 
-def getComparistionAnalysisdashboard(folder_name,select_files):
-    get_evaluationscoreCheckBox(folder_name,files)
+def getComparistionAnalysisdashboard(folder_name,select_files,finetune_data_file):
+    get_evaluationscoreCheckBox(folder_name,select_files,finetune_data_file)
     
 
-def show_dashboard():
+def show_dashboard(folder_name='output/evalResults/'):
+        config = configparser.ConfigParser()
+        config.read('./../config.ini')
+        config.sections()
+        input_dataset_file = config['Default']['home_dir']+config['QueryAnalysisDashboard']['input_dataset_file']
+        df_all = pd.read_csv(input_dataset_file)
+
+
+        #Evaluation Analysis 
+        create_result()
+        
+        
+        token_data_file= config['Default']['home_dir']+config['QueryAnalysisDashboard']['token_data_file']
+        benchmark_image= config['Default']['home_dir']+config['QueryAnalysisDashboard']['benchmark_image']
+        finetune_data_file= config['Default']['home_dir']+config['QueryAnalysisDashboard']['text2sql_exp_file']
+        files = tuple(os.listdir(folder_name))
+        selected_files=[]
+
+        for file in files:
+            if 'ipynb_checkpoints' not in file:
+                if '.DS_Store' not in file:
+                    selected_files.append(file)
+            
+        files = tuple(selected_files)
+        #######################################################
+        
         st.header('TextToSql Analysis Dashboard',divider='rainbow')
         tab1, tab2, tab3,tab4,tab5,tab6 = st.tabs(["Training Data Analysis", "Evaluation Analysis","Evaluation Analysis Post Processing", "Query Classification Dashboard","Comparistion Analysis","Benchmark Analysis"])
         with tab1:
@@ -630,18 +632,19 @@ def show_dashboard():
 
         with tab5:
             st.subheader("Comparistion Analysis in b/w models", divider='rainbow')
-            getComparistionAnalysisdashboard(folder_name,files)
+            getComparistionAnalysisdashboard(folder_name,files,finetune_data_file)
      
     
         with tab6:
             st.subheader("Leaderboard - Execution with Values (Spider Benchmark)", divider='rainbow')
             st.write("Image Credit","https://yale-lily.github.io//spider")
-            #benchmark_image= config['Default']['home_dir']+config['QueryAnalysisDashboard']['benchmark_image']
             st.image(benchmark_image, caption='Spider dataset banchmark')
 
-
-show_dashboard() 
-
+superconfig = configparser.ConfigParser()
+superconfig.read('./../Superconfig.ini')
+superconfig.sections()
+folder_name = superconfig['Default']['home_dir']+superconfig['QueryAnalysisDashboard']['folder_name']
+show_dashboard(folder_name=folder_name)
 ########################################################################################################
 
     

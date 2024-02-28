@@ -20,27 +20,27 @@ from peft import (
 start_time = time.time()
 
 config = configparser.ConfigParser()
-config.read('config.ini')
+config.read('./../config.ini')
 config.sections()
-
+exp_name = "expDummy_1"
 #User Config
-trainDataset = config['Default']['home_dir']+config['FinetuneLoRA']['trainDataset']  
-base_model = config['FinetuneLoRA']['base_model'] 
-finetuningMethod = config['FinetuneLoRA']['finetuningMethod'] 
-precision = int(config['FinetuneLoRA']['precision'])
-tokenizeMaxLength = int(config['FinetuneLoRA']['tokenizeMaxLength'])
-LoRA_r = int(config['FinetuneLoRA']['LoRA_r'])
-LoRA_dropout = float(config['FinetuneLoRA']['LoRA_dropout'])
-batch_size = int(config['FinetuneLoRA']['batch_size'])
-num_train_epochs = int(config['FinetuneLoRA']['num_train_epochs'])
-per_device_train_batch_size = int(config['FinetuneLoRA']['per_device_train_batch_size'])
-output_dir =  config['Default']['home_dir']+"output/model/"+ config['FinetuneLoRA']['EXP']
-target_modules = config['FinetuneLoRA']['target_modules']
-logging_path = config['Default']['home_dir']+config['logs']['log_folder']+ config['FinetuneLoRA']['EXP']
-prompt_file_path  = config['Default']['home_dir']+config['FinetuneLoRA']['prompt_path']
+trainDataset = config['Default']['home_dir']+"input/datasets/spiderWithContext.csv"  
+base_model = "codellama/CodeLlama-7b-Instruct-hf"
+finetuningMethod = "LoRA"
+precision = int(config['Finetune']['precision'])
+tokenizeMaxLength = int(config['Finetune']['tokenizeMaxLength'])
+LoRA_r = int(config['Finetune']['LoRA_r'])
+LoRA_dropout = float(config['Finetune']['LoRA_dropout'])
+batch_size = int(config['Finetune']['batch_size'])
+num_train_epochs = int(config['Finetune']['num_train_epochs'])
+per_device_train_batch_size = int(config['Finetune']['per_device_train_batch_size'])
+output_dir =  config['Default']['home_dir']+"output/model/"+ exp_name
+target_modules = config['Finetune']['target_modules']
+logging_path = config['Default']['home_dir']+config['logs']['log_folder']+ exp_name
+prompt_file_path  = config['Default']['home_dir']+"input/prompts/codellama_model.txt"
 logging.basicConfig(filename=logging_path+".log", level=logging.INFO)
 
-logging.info("EXPERIMENT :"+ config['FinetuneLoRA']['EXP'])
+logging.info("EXPERIMENT :"+ exp_name)
 logging.info(" Training Set : "+ trainDataset)
 logging.info(" Base Model : "+ base_model)
 logging.info(" Finetuning Method : "+finetuningMethod)
@@ -108,7 +108,7 @@ def generate_and_tokenize_prompt(data_point):
 dataTrainTest = data.train_test_split(test_size=val_set_size, shuffle=True, seed=42)
 tokenized_train_dataset = dataTrainTest["train"].shuffle().map(generate_and_tokenize_prompt)
 tokenized_val_dataset = dataTrainTest["test"].shuffle().map(generate_and_tokenize_prompt)
-dataTrainTest["test"].to_csv(config['Default']['home_dir']+"input/datasets/"+config['FinetuneLoRA']['EXP']+"_validSet.csv")
+dataTrainTest["test"].to_csv(config['Default']['home_dir']+"input/datasets/"+exp_name+"_validSet.csv")
 
 #Setup LoRA
 model.train() # put model back into training mode
