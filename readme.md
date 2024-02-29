@@ -66,7 +66,7 @@ sh runQueryCraft.sh
 ```
 
 Provide the option:
-```all```
+```bash all```
 
 ### Fine-Tuning
 
