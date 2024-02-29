@@ -75,21 +75,21 @@ To run the individual component you can follow the below steps:
 ### 1. Data Ingestion
 To start the data ingestion component you need to follow the below steps:
 #### Prerequisites:
-•	Access to a DB2 database.
-•	The DB2_Ingestion module installed.
-•	Service credentials for the DB2 database.
+- Access to a DB2 database.
+- The DB2_Ingestion module installed.
+- Service credentials for the DB2 database.
 
 #### Setup:
   Set the following credentials in the config.ini file under the [DB2_Credentials] section:
-•	dsn_database: Name of the database.
-•	dsn_uid: User ID for the database.
-•	dsn_pwd: Password for the database.
-•	dsn_hostname: Hostname or IP address of the database server.
-•	dsn_port: Port number of the database server.
-•	dsn_protocol: Protocol used for communication.
-•	dsn_driver: Driver used for database connection.
+- ***dsn_database:*** Name of the database.
+- ***dsn_uid:*** User ID for the database.
+- ***dsn_pwd:*** Password for the database.
+- ***dsn_hostname:*** Hostname or IP address of the database server.
+- ***dsn_port:*** Port number of the database server.
+- ***dsn_protocol:*** Protocol used for communication.
+- ***dsn_driver:*** Driver used for database connection.
 
-Note: Get the DB2 credentials from <a href ='https://cloud.ibm.com/docs/Db2onCloud?topic=Db2onCloud-getting-started'>IBM cloud.</a>
+***Note:*** Get the DB2 credentials from <a href ='https://cloud.ibm.com/docs/Db2onCloud?topic=Db2onCloud-getting-started'>IBM cloud.</a>
  You can run the below command and start the data ingestion into the DB2.
 
 ```bash
