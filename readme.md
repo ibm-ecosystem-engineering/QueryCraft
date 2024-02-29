@@ -56,7 +56,7 @@ pip install -r requirements.txt
 
 Configure your environment and services by editing the  `superConfig.ini` and `config.ini` files. In superConfig specify the paths for datasets, models, and other services as per your setup. In `config.ini` you can change the more detailed parameters for experimentation.
 
-`QueryCraft-The-SuperKnowa-SQL-Sculptor` provides the capability to run the whole pipeline (Context Retriever, fine-tuning, Inference, Query Correction, Evaluation, and Query Analysis dashboard) together and also you can run each component individually. 
+`QueryCraft-The-SuperKnowa-SQL-Sculptor` provides the capability to run the whole pipeline (Context Retriever -> Fine-tuning -> Inference -> Query Correction -> Evaluation -> Query Analysis dashboard) together and also you can run each component individually. 
 
 ### Run pipeline (all)
 To run all components together, you can change the required parameters in `superConfig.ini`. and run the below command:
