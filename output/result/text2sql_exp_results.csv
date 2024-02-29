@@ -1,6 +1,0 @@
-Base Model,Evaluation set,Ex-accuracy,PP-Ex-accuracy,R,precision,Training Set,LORA Alpha,LORA Dropout,Finetune Strategy,Target Modules,Task Type,Epoch,Learning Rate,Loss,Eval Loss,Eval Runtime,Eval Samples/Second,Eval Steps/Second,Logging Steps,Max Steps
-CodeLlama-7b-hf,Spider dev,0.0,0.0,64,8,spiderTrainSetNewContext.csv,8,0.1,LORA,"['v_proj', 'k_proj', 'q_proj', 'o_proj']",CAUSAL_LM,0.2,6.666666666666666e-05,0.5095,0.4811195731163025,119.9181,5.837,0.734,10,100
-CodeLlama-7b-hf,Spider dev,0.0,0.0,64,8,spiderTrainSetNewContext.csv,8,0.1,LORA,"['v_proj', 'k_proj', 'q_proj', 'o_proj']",CAUSAL_LM,0.2,6.666666666666666e-05,0.5095,0.4811195731163025,119.9181,5.837,0.734,10,100
-CodeLlama-7b-hf,Spider dev,0.0,0.0,64,8,spiderTrainSetNewContext.csv,8,0.1,LORA,"['v_proj', 'k_proj', 'q_proj', 'o_proj']",CAUSAL_LM,0.2,6.666666666666666e-05,0.5095,0.4811195731163025,119.9181,5.837,0.734,10,100
-CodeLlama-7b-hf,Spider dev,0.0,0.0,64,8,spiderTrainSetNewContext.csv,8,0.1,LORA,"['v_proj', 'k_proj', 'q_proj', 'o_proj']",CAUSAL_LM,0.2,6.666666666666666e-05,0.5095,0.4811195731163025,119.9181,5.837,0.734,10,100
-CodeLlama-7b-hf,Spider dev,0.0,0.0,64,8,spiderTrainSetNewContext.csv,8,0.1,LORA,"['v_proj', 'k_proj', 'q_proj', 'o_proj']",CAUSAL_LM,0.2,6.666666666666666e-05,0.5095,0.4811195731163025,119.9181,5.837,0.734,10,100
