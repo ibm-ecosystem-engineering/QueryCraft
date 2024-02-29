@@ -100,6 +100,7 @@ Provide the option:
 dataIngestion
 ```
 <img src= "image/Db2_ingetion.gif">
+
 ### 2. Context Retriever
 To run the context retriever change the required parameters according to your db_type sqlite or DB2 into `config.ini` file and run the below command.
 
@@ -111,6 +112,7 @@ Provide the option:
 contextRetriever
 ```
 <img src= "image/Context_ret.gif">
+
 ### 3. Fine-Tuning
 
 To start fine-tuning your LLM for the Text to SQL task, run the below command.
