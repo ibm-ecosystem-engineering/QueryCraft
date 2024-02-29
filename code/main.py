@@ -1,9 +1,9 @@
 import sys
 import configparser
-import finetune_new as ft
-import DB2_Ingestion as dbin
+import finetune as ft
+import db2_ingestion as dbin
 import context_retriever as cr
-import inference_new as inf
+import inference as inf
 import query_correction
 import ex_evaluator
 import streamlit_query_analysis_dashboard as dashboard
