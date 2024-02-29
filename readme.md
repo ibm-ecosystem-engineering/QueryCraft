@@ -72,7 +72,7 @@ all
 
 To run the individual component you can follow the below steps:
 
-### 1. Data Ingestion
+### 1. Data Ingestion (skip if source data is in sqllite database)
 To start the data ingestion component you need to follow the below steps:
 #### Prerequisites:
 - Access to a DB2 database.
@@ -150,7 +150,7 @@ querycorrection
 
 ### 6. Evaluation
 
-Evaluate the performance of your model against the SQLite database by running:
+Evaluate the performance of your model against the SQLite database or DB2 by running the below command:
 
 ```bash
 sh runQueryCraft.sh
