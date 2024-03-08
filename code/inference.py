@@ -31,7 +31,8 @@ def funcInference(exp_name="expDummy",
     super_config.read('./../superConfig.ini')
     home_dir  = super_config['Default']['home_dir']
 
-    input_dataset = home_dir+input_dataset
+    # input_dataset = home_dir+input_dataset
+    input_dataset = home_dir+super_config['Inference']['input_dataset']
     base_model = model_name
     logging_path = home_dir+config['logs']['log_folder']+ exp_name+"_infer"
     logging.basicConfig(filename=logging_path+".log", level=logging.INFO)

@@ -1,12 +1,11 @@
 import sys
 import configparser
 import finetune as ft
-import db2_ingestion as dbin
+import DB2_Ingestion as dbin
 import context_retriever as cr
 import inference as inf
 import query_correction
 import ex_evaluator
-import streamlit_query_analysis_dashboard as dashboard
 
 from configparser import ConfigParser, ExtendedInterpolation
 
@@ -112,6 +111,7 @@ elif(component=="evaluation"):
     ex_evaluator.ex_evalution(db_type,exp_name,input_dataset,input_database_folder)
 
 elif(component=="queryanalysisDashboard"):
+    import streamlit_query_analysis_dashboard as dashboard
     folder_name = config['Default']['home_dir']+config['QueryAnalysisDashboard']['folder_name']
     dashboard.show_dashboard(folder_name)
     print("To view the query analysis dashboard execute the following command from the terminal: streamlit run streamlit_query_analysis_dashboard.py --server.port 8052 --server.fileWatcherType none")

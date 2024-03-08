@@ -370,7 +370,7 @@ def formaterAndCaller_db2(row):
     
 
     
-def ex_evalution(dbType='sqlite',exp_name='exp_codellama-13b_spider_0412',input_dataset='output/inference/exp_codellama-13b_spider_0412.csv',database_folder='input/spider/database/'):
+def ex_evalution(dbType='sqlite',exp_name='exp_codellama-13b_spider_0412',input_dataset='output/inference/exp_codellama-13b_spider_0412.csv',database_folder='input/KaggleDBQA/database/'):
     config_filePath="./../config.ini"
     config = configparser.ConfigParser()
     config.read(config_filePath)
