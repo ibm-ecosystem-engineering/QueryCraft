@@ -95,6 +95,7 @@ elif(component=="inference"):
     finetuned_model = config['Inference']['finetuned_model']
     input_dataset = config['Inference']['input_dataset']
     
+    print("Inside inference module....")
     inf_response = inf.executeInference(config)
     print(inf_response)
     
