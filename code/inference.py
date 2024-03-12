@@ -35,11 +35,10 @@ class InferenceContext():
     def execute(self, config: dict) -> any:
         self._strategy.infer(config)
 
-def funcInference(inference_type="expDummy",
-                  model_name="codellama/CodeLlama-7b-Instruct-hf"):
-    
+def executeInference(config):
     config = InferenceConfiguration().build()
-
+    model_name = config["base_model"]
+    inference_type = config["inference_type"]
     inference = infer_type_factory(inference_type, model_name)
     rs = InferenceContext(inference).execute(config)
     return rs
