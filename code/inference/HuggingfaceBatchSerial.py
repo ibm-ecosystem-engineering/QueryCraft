@@ -20,10 +20,10 @@ class HuggingfaceBatchSerial(InferenceStrategy):
     def __init__(self):
         pass
 
-    def infer(self):
+    def infer(self, config):
         ## Extract all the values from the configuration file
         ## set them in variables
-        config = self.infer_configuration()
+        ## config = self.infer_configuration()
         base_model = config["base_model"]
         finetuned_model = config["finetuned_model"]
         input_dataset = config["input_dataset"]

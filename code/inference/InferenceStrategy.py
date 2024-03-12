@@ -1,13 +1,18 @@
 # Define the interface
+from abc import ABC, abstractmethod
 import configparser
 import pandas as pd
 import os
 
-class InferenceStrategy:
-    def infer(self):
+class InferenceStrategy(ABC):
+
+    @abstractmethod
+    def infer(self, config):
         pass
 
-    def infer_configuration(self) -> dict:
+class InferenceConfiguration():
+     
+     def build(self) -> dict:
         ## Get configuration from config.ini
         config = configparser.ConfigParser()
         config.read('./../../config.ini')
@@ -50,6 +55,4 @@ class InferenceStrategy:
             "watsonx_apikey": watsonx_apikey,
             "watsonx_projectId": watsonx_projectId
         }
-
-
 
