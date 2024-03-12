@@ -96,7 +96,8 @@ elif(component=="inference"):
     finetuned_model = config['Inference']['finetuned_model']
     input_dataset = config['Inference']['input_dataset']
     
-    inf_response = inf.funcInference(exp_name,model_name,finetuned_model,input_dataset)
+    print("Inside inference module....")
+    inf_response = inf.executeInference(config)
     print(inf_response)
     
 elif(component=="querycorrection"):
