@@ -26,10 +26,10 @@ class HuggingfaceBatchSerial(InferenceStrategy):
         tokenizer = AutoTokenizer.from_pretrained(config["base_model"])
         model = AutoModelForCausalLM.from_pretrained(
             base_model,
-            load_in_8bit=True,
+            load_in_4bit=True,
             device_map=device_map,
             )
-        
+        eos_token_id = tokenizer.convert_tokens_to_ids(["```"])[0]
         ## check if finetuned model is set
         if(finetuned_model is not None):
             logging.info(f"Finetuned model found, started loading ... {finetuned_model}")
@@ -38,12 +38,12 @@ class HuggingfaceBatchSerial(InferenceStrategy):
 
         df_validation = pd.read_csv(input_dataset)
         df_validation = df_validation[1:3]
-        df_validation["model_op"] = df_validation.apply(lambda row : self.resultGenerator(row, tokenizer=tokenizer, model=model), axis=1)
+        df_validation["model_op"] = df_validation.apply(lambda row : self.resultGenerator(row, tokenizer=tokenizer, model=model, eos_token_id=eos_token_id), axis=1)
         df_validation.to_csv(output_location)
         return ("Huggingface batch inference completed successfully, output file is saved at :", output_location)
         
 
-    def resultGenerator(self, row, tokenizer, model):
+    def resultGenerator(self, row, tokenizer, model, eos_token_id):
         
         question=row["question"]
         context=row["context"]  
@@ -52,7 +52,6 @@ class HuggingfaceBatchSerial(InferenceStrategy):
         text =  f"""
         [INST] Write SQLite query to answer the following question given the database schema. Please wrap your code answer using ```: Schema: {context} [/INST] Here is the SQLite query to answer to the question:{question} ```
         """
-        eos_token_id = tokenizer.convert_tokens_to_ids(["```"])[0]
         input_tokens = tokenizer(text, return_tensors="pt").to("cuda")
         with torch.inference_mode():
             sequences = model.generate(
@@ -66,14 +65,8 @@ class HuggingfaceBatchSerial(InferenceStrategy):
             )
         outputs = tokenizer.batch_decode(sequences, skip_special_tokens=True)
         torch.cuda.empty_cache()
-        result = outputs[0][len(text):].split("```")[0]
-        print("SNo :"+str(row["Sno"]))
-        logging.info("SNo :"+str(row["Sno"]))
 
-        logging.info("Question: "+row["question"])
-        logging.info("context: "+row["context"])
-        logging.info("result: "+result)
-        logging.info("output: "+outputs[0])
+        result = outputs[0][len(text):].split("```")[0]
         print("result: "+result)
         logging.info("*******************")
         return result
