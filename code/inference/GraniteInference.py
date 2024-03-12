@@ -1,13 +1,10 @@
-from InferenceStrategy import InferenceStrategy
+from inference.InferenceStrategy import InferenceStrategy
 from ibm_watsonx_ai.foundation_models.utils.enums import ModelTypes
 from ibm_watsonx_ai.foundation_models import Model
 from ibm_watsonx_ai.metanames import GenTextParamsMetaNames as GenParams
 import pandas as pd
 
 class GraniteInference(InferenceStrategy):
-
-    def __init__(self):
-        pass
 
     def infer(self, config):
         ## Extract all the values from the configuration file

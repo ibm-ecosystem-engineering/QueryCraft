@@ -1,4 +1,4 @@
-from InferenceStrategy import InferenceStrategy
+from inference.InferenceStrategy import InferenceStrategy
 from pathlib import Path
 import torch
 import logging
@@ -36,15 +36,16 @@ class VllmBatchInference(InferenceStrategy):
         )
 
         df_validation = pd.read_csv(input_dataset)
+        df_validation = df_validation[1:3]
         prompts = [self.create_prompt(row) for _index, row in df_validation.iterrows()]
         ## Batch inference just simply pass all an array of prompts
         vllm_batch_outputs = llm.generate(prompts, sampling_params)
         df_validation = self.save_batch_inference(vllm_batch_outputs, df_validation)
         df_validation.to_csv(output_location)
-        return ("vLLM batch inference completed successfully, output file is saved at :", output_location) 
+        return f"vLLM batch inference completed successfully, output file is saved at : {output_location}"
 
     
-    def save_batch_inference(results, df_validation):
+    def save_batch_inference(self, results, df_validation):
         outputs = []
         for result in results:
             generated_text = result.outputs[0].text
