@@ -251,7 +251,7 @@ def eval_exec_match_db2(db2_conn,db2_conn1, p_str, g_str):
     except Exception as e:
         # import ipdb; ipdb.set_trace()
         error =error_handling(str(e))
-        return False,error,result
+        return False, error,result
     try:
         stmt = ibm_db.exec_immediate(db2_conn1, g_str)
         q_res = ibm_db.fetch_assoc(stmt)

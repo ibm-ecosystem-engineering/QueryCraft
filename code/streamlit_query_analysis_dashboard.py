@@ -30,6 +30,8 @@ import ast
 import configparser
 import logging
 from pipeline_result_csv_gen import create_result
+import warnings
+warnings.filterwarnings('ignore')
 
 
 ######################################################################################################
@@ -372,39 +374,35 @@ def getErrorAndResultAnalysis(folder_name,files):
     eval_data_options = tuple(select_files_ep)
     eval_data_option = st.selectbox('Select a input data source: ',eval_data_options,index=0)
     
+    if eval_data_option is not None:
+        df_eval = pd.read_csv(folder_name+eval_data_option)
+        df_eval = calculate_classification(df_eval)
+        df_eval = calculate_classification_new(df_eval)
+        st.write("EX Accuracy Post Processing = ", sum(df_eval["evalScorePostProcessing"])/len(df_eval["evalScorePostProcessing"]))
+        st.subheader('Query Classification Analysis', divider='rainbow')
+        df_grouped = df_eval.groupby(['classification', 'evalScorePostProcessing'])["evalScorePostProcessing"].count()
+        df_class= df_grouped/ df_grouped.groupby('classification').transform("sum")*100
     
-    df_eval = pd.read_csv(folder_name+eval_data_option)
-    
-    df_eval = calculate_classification(df_eval)
-    df_eval = calculate_classification_new(df_eval)
-    
-    
-    
-    st.write("EX Accuracy Post Processing = ", sum(df_eval["evalScorePostProcessing"])/len(df_eval["evalScorePostProcessing"]))
-    st.subheader('Query Classification Analysis', divider='rainbow')
-    df_grouped = df_eval.groupby(['classification', 'evalScorePostProcessing'])["evalScorePostProcessing"].count()
-    df_class= df_grouped/ df_grouped.groupby('classification').transform("sum")*100
-    
-    col5, col6 = st.columns(2)
-    col5.markdown("### Query Classification Analysis Count")
-    col5.dataframe(df_grouped)
+        col5, col6 = st.columns(2)
+        col5.markdown("### Query Classification Analysis Count")
+        col5.dataframe(df_grouped)
 
-    col6.markdown("### Query Classification Analysis %")
-    col6.dataframe(df_class)
-    st.divider()
+        col6.markdown("### Query Classification Analysis %")
+        col6.dataframe(df_class)
+        st.divider()
     
-    st.subheader('New Query classification Analysis', divider='rainbow')
+        st.subheader('New Query classification Analysis', divider='rainbow')
     
-    df_grouped = df_eval.groupby(['classification_new', 'evalScorePostProcessing'])["evalScorePostProcessing"].count()
-    df_class= df_grouped/ df_grouped.groupby('classification_new').transform("sum")*100
+        df_grouped = df_eval.groupby(['classification_new', 'evalScorePostProcessing'])["evalScorePostProcessing"].count()
+        df_class= df_grouped/ df_grouped.groupby('classification_new').transform("sum")*100
     
-    col7, col8 = st.columns(2)
-    col7.markdown("### New Query Classification Analysis Count")
-    col7.dataframe(df_grouped)
+        col7, col8 = st.columns(2)
+        col7.markdown("### New Query Classification Analysis Count")
+        col7.dataframe(df_grouped)
 
-    col8.markdown("### New Query Classification Analysis %")
-    col8.dataframe(df_class)
-    st.divider()
+        col8.markdown("### New Query Classification Analysis %")
+        col8.dataframe(df_class)
+        st.divider()
     
     st.subheader("Error Type Analysis", divider='rainbow')   
     col3, col4 = st.columns(2)
@@ -450,15 +448,15 @@ def getEvaluationAnalysis(folder_name,select_files):
     for i in range(len(eval_data_options)):
         keyOp.append("data"+str(i))
     eval_data_option = st.selectbox('Select a input data source: ',eval_data_options,index=0,key=keyOp)
-    
-    df_eval = pd.read_csv(folder_name+eval_data_option)
-    df_eval = df_eval[['query','question','context','model_op','evalScore']]
-    st.write("EX Accuracy = ", sum(df_eval["evalScore"])/len(df_eval["evalScore"])*100)
-    df_eval = calculate_classification(df_eval)
-    df_eval = calculate_classification_new(df_eval)
-    create_graph(df_eval)
-    st.divider()
-    create_graph_new(df_eval)
+    if eval_data_option is not None:
+        df_eval = pd.read_csv(folder_name+eval_data_option)
+        df_eval = df_eval[['query','question','context','model_op','evalScore']]
+        st.write("EX Accuracy = ", sum(df_eval["evalScore"])/len(df_eval["evalScore"])*100)
+        df_eval = calculate_classification(df_eval)
+        df_eval = calculate_classification_new(df_eval)
+        create_graph(df_eval)
+        st.divider()
+        create_graph_new(df_eval)
 
 def get_evaluationscore(folder_name,files):
  
@@ -627,19 +625,30 @@ def show_dashboard(folder_name='output/evalResults/'):
     
 
         with tab2:
-            getEvaluationAnalysis(folder_name,files)
+            if len(files) >0:
+                getEvaluationAnalysis(folder_name,files)
+            else:
+                st.write("Please provide files in /output/evalResults/ folder")
     
         with tab3:
-            getErrorAndResultAnalysis(folder_name,files)
+            if len(files) >0:
+                getErrorAndResultAnalysis(folder_name,files)
+            else:
+                st.write("Please provide files in /output/evalResults/ folder")
     
 
         with tab4:
-            getQueryAnalysisdashboard(folder_name,files)
+            if len(files) >0:
+                getQueryAnalysisdashboard(folder_name,files)
+            else:
+                st.write("Please provide files in /output/evalResults/ folder")
 
         with tab5:
             st.subheader("Comparistion Analysis in b/w models", divider='rainbow')
-            getComparistionAnalysisdashboard(folder_name,files,finetune_data_file)
-     
+            if len(files) >0:
+                getComparistionAnalysisdashboard(folder_name,files,finetune_data_file)
+            else:
+                st.write("Please provide files in /output/evalResults/ folder")
     
         with tab6:
             st.subheader("Leaderboard - Execution with Values (Spider Benchmark)", divider='rainbow')

@@ -115,7 +115,7 @@ def create_result():
 
             logging_steps = trainer_state_data.get('logging_steps', '')
     except:
-        print("Fine tune model folder not found /or it's not fine tune model")
+        print("Fine tune model folder not found /or it's not fine-tune model")
 
 
     #step-3
@@ -230,5 +230,5 @@ def create_result():
         SQL_leaderboard.to_csv(text2sql_exp_file, index=False)
         print("Save ---",text2sql_exp_file)
     except Exception as e:
-        print("Error---",e)
-        print("No new experiement available",text2sql_exp_file)
+        SQL_leaderboard.to_csv(text2sql_exp_file, index=False)
+        print("No new experiment available",text2sql_exp_file)

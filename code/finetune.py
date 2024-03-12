@@ -76,6 +76,7 @@ def funcFinetune(exp_name="expDummy",data_collator="DataCollatorForSeq2Seq",mode
         logging.info(" Target Modules: "+ str(target_modules))
 
         df = pd.read_csv(train_dataset)
+        df=df[:100]
         data = Dataset.from_pandas(df)
         num_samples = len(data)
         val_set_size = ceil(0.1 * num_samples)
@@ -188,15 +189,15 @@ def funcFinetune(exp_name="expDummy",data_collator="DataCollatorForSeq2Seq",mode
         training_args = TrainingArguments(
                 per_device_train_batch_size=per_device_train_batch_size,
                 gradient_accumulation_steps=gradient_accumulation_steps,
-                warmup_steps=5,
-                max_steps=50,
+                warmup_steps=1,
+                max_steps=6,
                 learning_rate=3e-4,
                 logging_steps=50,
                 optim="adamw_torch",
                 evaluation_strategy="steps", # if val_set_size > 0 else "no",
                 save_strategy="steps",
-                eval_steps=10,
-                save_steps=20,
+                eval_steps=3,
+                save_steps=6,
                 #num_train_epochs = num_train_epochs,
                 output_dir=output_dir,
                 load_best_model_at_end=True, #
