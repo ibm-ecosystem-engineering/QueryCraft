@@ -3,6 +3,7 @@ import ibm_db
 import sqlite3
 import configparser
 import glob
+import db2_connector as dbcon
 
 config = configparser.ConfigParser()
 config.read('./../config.ini')
@@ -10,17 +11,8 @@ config.read('./../config.ini')
 super_config = configparser.ConfigParser()
 super_config.read('./../superConfig.ini')
 home_dir  = super_config['Default']['home_dir']
-# User Config
-dsn_database = config['DataIngestion']["dsn_database"]
-dsn_uid = config['DataIngestion']["dsn_uid"]
-dsn_pwd = config['DataIngestion']["dsn_pwd"]
-dsn_hostname = config['DataIngestion']["dsn_hostname"]
-dsn_port = config['DataIngestion']["dsn_port"]
-dsn_protocol = config['DataIngestion']["dsn_protocol"]
-dsn_driver = config['DataIngestion']["dsn_driver"]
 
-
-def funcContextRetriever(exp_name,db_type, input_file, database_folder='input/spider/database/'):
+def funcContextRetriever(exp_name,db_type, input_file, database_folder='../input/spider/database/'):
     output_file = home_dir+"input/datasets/"+exp_name+"_contextRetriever.csv"
     def contextFinder(db):
         if db_type == 'db2':
@@ -29,71 +21,83 @@ def funcContextRetriever(exp_name,db_type, input_file, database_folder='input/sp
             return contextFinderSqlite(db,database_folder)
         else:
             raise ValueError("Invalid database type. Supported types: 'db2', 'sqlite'")
+            
     df_train = pd.read_csv(input_file)
     df_train["context"] = df_train["db_id"].apply(contextFinder)
     df_train.to_csv(output_file)
     
     return "Generated Retriver file:"+output_file
-    
-    
-def contextFinderDb2(table_name):
-    dsn = ("DRIVER={{IBM DB2 ODBC DRIVER}};" "DATABASE={0};" "HOSTNAME={1};" "PORT={2};" "PROTOCOL=TCPIP;" "UID={3};" "PWD={4};SECURITY=SSL").format(dsn_database, dsn_hostname, dsn_port, dsn_uid, dsn_pwd)
-    options = {ibm_db.SQL_ATTR_AUTOCOMMIT: ibm_db.SQL_AUTOCOMMIT_ON}
-    conn = ibm_db.connect(dsn, "", "", options)
-    
-    sql = f"""    
-        SELECT 
-        c.colname AS column_name,
-        c.typename AS data_type,
-        c.length,
-        CASE 
-            WHEN k.colname IS NOT NULL THEN 'YES'
-            ELSE 'NO'
-        END AS is_primary_key
-    FROM 
-        syscat.columns c
-    LEFT JOIN 
-        syscat.keycoluse k ON c.tabschema = k.tabschema 
-                            AND c.tabname = k.tabname 
-                            AND c.colname = k.colname
-    INNER JOIN 
-        syscat.tables t ON t.tabschema = c.tabschema 
-                        AND t.tabname = c.tabname
-    WHERE 
-        t.type = 'T' 
-        AND c.tabname = '{table_name}'
-    ORDER BY 
-        c.tabschema, c.tabname;
-    """
-    
-    stmt = ibm_db.exec_immediate(conn, sql)
-    columns = []
-    primary_keys = []
 
+def contextFinderDb2(schema_name):
+    conn = dbcon.db2_connector()
+    schema_name = schema_name.upper()
+    # Querying list of tables within the specified schema
+    tables_query = f"SELECT TABNAME FROM SYSCAT.TABLES WHERE TABSCHEMA = '{schema_name}'"
+    tables_stmt = ibm_db.exec_immediate(conn, tables_query)
+    
+    tables = []
     while True:
-        row = ibm_db.fetch_tuple(stmt)
+        row = ibm_db.fetch_tuple(tables_stmt)
         if not row:
             break
-        column_name, data_type, length, is_primary_key = row
-        columns.append((column_name, data_type, length))
-        if is_primary_key == 'YES':
-            primary_keys.append(column_name)
+        tables.append(row[0])
+    create_tables_sql = []
+    for table_name in tables:
+        sql = f"""    
+            SELECT 
+            c.colname AS column_name,
+            c.typename AS data_type,
+            c.length,
+            CASE 
+                WHEN k.colname IS NOT NULL THEN 'YES'
+                ELSE 'NO'
+            END AS is_primary_key
+        FROM 
+            syscat.columns c
+        LEFT JOIN 
+            syscat.keycoluse k ON c.tabschema = k.tabschema 
+                                AND c.tabname = k.tabname 
+                                AND c.colname = k.colname
+        INNER JOIN 
+            syscat.tables t ON t.tabschema = c.tabschema 
+                            AND t.tabname = c.tabname
+        WHERE 
+            t.type = 'T' 
+            AND c.tabname = '{table_name}'
+        ORDER BY 
+            c.tabschema, c.tabname;
+        """
+        
+        stmt = ibm_db.exec_immediate(conn, sql)
+        columns = []
+        primary_keys = []
 
-    create_table_sql = f"CREATE TABLE {table_name} (\n"
-    for column in columns:
-        column_name, data_type, length = column
-        create_table_sql += f"\t{column_name} {data_type}"
-        if data_type in ["VARCHAR", "CHARACTER", "CHAR"]:
-            create_table_sql += f"({length})"
-        create_table_sql += ",\n"
-    if primary_keys:
-        create_table_sql += f"\tPRIMARY KEY ({', '.join(primary_keys)})\n"
-    create_table_sql = create_table_sql.rstrip(",\n")
-    create_table_sql += "\n)"
-    print(create_table_sql)
+        while True:
+            row = ibm_db.fetch_tuple(stmt)
+            if not row:
+                break
+            column_name, data_type, length, is_primary_key = row
+            columns.append((column_name, data_type, length))
+            if is_primary_key == 'YES':
+                primary_keys.append(column_name)
+
+        create_table_sql = f"CREATE TABLE {table_name} (\n"
+        for column in columns:
+            column_name, data_type, length = column
+            create_table_sql += f"\t{column_name} {data_type}"
+            if data_type in ["VARCHAR", "CHARACTER", "CHAR"]:
+                create_table_sql += f"({length})"
+            create_table_sql += ",\n"
+        if primary_keys:
+            create_table_sql += f"\tPRIMARY KEY ({', '.join(primary_keys)})\n"
+        create_table_sql = create_table_sql.rstrip(",\n")
+        create_table_sql += "\n)"
+        create_tables_sql.append(create_table_sql)
+        
     ibm_db.close(conn)
+    combined_sql = "\n".join(create_tables_sql)
+    return combined_sql
 
-    return create_table_sql
 
 def contextFinderSqlite(db,database_folder):
 

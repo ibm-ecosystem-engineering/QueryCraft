@@ -178,7 +178,8 @@ queryanalysisDashboard
 ```
 
 ```bash
- streamlit run streamlit_query_analysis_dashboard.py --server.port 8052 --server.fileWatcherType none
+ cd code
+ streamlit run streamlit_query_analysis_dashboard.py --server.port 8502 --server.fileWatcherType none
 ```
 
 

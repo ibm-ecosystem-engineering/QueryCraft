@@ -74,7 +74,9 @@ def funcFinetune(exp_name="expDummy",data_collator="DataCollatorForSeq2Seq",mode
         logging.info(" per_device_train_batch_size  : "+ str(per_device_train_batch_size))
         logging.info(" Output Directory : "+ output_dir)
         logging.info(" Target Modules: "+ str(target_modules))
-
+        logging.info(" Data Collator :"+ data_collator)
+        logging.info(" Finetune Type :"+ finetune_type)
+        logging.info(" train_dataset :"+ train_dataset)
         df = pd.read_csv(train_dataset)
         df=df[:100]
         data = Dataset.from_pandas(df)
