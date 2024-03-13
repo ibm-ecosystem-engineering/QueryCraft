@@ -523,7 +523,8 @@ def get_evaluationscoreCheckBox(folder_name,files,finetune_data_file):
     finetune_df =pd.DataFrame()
     values = selected_rows['File_name']
     for file_name in values:
-        finetune_df = pd.concat([finetune_df, finetune_data.loc[finetune_data['File-Name'] == file_name]], ignore_index=True)
+        if 'file-name' in finetune_data.columns:
+            finetune_df = pd.concat([finetune_df, finetune_data.loc[finetune_data['file-name'] == file_name]], ignore_index=True)
             
         
     st.write(finetune_df)

@@ -1,12 +1,12 @@
 import sys
 import configparser
 import finetune as ft
-import DB2_Ingestion as dbin
+import db2_Ingestion as dbin
 import context_retriever as cr
 import inference as inf
 import query_correction
 import ex_evaluator
-import streamlit_query_analysis_dashboard as dashboard
+#import streamlit_query_analysis_dashboard as dashboard
 
 from configparser import ConfigParser, ExtendedInterpolation
 
@@ -65,8 +65,9 @@ elif(component=="dataIngestion"):
 
     filename = config['Default']['home_dir']+config['DataIngestion']['filename']
     table_name= config['DataIngestion']['table_name']
+    schema_name= config['DataIngestion']['schema_name']
     
-    dbin_response = dbin.load_data_into_db(filename,table_name)
+    dbin_response = dbin.load_data_into_db(filename,table_name,schema_name)
     print(dbin_response)
     
     
@@ -96,8 +97,7 @@ elif(component=="inference"):
     finetuned_model = config['Inference']['finetuned_model']
     input_dataset = config['Inference']['input_dataset']
     
-    print("Inside inference module....")
-    inf_response = inf.executeInference(config)
+    inf_response = inf.funcInference(exp_name,model_name,finetuned_model,input_dataset)
     print(inf_response)
     
 elif(component=="querycorrection"):

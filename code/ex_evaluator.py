@@ -112,6 +112,66 @@ def multiset_eq(l1, l2):
             return False
     return True
 
+def result_eq_db2(result1, result2, order_matters):
+    result = 'None'
+    num_cols =0
+    if len(result1) == 0 and len(result2) == 0:
+        result = "same"
+        return True,result
+    
+    if result1 == result2:
+        result = "same"
+        return True,result
+        
+    # if length is not the same, then they are definitely different bag of rows
+    status =0
+    if len(result1) != len(result2):
+        if len(result1)==0:
+            result = "P result zero"
+        elif len(result2)==0:
+            result = "Q result zero"
+        elif len(result1) > len(result2):
+            for res in result2:
+                if res in result1:
+                    status =1
+            if status ==1:
+                result = "Partial Match"
+            else:
+                result = "P result greater"
+                
+        elif len(result1) < len(result2):
+            for res in result1:
+                if res in result2:
+                    status =1
+            if status ==1:
+                result = "Partial Match"
+            else:   
+                result = "Q result greater"    
+        return False,result
+
+    # unorder each row and compare whether the denotation is the same
+    # this can already find most pair of denotations that are different
+    if not quick_rej(result1, result2, order_matters):
+        count =0
+        for res in result2:
+                if res in result1:
+                    count =1
+        if count ==1:
+            result = "Partial Match"
+        else:
+            result = "order or result different"
+        return False,result
+
+    # the rest of the problem is in fact more complicated than one might think
+    # we want to find a permutation of column order and a permutation of row order,
+    # s.t. result_1 is the same as result_2
+    # we return true if we can find such column & row permutations
+    # and false if we cannot
+    tab1_sets_by_columns = [{row[i] for row in result1} for i in range(num_cols)]
+    
+    return False,result
+
+
 
 def result_eq(result1, result2, order_matters):
     result ="None"
@@ -144,6 +204,7 @@ def result_eq(result1, result2, order_matters):
             else:   
                 result = "Q result greater"    
         return False,result
+        
 
     num_cols = len(result1[0])
 
@@ -249,19 +310,20 @@ def eval_exec_match_db2(db2_conn,db2_conn1, p_str, g_str):
         stmt = ibm_db.exec_immediate(db2_conn, p_str)
         p_res = ibm_db.fetch_assoc(stmt)
     except Exception as e:
-        # import ipdb; ipdb.set_trace()
         error =error_handling(str(e))
         return False, error,result
     try:
         stmt = ibm_db.exec_immediate(db2_conn1, g_str)
         q_res = ibm_db.fetch_assoc(stmt)
     except Exception as e:
+        print("error ----",e)
         error =error_handling(str(e))
         return False,error,result
     
     ##orders_matter = 'order by' in g_str.lower()
     orders_matter = False
-    value,result = result_eq(p_res, q_res, order_matters=orders_matter)
+    if q_res != 'None':
+        value,result = result_eq_db2(p_res, q_res, order_matters=orders_matter)
     return value,error,result
 
 def query_processing(row):
@@ -354,23 +416,25 @@ def formaterAndCaller_sqlite(row,database_folder):
    
     return eval_score,eval_score1,error,result
   
-def formaterAndCaller_db2(row):
-    conn = db2_connector.db2_connector()
+def formaterAndCaller_db2(df,row):
+    conn = db2_connector.db2_connectorWithSchema(row["db_id"])
 
     g_str = row["query"]+";"
     p_str =row["model_op"]
-    
+
+    eval_score1 =0
+    eval_score,error,result = eval_exec_match_db2(conn,conn,p_str, g_str)
     ## For query correction:
-    p_str_p =row["model_op1"]
-    print("I am at row:",row["Sno"])
-    eval_score,e,r = eval_exec_match_db2(conn,conn,p_str, g_str)
-    eval_score1 ,error,result = eval_exec_match_db2(conn,conn,p_str_p, g_str)
-    
+    if "model_op1" in df.columns:
+        p_str_p =row["model_op1"]
+        eval_score1 ,error,result = eval_exec_match_db2(conn,conn,p_str_p, g_str)
+
     return eval_score,eval_score1,error,result
     
 
     
 def ex_evalution(dbType='sqlite',exp_name='exp_codellama-13b_spider_0412',input_dataset='output/inference/exp_codellama-13b_spider_0412.csv',database_folder='input/KaggleDBQA/database/'):
+    print("Component running-----------")
     config_filePath="./../config.ini"
     config = configparser.ConfigParser()
     config.read(config_filePath)
@@ -398,7 +462,7 @@ def ex_evalution(dbType='sqlite',exp_name='exp_codellama-13b_spider_0412',input_
             df.at[index,"result"] = result
     else :
         for index, row in df.iterrows():
-            evalScore,value,error,result = formaterAndCaller_db2(row)
+            evalScore,value,error,result = formaterAndCaller_db2(df,row)
             df.at[index,"evalScore"] = evalScore
             df.at[index,"evalScorePostProcessing"] = value
             df.at[index,"error_type"] = error
