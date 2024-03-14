@@ -131,7 +131,7 @@ If the user needs to import a file specifying the delimiter for files other than
 delimiter = , 
 ```
 
-Run the `Data Ingestion` module of the QueryCraft pipeline using the `runQueryCraft.sh`, file with the dataIngestion option after setting the superConfig.ini file to insert `salary.csv` into the `querycraft_db2_testing_13march` table in db2.  
+Run the Data Ingestion module of the QueryCraft pipeline using the `runQueryCraft.sh`, file with the `dataIngestion` option after setting the `superConfig.ini` file to insert `salary.csv` into the `querycraft_db2_testing_13march` table in db2.  
 
 ```bash
 sh runQueryCraft.sh
@@ -140,7 +140,7 @@ Provide the option:
 ```bash
 dataIngestion
 ```
-You can validate the successful execution of the dataIngestion module from the DB2 UI as well. 
+You can validate the successful execution of the `dataIngestion` module from the DB2 UI as well. 
 
 <img src= "image/db2.png">
 
