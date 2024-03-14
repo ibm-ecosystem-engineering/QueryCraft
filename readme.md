@@ -120,7 +120,7 @@ filename = input/datasets/salary.csv
 #Schema name - Database 
 schema_name = TheHistoryofBaseball 
 # Table name for CSV data 
-table_name= querycraft_db2_test
+table_name= querycraft_db2_testing_13march
 ```
 
 If the user needs to import a file specifying the delimiter for files other than CSV, the user can adjust the delimiter from the `config.ini` file: 
@@ -129,7 +129,7 @@ If the user needs to import a file specifying the delimiter for files other than
 delimiter = , 
 ```
 
-Run the Data Ingestion module of the QueryCraft pipeline using the runQueryCraft.sh, file with the dataIngestion option after setting the superConfig.ini file to insert `salary.csv` into the `querycraft_db2_test` table in db2.  
+Run the Data Ingestion module of the QueryCraft pipeline using the runQueryCraft.sh, file with the dataIngestion option after setting the superConfig.ini file to insert `salary.csv` into the `querycraft_db2_testing_13march` table in db2.  
 
 ```bash
 sh runQueryCraft.sh
