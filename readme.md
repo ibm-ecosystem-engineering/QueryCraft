@@ -62,8 +62,9 @@ Configure your environment and services by editing the  `superConfig.ini` and `c
 1. Bring your dataset with golden queries in the following format: question, query, and db_id 
 Instruction for ingesting the dataset is provided in the next Step 1. 
 2. Curate the golden query dataset using our annotation tool: [https://dnb-annotator.tsglwatson.buildlab.cloud/] 
-3.Use the example datasets provided below for testing: Spider and KaggleDBQA 
+3. Use the example datasets provided below for testing: Spider and KaggleDBQA 
 Unzip the example datasets using the command:
+
 ```
 cd ./input 
 unzip spider.zip 
@@ -71,11 +72,14 @@ unzip kaggleDBQA.zip
 cd ..
 ```
 
-**Golden Query Annotation: **
+**Golden Query Annotation:**
 1. Go to our annotation tool. [https://dnb-annotator.tsglwatson.buildlab.cloud/]
 
+<img src= "image/annotation1.png">
  
-2. Click on the Instruction Manual and follow the instructions for curating the golden queries dataset. https://dnb-annotator.tsglwatson.buildlab.cloud/documentation 
+3. Click on the Instruction Manual and follow the instructions for curating the golden queries dataset. https://dnb-annotator.tsglwatson.buildlab.cloud/documentation 
+
+<img src= "image/annotation2.png">
 
 ### 1. Data Ingestion (skip if source data is in sqllite database)
 You can ingest your delimited files to DB2 on IBM cloud. Once the data is properly ingested, you can run the QueryCraft pipeline on your data.  
