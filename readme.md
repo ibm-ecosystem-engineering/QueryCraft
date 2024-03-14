@@ -76,7 +76,7 @@ To run the individual component you can follow the below steps:
 To start the data ingestion component you need to follow the below steps:
 #### Prerequisites:
 - Access to a DB2 database.
-- The DB2_Ingestion module installed.
+- The db2_Ingestion module installed.
 - Service credentials for the DB2 database.
 
 #### Setup:
@@ -89,8 +89,8 @@ To start the data ingestion component you need to follow the below steps:
 - ***dsn_protocol:*** Protocol used for communication.
 - ***dsn_driver:*** Driver used for database connection.
 
-***Note:*** Get the DB2 credentials from <a href ='https://cloud.ibm.com/docs/Db2onCloud?topic=Db2onCloud-getting-started'>IBM cloud.</a>
- You can run the below command and start the data ingestion into the DB2.
+***Note:*** Get the db2 credentials from <a href ='https://cloud.ibm.com/docs/Db2onCloud?topic=Db2onCloud-getting-started'>IBM cloud.</a>
+ You can run the below command and start the data ingestion into the db2.
 
 ```bash
 sh runQueryCraft.sh
