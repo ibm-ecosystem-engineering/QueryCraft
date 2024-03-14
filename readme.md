@@ -102,7 +102,7 @@ dataIngestion
 <img src= "image/Db2_ingetion.gif">
 
 ### 2. Context Retriever
-To run the context retriever change the required parameters according to your db_type sqlite or DB2 into `config.ini` file and run the below command.
+To run the context retriever change the required parameters according to your db_type sqlite or db2 into `config.ini` file and run the below command.
 
 ```bash
 sh runQueryCraft.sh
