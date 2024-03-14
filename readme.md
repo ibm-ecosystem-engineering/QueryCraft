@@ -168,7 +168,7 @@ Provide the option:
 contextRetriever
 ```
 
-The retrieved context file will be generated in the directory input/datasets/, with the
+The retrieved context file will be generated in the directory `input/datasets/`, with the
 filename `exp_name_contextRetriever.csv`
 
 <img src= "image/context_ret.png">
