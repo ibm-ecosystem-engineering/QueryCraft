@@ -154,6 +154,11 @@ Provide the option:
 ```bash
 contextRetriever
 ```
+The retrieved context file will be generated in the directory input/datasets/, with the
+filename `exp_name_contextRetriever.csv`
+
+<img src= "image/context_ret.png">
+
 <img src= "image/Context_ret.gif">
 
 ### 3. Fine-Tuning
