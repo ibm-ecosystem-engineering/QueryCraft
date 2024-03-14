@@ -115,6 +115,7 @@ dataIngestion
 ```
 You can validate the successful execution of the dataIngestion module from the DB2 UI as well. 
 
+<img src= "image/db2.png">
 
 ### 2. Context Retriever
 To run the context retriever change the required parameters according to your db_type sqlite or db2 into `config.ini` file and run the below command.
