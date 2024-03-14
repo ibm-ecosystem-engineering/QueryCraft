@@ -91,6 +91,8 @@ You can ingest your delimited files to DB2 on IBM cloud. Once the data is proper
 - ***Access to IBM Cloud:*** You can create a free account. [Link](https://cloud.ibm.com/registration) 
 - ***Access to a DB2 database:*** You can provision a free instance: [Link](https://cloud.ibm.com/catalog/services/db2)
 - ***Service credentials for the DB2 database:*** Get the db2 credentials from the IBM cloud by following the steps here: [Link](https://cloud.ibm.com/docs/Db2onCloud?topic=Db2onCloud-getting-started)
+
+  
  
 The `db2_Ingestion` module offers a streamlined method for inserting data from CSV or any delimiter file into db2 to fine-tune text to SQL pipelines.  
  
