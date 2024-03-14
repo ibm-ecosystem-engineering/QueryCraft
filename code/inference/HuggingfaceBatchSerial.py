@@ -34,7 +34,7 @@ class HuggingfaceBatchSerial(InferenceStrategy):
         if(finetuned_model is not None):
             logging.info(f"Finetuned model found, started loading ... {finetuned_model}")
             print("Finetuned model found and loadding...")
-            ## model = PeftModel.from_pretrained(model, finetuned_model)
+            model = PeftModel.from_pretrained(model, finetuned_model)
 
         df_validation = pd.read_csv(input_dataset)
         #df_validation = df_validation[1:3]
