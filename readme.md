@@ -145,7 +145,15 @@ You can validate the successful execution of the `dataIngestion` module from the
 <img src= "image/db2.png">
 
 ### 2. Context Retriever
-To run the context retriever change the required parameters according to your db_type sqlite or db2 into `config.ini` file and run the below command.
+
+The Context Retriever module offers a convenient solution for accessing context information like DDL schema from both SQLite and db2 databases. To run the context retriever change the required parameters according to your db_type sqlite or db2 into `superConfig.ini` file and run the below command.
+
+Configure the ContextRetriever section of superConfig.ini.  
+ - input_database_folder: Relative path to the folder containing database dump in `.sqlite` format. This is required only when using SQLite  database 
+ - input_data_file: Relative path to the golden dataset (CSV file) with columns: `question`, `query`, and `db_id` 
+ - db_type:  Determines the data source `SQLite` or `db2` 
+
+<img src= "image/Context_ret.gif">
 
 ```bash
 sh runQueryCraft.sh
@@ -159,7 +167,6 @@ filename `exp_name_contextRetriever.csv`
 
 <img src= "image/context_ret.png">
 
-<img src= "image/Context_ret.gif">
 
 ### 3. Fine-Tuning
 
