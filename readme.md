@@ -153,15 +153,21 @@ Configure the ContextRetriever section of superConfig.ini.
  - input_data_file: Relative path to the golden dataset (CSV file) with columns: `question`, `query`, and `db_id` 
  - db_type:  Determines the data source `SQLite` or `db2` 
 
+
 <img src= "image/Context_ret.gif">
+
+After updating the `superConfig.ini` as mentioned above, execute the context retriever using the following command. 
 
 ```bash
 sh runQueryCraft.sh
 ```
+
 Provide the option:
+
 ```bash
 contextRetriever
 ```
+
 The retrieved context file will be generated in the directory input/datasets/, with the
 filename `exp_name_contextRetriever.csv`
 
