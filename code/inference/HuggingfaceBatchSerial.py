@@ -26,7 +26,7 @@ class HuggingfaceBatchSerial(InferenceStrategy):
         tokenizer = AutoTokenizer.from_pretrained(config["base_model"])
         model = AutoModelForCausalLM.from_pretrained(
             base_model,
-            load_in_4bit=True,
+            load_in_8bit=True,
             device_map=device_map,
             )
         eos_token_id = tokenizer.convert_tokens_to_ids(["```"])[0]
@@ -37,7 +37,7 @@ class HuggingfaceBatchSerial(InferenceStrategy):
             ## model = PeftModel.from_pretrained(model, finetuned_model)
 
         df_validation = pd.read_csv(input_dataset)
-        df_validation = df_validation[1:3]
+        #df_validation = df_validation[1:3]
         df_validation["model_op"] = df_validation.apply(lambda row : self.resultGenerator(row, tokenizer=tokenizer, model=model, eos_token_id=eos_token_id), axis=1)
         df_validation.to_csv(output_location)
         return ("Huggingface batch inference completed successfully, output file is saved at :", output_location)
