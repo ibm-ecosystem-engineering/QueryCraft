@@ -63,7 +63,7 @@ There are three options for using your dataset to `finetune/evaluate` the Text t
 
 1. Bring your dataset with golden queries in the following format: `question`, `query`, and `db_id` 
 Instruction for ingesting the dataset is provided in the next Step 1. 
-2. Curate the golden query dataset using our annotation tool: [https://dnb-annotator.tsglwatson.buildlab.cloud/] 
+2. Curate the golden query dataset using our annotation tool: [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/)
 3. Use the example datasets provided below for testing: Spider and KaggleDBQA 
 Unzip the example datasets using the command:
 
