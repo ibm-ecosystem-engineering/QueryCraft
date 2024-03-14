@@ -58,39 +58,32 @@ Configure your environment and services by editing the  `superConfig.ini` and `c
 
 `QueryCraft-The-SuperKnowa-SQL-Sculptor` provides the capability to run the whole pipeline (Context Retriever -> Fine-tuning -> Inference -> Query Correction -> Evaluation -> Query Analysis dashboard) together and also you can run each component individually. 
 
-### Run pipeline (all)
-To run all components together, you can change the required parameters in `superConfig.ini`. and run the below command:
-
-```bash
-sh runQueryCraft.sh
-```
-
-Provide the option:
-```bash
-all
-```
-
-To run the individual component you can follow the below steps:
 
 ### 1. Data Ingestion (skip if source data is in sqllite database)
-To start the data ingestion component you need to follow the below steps:
-#### Prerequisites:
-- Access to a DB2 database.
-- The db2_Ingestion module installed.
-- Service credentials for the DB2 database.
-
-#### Setup:
-  Set the following credentials in the config.ini file under the [DB2_Credentials] section:
-- ***dsn_database:*** Name of the database.
-- ***dsn_uid:*** User ID for the database.
-- ***dsn_pwd:*** Password for the database.
-- ***dsn_hostname:*** Hostname or IP address of the database server.
-- ***dsn_port:*** Port number of the database server.
-- ***dsn_protocol:*** Protocol used for communication.
-- ***dsn_driver:*** Driver used for database connection.
+You can ingest your delimited files to DB2 on IBM cloud. Once the data is properly ingested, you can run the QueryCraft pipeline on your data.  
+Prerequisites:  
+- ***Access to IBM Cloud.*** You can create a free account. [https://cloud.ibm.com/registration] 
+- ***Access to a DB2 database.*** You can provision a free instance: [https://cloud.ibm.com/catalog/services/db2] 
+- ***Service credentials for the DB2 database.*** Get the db2 credentials from the IBM cloud by following the steps here: [https://cloud.ibm.com/docs/Db2onCloud?topic=Db2onCloud-getting-started] 
+ 
+The db2_Ingestion module offers a streamlined method for inserting data from CSV or any delimiter file into db2 to fine-tune text to SQL pipelines.  
+ 
+First, set the following credentials in the `config.ini` file under the ***[DB2_Credentials]*** section: 
+ 
+- ***dsn_database:*** Name of the database. 
+- ***dsn_uid:*** User ID for the database. 
+- ***dsn_pwd:*** Password for the database. 
+- ***dsn_hostname:*** Hostname or IP address of the database server. 
+- ***dsn_port:*** Port number of the database server. 
+- ***dsn_protocol:*** Protocol used for communication. 
+- ***dsn_driver:*** Driver used for database connection. 
 
 ***Note:*** Get the db2 credentials from <a href ='https://cloud.ibm.com/docs/Db2onCloud?topic=Db2onCloud-getting-started'>IBM cloud.</a>
  You can run the below command and start the data ingestion into the db2.
+
+1.   If you don’t have delimited files for your database containing the golden query dataset, you can use a file from the /input/dataset folder from the test env. 
+
+
 
 ```bash
 sh runQueryCraft.sh
@@ -182,30 +175,21 @@ queryanalysisDashboard
  streamlit run streamlit_query_analysis_dashboard.py --server.port 8502 --server.fileWatcherType none
 ```
 
-
 <img src= "image/Dashboard.gif">
 
-## JupyterLab Installation and Setup 
+## 8. Run pipeline (all)
+To run all components together, you can change the required parameters in `superConfig.ini`. and run the below command:
 
-1. Install JupyterLab
-To begin, install JupyterLab using pip, which is the Python package manager:
+```bash
+sh runQueryCraft.sh
+```
 
-`pip install jupyterlab`
+Provide the option:
+```bash
+all
+```
 
-2. Launch JupyterLab
-Once JupyterLab is installed, navigate to your project directory using the terminal or command prompt. Then, execute the following command to launch JupyterLab:
-
-```jupyter lab ```
-
-3. Accessing Jupyter Lab
-You can access JupyterLab through your web browser by navigating to the following URL:
-
-[JupyterLab Link](http://localhost:5005/lab)
-
-Insert Notebook Password
-Ex. Password: ibm@123
-
-This will open JupyterLab interface in your browser, allowing you to create and manage Jupyter notebooks and other interactive documents.
+To run the individual component you can follow the below steps:
 
 
 ## License
