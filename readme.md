@@ -58,8 +58,10 @@ Configure your environment and services by editing the  `superConfig.ini` and `c
 
 `QueryCraft-The-SuperKnowa-SQL-Sculptor` provides the capability to run the whole pipeline (Context Retriever -> Fine-tuning -> Inference -> Query Correction -> Evaluation -> Query Analysis dashboard) together and also you can run each component individually. 
 
-### 0. Golden Query Annotation 
-1. Bring your dataset with golden queries in the following format: question, query, and db_id 
+### Golden Query Annotation 
+There are three options for using your dataset to `finetune/evaluate` the Text to SQL (QueryCraft) pipeline: 
+
+1. Bring your dataset with golden queries in the following format: `question`, `query`, and `db_id` 
 Instruction for ingesting the dataset is provided in the next Step 1. 
 2. Curate the golden query dataset using our annotation tool: [https://dnb-annotator.tsglwatson.buildlab.cloud/] 
 3. Use the example datasets provided below for testing: Spider and KaggleDBQA 
@@ -81,15 +83,16 @@ cd ..
 
 <img src= "image/annotation2.png">
 
+
 ### 1. Data Ingestion (skip if source data is in sqllite database)
-You can ingest your delimited files to DB2 on IBM cloud. Once the data is properly ingested, you can run the QueryCraft pipeline on your data.  
+You can ingest your delimited files to DB2 on IBM cloud. Once the data is properly ingested, you can run the QueryCraft pipeline on your data. 
 
 **Prerequisites:**  
 - ***Access to IBM Cloud.*** You can create a free account. [https://cloud.ibm.com/registration] 
 - ***Access to a DB2 database.*** You can provision a free instance: [https://cloud.ibm.com/catalog/services/db2] 
 - ***Service credentials for the DB2 database.*** Get the db2 credentials from the IBM cloud by following the steps here: [https://cloud.ibm.com/docs/Db2onCloud?topic=Db2onCloud-getting-started] 
  
-The db2_Ingestion module offers a streamlined method for inserting data from CSV or any delimiter file into db2 to fine-tune text to SQL pipelines.  
+The `db2_Ingestion` module offers a streamlined method for inserting data from CSV or any delimiter file into db2 to fine-tune text to SQL pipelines.  
  
 First, set the following credentials in the `config.ini` file under the `[DB2_Credentials]` section: 
  
@@ -103,11 +106,11 @@ First, set the following credentials in the `config.ini` file under the `[DB2_Cr
 
 <img src= "image/Db2_ingetion.gif">
 
-1.   If you don’t have delimited files for your database containing the golden query dataset, you can use a file from the /input/dataset folder from the test env. 
+1.   If you don’t have delimited files for your database containing the golden query dataset, you can use a file from the `/input/dataset folder` from the test env. 
 
 <img src= "image/data_load.png">
 
-2. Now specify the file path, including the file name, in the superConfig.ini file under the [DataIngestion] section. Additionally, indicate the table name that needs to be created in the db2 database. If you are using the salary.csv, TheHistoryofBaseball is the right schema. Ensuring the right schema is important as the Golden query dataset contains this information in the column db_id. This is required to run the context retriever and the execution evaluation service.
+2. Now specify the file path, including the file name, in the superConfig.ini file under the `[DataIngestion]` section. Additionally, indicate the table name that needs to be created in the db2 database. If you are using the salary.csv, TheHistoryofBaseball is the right schema. Ensuring the right schema is important as the Golden query dataset contains this information in the column `db_id`. This is required to run the context retriever and the execution evaluation service.
 
 ```
 #Relative path (from home_dir) of csv file to be ingested in db2 table 
@@ -120,13 +123,13 @@ schema_name = TheHistoryofBaseball
 table_name= querycraft_db2_test
 ```
 
-If the user needs to import a file specifying the delimiter for files other than CSV, the user can adjust the delimiter from the config.ini file: 
+If the user needs to import a file specifying the delimiter for files other than CSV, the user can adjust the delimiter from the `config.ini` file: 
 
 ```
 delimiter = , 
 ```
 
-Run the Data Ingestion module of the QueryCraft pipeline using the runQueryCraft.sh, file with the dataIngestion option after setting the superConfig.ini file to insert poeple.csv into the people table in db2.  
+Run the Data Ingestion module of the QueryCraft pipeline using the runQueryCraft.sh, file with the dataIngestion option after setting the superConfig.ini file to insert `salary.csv` into the `querycraft_db2_test` table in db2.  
 
 ```bash
 sh runQueryCraft.sh
