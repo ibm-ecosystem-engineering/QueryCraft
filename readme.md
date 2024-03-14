@@ -88,9 +88,9 @@ cd ..
 You can ingest your delimited files to DB2 on IBM cloud. Once the data is properly ingested, you can run the QueryCraft pipeline on your data. 
 
 **Prerequisites:**  
-- ***Access to IBM Cloud.*** You can create a free account. [https://cloud.ibm.com/registration] 
-- ***Access to a DB2 database.*** You can provision a free instance: [https://cloud.ibm.com/catalog/services/db2] 
-- ***Service credentials for the DB2 database.*** Get the db2 credentials from the IBM cloud by following the steps here: [https://cloud.ibm.com/docs/Db2onCloud?topic=Db2onCloud-getting-started] 
+- ***Access to IBM Cloud:*** You can create a free account. [https://cloud.ibm.com/registration] 
+- ***Access to a DB2 database:*** You can provision a free instance: [https://cloud.ibm.com/catalog/services/db2] 
+- ***Service credentials for the DB2 database:*** Get the db2 credentials from the IBM cloud by following the steps here: [https://cloud.ibm.com/docs/Db2onCloud?topic=Db2onCloud-getting-started] 
  
 The `db2_Ingestion` module offers a streamlined method for inserting data from CSV or any delimiter file into db2 to fine-tune text to SQL pipelines.  
  
