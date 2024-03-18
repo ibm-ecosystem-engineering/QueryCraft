@@ -64,6 +64,19 @@ There are three options for using your dataset to `finetune/evaluate` the Text t
 1. Bring your dataset with golden queries in the following format: `question`, `query`, and `db_id` 
 Instruction for ingesting the dataset is provided in the next Step 1. 
 2. Curate the golden query dataset using our annotation tool: [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/)
+   
+Note: You'll need an IBM account. If you don't have one, you can easily create it by clicking on the link above.
+
+**Golden Query Annotation:**
+
+  2.1 Go to our annotation tool. [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/)
+
+<img src= "image/annotation1.png">
+ 
+  2.2 Click on the Instruction Manual and follow the instructions for curating the golden queries dataset. [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/documentation) 
+
+<img src= "image/annotation2.png">
+
 3. Use the example datasets provided below for testing: Spider and KaggleDBQA 
 Unzip the example datasets using the command:
 
@@ -73,16 +86,6 @@ unzip spider.zip
 unzip kaggleDBQA.zip 
 cd ..
 ```
-
-**Golden Query Annotation:**
-1. Go to our annotation tool. [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/)
-
-<img src= "image/annotation1.png">
- 
-3. Click on the Instruction Manual and follow the instructions for curating the golden queries dataset. [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/documentation) 
-
-<img src= "image/annotation2.png">
-
 
 ### 1. Data Ingestion (skip if source data is in sqllite database)
 You can ingest your delimited files to DB2 on IBM cloud. Once the data is properly ingested, you can run the QueryCraft pipeline on your data. 
