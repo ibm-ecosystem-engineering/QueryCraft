@@ -69,11 +69,11 @@ Instruction for ingesting the dataset is provided in the next Step 1.
 
 **Golden Query Annotation:**
 
- * 1 Go to our annotation tool. [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/)
+ * 1. Go to our annotation tool. [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/)
 
 <img src= "image/annotation1.png">
  
- * 2 Click on the Instruction Manual and follow the instructions for curating the golden queries dataset. [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/documentation) 
+ * 2. Click on the Instruction Manual and follow the instructions for curating the golden queries dataset. [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/documentation) 
 
 <img src= "image/annotation2.png">
 
