@@ -111,11 +111,11 @@ First, set the following credentials in the `config.ini` file under the `[DB2_Cr
 
 <img src= "image/Db2_ingetion.gif">
 
-1.   If you don’t have delimited files for your database containing the golden query dataset, you can use a file from the `/input/dataset` folder from the test env. 
+* 1.   If you don’t have delimited files for your database containing the golden query dataset, you can use a file from the `/input/dataset` folder from the test env. 
 
 <img src= "image/data_load.png">
 
-2. Now specify the file path, including the file name, in the `superConfig.ini` file under the `[DataIngestion]` section. Additionally, indicate the table name that needs to be created in the db2 database. If you are using the salary.csv, TheHistoryofBaseball is the right schema. Ensuring the right schema is important as the Golden query dataset contains this information in the column `db_id`. This is required to run the context retriever and the execution evaluation service.
+* 2. Now specify the file path, including the file name, in the `superConfig.ini` file under the `[DataIngestion]` section. Additionally, indicate the table name that needs to be created in the db2 database. If you are using the salary.csv, TheHistoryofBaseball is the right schema. Ensuring the right schema is important as the Golden query dataset contains this information in the column `db_id`. This is required to run the context retriever and the execution evaluation service.
 
 ```
 #Relative path (from home_dir) of csv file to be ingested in db2 table 
