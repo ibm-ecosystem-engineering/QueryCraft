@@ -69,11 +69,11 @@ Note: You'll need an IBM account. If you don't have one, you can easily create i
 
 **Golden Query Annotation:**
 
- * 2.1 Go to our annotation tool. [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/)
+ * 1 Go to our annotation tool. [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/)
 
 <img src= "image/annotation1.png">
  
- * 2.2 Click on the Instruction Manual and follow the instructions for curating the golden queries dataset. [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/documentation) 
+ * 2 Click on the Instruction Manual and follow the instructions for curating the golden queries dataset. [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/documentation) 
 
 <img src= "image/annotation2.png">
 
