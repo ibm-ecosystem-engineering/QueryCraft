@@ -65,7 +65,7 @@ There are three options for using your dataset to `finetune/evaluate` the Text t
 Instruction for ingesting the dataset is provided in the next Step 1. 
 2. Curate the golden query dataset using our annotation tool: [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/)
    
-Note: You'll need an IBM account. If you don't have one, you can easily create it by clicking on the link above.
+* Note: You'll need an IBM account. If you don't have one, you can easily create it by clicking on the link above.
 
 **Golden Query Annotation:**
 
