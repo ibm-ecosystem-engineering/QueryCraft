@@ -10,3 +10,5 @@ matplotlib
 plotly
 ibm-watsonx-ai
 ibm_db
+transformers
+vllm

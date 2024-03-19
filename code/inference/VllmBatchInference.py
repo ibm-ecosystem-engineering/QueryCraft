@@ -36,7 +36,7 @@ class VllmBatchInference(InferenceStrategy):
         )
 
         df_validation = pd.read_csv(input_dataset)
-        df_validation = df_validation[1:3]
+        ## df_validation = df_validation[1:3]
         prompts = [self.create_prompt(row) for _index, row in df_validation.iterrows()]
         ## Batch inference just simply pass all an array of prompts
         vllm_batch_outputs = llm.generate(prompts, sampling_params)
