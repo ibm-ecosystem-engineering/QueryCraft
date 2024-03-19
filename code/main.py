@@ -46,7 +46,7 @@ if(component=="all"):
     model_name=config['Inference']['model_name']
     finetuned_model = config['Inference']['finetuned_model']
     input_dataset = config['Inference']['input_dataset']
-    inf_response = inf.funcInference(exp_name,model_name,finetuned_model,input_dataset)
+    inf_response = inf.executeInference(config)
     print(inf_response)
 
     input_dataset=config['QueryCorrection']['input_dataset']
