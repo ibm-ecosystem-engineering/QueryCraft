@@ -27,6 +27,7 @@ component = sys.argv[1]  # Exclude the script name, which is the first argument
 print("Compnent to run:", component)
 
 if(component=="all"):
+    import streamlit_query_analysis_dashboard as dashboard
     exp_name =config['Default']['exp_name'] 
 
     input_database_folder = config['Default']['home_dir']+config['ContextRetriever']['input_database_folder']
