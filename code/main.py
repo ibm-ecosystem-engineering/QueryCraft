@@ -60,7 +60,7 @@ if(component=="all"):
     
     folder_name = config['Default']['home_dir']+config['QueryAnalysisDashboard']['folder_name']
     dashboard.show_dashboard(folder_name)
-    print("To view the query analysis dashboard execute the following command from the terminal: streamlit run streamlit_query_analysis_dashboard.py --server.port 8052 --server.fileWatcherType none")
+    print("To view the query analysis dashboard execute the following command from the terminal: cd code streamlit run streamlit_query_analysis_dashboard.py --server.port 8502 --server.fileWatcherType none")
 
 elif(component=="dataIngestion"):
 
@@ -117,5 +117,5 @@ elif(component=="queryanalysisDashboard"):
     import streamlit_query_analysis_dashboard as dashboard
     folder_name = config['Default']['home_dir']+config['QueryAnalysisDashboard']['folder_name']
     dashboard.show_dashboard(folder_name)
-    print("To view the query analysis dashboard execute the following command from the terminal: streamlit run code/streamlit_query_analysis_dashboard.py --server.port 8052 --server.fileWatcherType none")
+    print("To view the query analysis dashboard execute the following command from the terminal: cd code streamlit run streamlit_query_analysis_dashboard.py --server.port 8502 --server.fileWatcherType none")
     
