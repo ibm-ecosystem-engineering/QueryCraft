@@ -24,7 +24,7 @@ if len(sys.argv) < 1:
 component = sys.argv[1]  # Exclude the script name, which is the first argument
 
 # Process arguments
-print("Compnent to run:", component)
+print("Component to run:", component)
 
 if(component=="all"):
     import streamlit_query_analysis_dashboard as dashboard
