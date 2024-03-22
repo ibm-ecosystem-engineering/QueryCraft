@@ -1,7 +1,7 @@
 langchain
 torch
 fsspec==2023.9.2
-peft
+peft==0.9.0
 accelerate
 bitsandbytes
 streamlit
