@@ -7,6 +7,8 @@ input/datasets/.DS_Store
 input/datasets/.ipynb_checkpoints/*
 output/evalResults/.ipynb_checkpoints/*
 output/model/*
+input/.DS_Store
 output/logs/*
 output/inference/*
 output/evalResults/*
+input/.DS_Store
