@@ -249,7 +249,24 @@ queryanalysisDashboard
 <img src= "image/Dashboard.gif">
 
 ## 8. Run pipeline (all)
-To run all components together, you can change the required parameters in `superConfig.ini`. and run the below command:
+To run all components together, you can change the required parameters in `superConfig.ini`. You must set the default path as shown in the designated section below. 
+
+```
+[Finetune]
+train_dataset =${Default:home_dir}input/datasets/${Default:exp_name}_contextRetriever.csv
+
+[Inference]
+input_dataset = input/datasets/${Default:exp_name}_validSet.csv
+
+
+[QueryCorrection]
+input_dataset = ${Default:home_dir}output/inference/${Default:exp_name}_inference.csv
+
+[EXEvaluator]
+input_dataset = ${Default:home_dir}output/inference/${Default:exp_name}_inference.csv
+```
+
+Run the below command:
 
 ```bash
 sh runQueryCraft.sh
@@ -259,9 +276,6 @@ Provide the option:
 ```bash
 all
 ```
-
-To run the individual component you can follow the below steps:
-
 
 ## License
 
