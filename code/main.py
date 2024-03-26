@@ -24,9 +24,10 @@ if len(sys.argv) < 1:
 component = sys.argv[1]  # Exclude the script name, which is the first argument
 
 # Process arguments
-print("Compnent to run:", component)
+print("Component to run:", component)
 
 if(component=="all"):
+    import streamlit_query_analysis_dashboard as dashboard
     exp_name =config['Default']['exp_name'] 
 
     input_database_folder = config['Default']['home_dir']+config['ContextRetriever']['input_database_folder']
@@ -46,7 +47,7 @@ if(component=="all"):
     model_name=config['Inference']['model_name']
     finetuned_model = config['Inference']['finetuned_model']
     input_dataset = config['Inference']['input_dataset']
-    inf_response = inf.funcInference(exp_name,model_name,finetuned_model,input_dataset)
+    inf_response = inf.executeInference(config)
     print(inf_response)
 
     input_dataset=config['QueryCorrection']['input_dataset']
@@ -59,7 +60,7 @@ if(component=="all"):
     
     folder_name = config['Default']['home_dir']+config['QueryAnalysisDashboard']['folder_name']
     dashboard.show_dashboard(folder_name)
-    print("To view the query analysis dashboard execute the following command from the terminal: streamlit run streamlit_query_analysis_dashboard.py --server.port 8052 --server.fileWatcherType none")
+    print("To view the query analysis dashboard execute the following command from the terminal: cd code streamlit run streamlit_query_analysis_dashboard.py --server.port 8502 --server.fileWatcherType none")
 
 elif(component=="dataIngestion"):
 
@@ -116,5 +117,5 @@ elif(component=="queryanalysisDashboard"):
     import streamlit_query_analysis_dashboard as dashboard
     folder_name = config['Default']['home_dir']+config['QueryAnalysisDashboard']['folder_name']
     dashboard.show_dashboard(folder_name)
-    print("To view the query analysis dashboard execute the following command from the terminal: streamlit run code/streamlit_query_analysis_dashboard.py --server.port 8052 --server.fileWatcherType none")
+    print("To view the query analysis dashboard execute the following command from the terminal: cd code streamlit run streamlit_query_analysis_dashboard.py --server.port 8502 --server.fileWatcherType none")
     
