@@ -277,6 +277,19 @@ Provide the option:
 all
 ```
 
+## Build Lab Team 
+
+Created & Architected By
+- [Kunal Sawarkar](), Chief Data Scientist
+
+Builders
+- [Shivam Solanki](https://github.com/biharicoder)
+- [Kevin Huang](https://github.com/kevinxhuang)
+- [Abhilasha Mangal](https://github.com/Abhilasha-Mangal)
+- [Amit Khandelwal]()
+- [Sahil Desai]()
+- [Himadri Talukder]()
+
 ## License
 
-This project is licensed under the Apache-2.0 license - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Apache-2.0 license - see the [LICENSE](LICENSE) file for details. Copyright @ 2024 IBM Corporation.
