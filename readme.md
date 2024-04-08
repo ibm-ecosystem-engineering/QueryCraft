@@ -1,6 +1,6 @@
-# SuperKnowa QueryCraft 
+# SuperKnowa-QueryCraft 
 
-Welcome to the `QueryCraft-The-SuperKnowa` repository, your comprehensive solution for fine-tuning Large Language Models (LLMs) for the task of generating SQL queries from natural language. This module is designed to streamline the process of adapting LLMs for Text2SQL tasks, providing a robust framework and pipeline that accelerates the initiation and fine-tuning process. Whether you're a developer or a user keen on harnessing the power of LLMs for database querying, `SuperKnowa SQL Sculptor` offers the tools and infrastructure to make your journey smoother and more efficient.
+Welcome to the `SuperKnowa-QueryCraft` repository, your comprehensive solution for fine-tuning Large Language Models (LLMs) for the task of generating SQL queries from natural language. This module is designed to streamline the process of adapting LLMs for Text2SQL tasks, providing a robust framework and pipeline that accelerates the initiation and fine-tuning process. Whether you're a developer or a user keen on harnessing the power of LLMs for database querying, `SuperKnowa SQL Sculptor` offers the tools and infrastructure to make your journey smoother and more efficient.
 
 ## Features
 
@@ -286,9 +286,9 @@ Builders
 - [Shivam Solanki](https://github.com/biharicoder)
 - [Kevin Huang](https://github.com/kevinxhuang)
 - [Abhilasha Mangal](https://github.com/Abhilasha-Mangal)
-- [Amit Khandelwal]()
-- [Sahil Desai]()
-- [Himadri Talukder]()
+- [Amit Khandelwal](https://github.com/ak16425)
+- [Sahil Desai](https://github.com/sahil11129)
+- [Himadri Talukder](https://github.com/hitalukder)
 
 ## License
 
