@@ -37,11 +37,11 @@ The output directories are structured to organize the results of the different s
 
 ## Getting Started
 
-To get started with `QueryCraft-The-SuperKnowa-SQL-Sculptor`, clone this repository to your local machine:
+To get started with `SuperKnowa-QueryCraft`, clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/ibm-ecosystem-engineering/QueryCraft-The-SuperKnowa-SQL-Sculptor.git
-cd QueryCraft-The-SuperKnowa-SQL-Sculptor
+git clone https://github.com/ibm-ecosystem-engineering/SuperKnowa-QueryCraft.git
+cd SuperKnowa-QueryCraft
 ```
 
 ### Installation
