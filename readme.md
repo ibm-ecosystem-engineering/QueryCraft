@@ -104,8 +104,7 @@ Instruction for ingesting the dataset is provided in the next Step 1.
       
 ![annotaion_tool](https://github.com/ibm-ecosystem-engineering/SuperKnowa-QueryCraft/assets/111310676/2787a088-e849-483a-9ef5-d2ba82ece743)
  
- * 2. Click on the Instruction Manual and follow the instructions for curating the golden queries dataset. [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/documentation) 
-
+ * 2. Click on the Instruction Manual and follow the instructions for curating the golden queries dataset. [Link](https://annotator.superknowa.tsglwatson.buildlab.cloud/) 
 
 
 3. Use the example datasets provided below for testing: Spider and KaggleDBQA 
