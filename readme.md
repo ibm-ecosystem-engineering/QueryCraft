@@ -1,8 +1,29 @@
-# SuperKnowa-QueryCraft 
+# QueryCraft (by SuperKnowa)
 
 Welcome to the `SuperKnowa-QueryCraft` repository, your comprehensive solution for fine-tuning Large Language Models (LLMs) for the task of generating SQL queries from natural language. This module is designed to streamline the process of adapting LLMs for Text2SQL tasks, providing a robust framework and pipeline that accelerates the initiation and fine-tuning process. Whether you're a developer or a user keen on harnessing the power of LLMs for database querying, `SuperKnowa-QueryCraft` offers the tools and infrastructure to make your journey smoother and more efficient.
 
 ## Features
+
+3 Datasets 
+- To run SQL query on and to evaluate Source Set 
+- Insturct set for fine tuning (you can do it with Anniation tool)
+  
+
+SAection 1
+Why to use ?
+---
+Features with 9 gifs
+===
+
+Section 2
+<Getting started>
+
+Section3 
+Details on how to use?
+<Add some intro details and then blog link for all 9 sections > 
+< Moved too mich detaols their folder >
+
+
 
 - **superConfig.ini**: A super configuration file to manage basic level settings for data ingestion, context retriever, fine-tuning, inference, query-correction, evaluation, and the query analysis dashboard among other services.
 - **config.ini**: A configuration file to manage all settings for data ingestion, context retriever, fine-tuning, inference, query-correction, evaluation, and the query analysis dashboard among other services.
@@ -67,15 +88,18 @@ Instruction for ingesting the dataset is provided in the next Step 1.
    
 * Note: You'll need an IBM account. If you don't have one, you can easily create it by clicking on the link above.
 
+
+## Step 0 - Create an Instruct Set for Text2SQL Task
 **Golden Query Annotation:**
 
  * 1. Go to our annotation tool. [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/)
+      <add a gif>
 
 <img src= "image/annotation1.png">
  
  * 2. Click on the Instruction Manual and follow the instructions for curating the golden queries dataset. [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/documentation) 
 
-<img src= "image/annotation2.png">
+
 
 3. Use the example datasets provided below for testing: Spider and KaggleDBQA 
 Unzip the example datasets using the command:
@@ -87,7 +111,15 @@ unzip kaggleDBQA.zip
 cd ..
 ```
 
-### 1. Data Ingestion (skip if source data is in sqllite database)
+### Step 1. Data Ingestion 
+You have 3 options 
+1. Bring Your Own Data
+  - If you ahve both source and instruct set (golden query)
+  - If you only have source and not instruct set then use above tool 
+3. Use the example set
+   This comes with both source dataset and instruct Db
+
+
 You can ingest your delimited files to DB2 on IBM cloud. Once the data is properly ingested, you can run the QueryCraft pipeline on your data. 
 
 **Prerequisites:**  
