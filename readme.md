@@ -92,7 +92,7 @@ There are three options for using your dataset to `finetune/evaluate` the Text t
 
 1. Bring your dataset with golden queries in the following format: `question`, `query`, and `db_id` 
 Instruction for ingesting the dataset is provided in the next Step 1. 
-2. Curate the golden query dataset using our annotation tool: [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/)
+2. Curate the golden query dataset using our annotation tool: [Link](https://annotator.superknowa.tsglwatson.buildlab.cloud/))
    
 * Note: You'll need an IBM account. If you don't have one, you can easily create it by clicking on the link above.
 
@@ -100,7 +100,7 @@ Instruction for ingesting the dataset is provided in the next Step 1.
 ## Step 0 - Create an Instruct Set for Text2SQL Task
 **Golden Query Annotation:**
 
- * 1. Go to our annotation tool. [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/)
+ * 1. Go to our annotation tool. [Link](https://annotator.superknowa.tsglwatson.buildlab.cloud/)
       
 ![annotaion_tool](https://github.com/ibm-ecosystem-engineering/SuperKnowa-QueryCraft/assets/111310676/2787a088-e849-483a-9ef5-d2ba82ece743)
  
