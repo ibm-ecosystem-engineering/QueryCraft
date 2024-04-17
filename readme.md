@@ -8,11 +8,19 @@ Welcome to the `SuperKnowa-QueryCraft` repository, your comprehensive solution f
 - To run SQL query on and to evaluate Source Set 
 - Insturct set for fine tuning (you can do it with Anniation tool)
   
-
-SAection 1
-Why to use ?
 ---
-Features with 9 gifs
+## Why to use ?
+- Use QueryCraft to query relational databases using natural language questions instead of writing complex SQL queries
+- Use QueryCraft to build a configurable TextToSQL pipeline on your Database
+- Use QueryCraft to to evaluate the Text To SQL pipeline on your Database
+- Use QueryCraft to to correct the LLM-generated queries
+- Use QueryCraft to to fine-tune an LLM for SQL query generation on your database
+- Use QueryCraft to to speed up inferencing for SQL query generation
+- Use QueryCraft to to analyze the generated queries on a dashboard
+
+---
+## Features with 9 gifs
+
 ===
 
 Section 2
