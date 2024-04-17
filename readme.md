@@ -101,9 +101,8 @@ Instruction for ingesting the dataset is provided in the next Step 1.
 **Golden Query Annotation:**
 
  * 1. Go to our annotation tool. [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/)
-      <add a gif>
-
-<img src= "image/annotation1.png">
+      
+![annotaion_tool](https://github.com/ibm-ecosystem-engineering/SuperKnowa-QueryCraft/assets/111310676/2787a088-e849-483a-9ef5-d2ba82ece743)
  
  * 2. Click on the Instruction Manual and follow the instructions for curating the golden queries dataset. [Link](https://dnb-annotator.tsglwatson.buildlab.cloud/documentation) 
 
