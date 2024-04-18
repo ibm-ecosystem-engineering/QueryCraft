@@ -1,4 +1,4 @@
-﻿# **Table of Contents**
+﻿# **Step by Step instructions for running QueryCraft**
 [**Create a test environment**](#_toc1711770488)
 
 [***Install the SuperKnowa BYOM JupyterLab extension***](#_toc2114928824)
