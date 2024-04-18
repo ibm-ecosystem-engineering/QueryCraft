@@ -22,7 +22,7 @@ The QueryCraft pipeline is built of 8 modules/components.
 
 1. **Instruct dataset curation**: This is a UI tool to curate instruct dataset for finetuning or evaluation of TextToSQL task. Read details about this module on our blog on [Golden dataset curation for text2sql](https://medium.com/@himadricuet/138f2e77847e).
 
-![annotaion_tool](https://github.com/ibm-ecosystem-engineering/SuperKnowa-QueryCraft/assets/111310676/2787a088-e849-483a-9ef5-d2ba82ece743)
+    <img src= "document/annotaion_tool.gif">
 
 2. **Data ingestion**: This module is used for ingesting your data to Db2 on IBM Cloud.
 
