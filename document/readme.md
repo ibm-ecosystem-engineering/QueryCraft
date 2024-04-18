@@ -33,7 +33,7 @@
 
 [**Step 5. Query Correction**](#_toc890332375)
 
-[***Step 6. Evaluation**](#_toc577012548)
+[**Step 6. Evaluation**](#_toc577012548)
 
 [***Option 6.1 Evaluation on the db2 database***](#_toc1369103650)
 
@@ -49,7 +49,7 @@
 
 A GPU server can be easily deployed on IBM Cloud using SuperKnowa BYOM, which provides a JupyterLab extension to provision a GPU-enabled [virtual server instance (VSI) for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-about-advanced-virtual-servers) in minutes by filling out a simple form in any of your JupyterLab environments.
 
-![Screenshot of Text2Infra](001.png)
+![Screenshot of Text2Infra](../image/001.png)
 
 ## <a name="_toc2114928824"></a>Install the SuperKnowa BYOM JupyterLab extension
 
@@ -121,11 +121,11 @@ A GPU server can be easily deployed on IBM Cloud using SuperKnowa BYOM, which pr
 
 Once it’s started, a new button should appear in the JupyterLab launcher.
 
-![JupyterLab Launcher with SuperKnowa BYOM icon](002.png)
+![JupyterLab Launcher with SuperKnowa BYOM icon](../image/002.png)
 
 8. Click the SuperKnowa BYOM button to launch the newly installed JupyterLab extension. If successful, a new tab should open in JupyterLab as shown in the following screenshot.
 
-![Env details in the Jupyter Lab extension](003.png)
+![Env details in the Jupyter Lab extension](../image/003.png)
 
 ## <a name="_toc410998690"></a>Provision a GPU server
 
@@ -150,7 +150,7 @@ The tool leverages IBM Cloud Schematics API to create a workspace, which pulls a
     - Resource group
     - A [Jupyter Docker Stacks image](https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html)
 
-![Customized deployment](004.png)
+![Customized deployment](../image/004.png)
 
 Note:
 
@@ -162,11 +162,11 @@ Note:
 
    Typically, the provisioning process takes about 15 minutes to deploy the GPU server and run through some initial configuration steps with [Cloud-init](https://cloudinit.readthedocs.io/en/latest/), before it reboots itself in the end. You can monitor the progress by checking the workspace information, server details and activity logs.
 
-   ![Monitor Provisioning](005.png)
+   ![Monitor Provisioning](../image/005.png)
 
    Once the GPU server is successfully deployed, you should see something similar to the following screenshot, with workspace status shown as ***Active***.
 
-    ![Workspace active](006.png)
+    ![Workspace active](../image/006.png)
 
 ## <a name="_toc2049952232"></a>Access the test environment
 
@@ -189,7 +189,7 @@ Note:
 
    The URL of the Jupyter server started on the GPU server can be found on the SuperKnowa BYOM JupyterLab extension frontend UI, when you click on ***Server information*** button under ***Workspace details***.
 
-    ![Server information](006.png)
+    ![Server information](../image/006.png)
 
    When you open the URL in your browser, you'd see a warning about the self-signed TLS/SSL certificate used by the Jupyter Server. After accepting the risk and proceed to the login page, you'll be prompted to enter a token or password. By default, a random token is generated when the Jupyter Server first starts. You can run the ***jupyter server list*** command in a terminal session inside the container to see the token, as shown in the following example:
 
@@ -197,7 +197,7 @@ Note:
 
    Currently running servers:
 
-   ```https://jupyter-lab:8888/?token=bed68dacfc4167325817d67c277a600b2d4d7aa84ff0bd8b :: /home/jovyan/work
+   ```https://jupyter-lab:8888/?token=bed68dacfc4167325817d67c277a6../image/00b2d4d7aa84ff0bd8b :: /home/jovyan/work
 
 
    After a successful login, you should now see the JupyterLab interface.
@@ -206,7 +206,7 @@ Note:
 
 1. Open a terminal by clicking on the Terminal icon from the launcher:
 
-   ![Terminal icon in BYOM](007.png)
+   ![Terminal icon in BYOM](../image/007.png)
 
 1. Change to your working directory using the following command:
 
@@ -245,7 +245,7 @@ Use the following credentials to access the repo:
 
    If asked to proceed, enter “y”
 
-   ![Packages installation](008.png)
+   ![Packages installation](../image/008.png)
 
 
 1. Open the  `SuperKnowa-QueryCraft/superConfig.ini`. The superConfig.ini file has six sections besides the Default section: DataIngestion, ContextRetriever,Finetune, Inference, Logs, QueryCorrection, EXEvaluator, and QueryAnalysisDashboard. The file has comments that can help you understand the fields inside. We will go through each section one by one.
