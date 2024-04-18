@@ -23,7 +23,7 @@
 
 [**Step 2. Context Retriever**](#_toc1725873645)
 
-[***Option 2.1 Context Retrieval from db2***](#_toc2010877930)
+[***Option 2.1 Context Retrieval from db2***](#_toc2../image/010877930)
 
 [***Option 2.2 Context Retrieval from SQLite***](#_toc481704433)
 
@@ -33,7 +33,7 @@
 
 [**Step 5. Query Correction**](#_toc890332375)
 
-[**Step 6. Evaluation**](#_toc577012548)
+[**Step 6. Evaluation**](#_toc577../image/012548)
 
 [***Option 6.1 Evaluation on the db2 database***](#_toc1369103650)
 
@@ -258,7 +258,7 @@ Use the following credentials to access the repo:
 
 Also, set a unique experiment name by editing the exp_name variable in the [Default] section of the superConfig.ini file.
 
-![Default section of superConfig](010.png)
+![Default section of superConfig](../image/010.png)
 
 ## <a name="_toc1483318699"></a>Configuration Settings
 
@@ -312,11 +312,11 @@ There are three options for using your dataset to finetune/evaluate the Text to 
 ## <a name="_toc548496318"></a>Golden Query Annotation:
 1. Go to our annotation tool. <https://annotator.superknowa.tsglwatson.buildlab.cloud/>
 
-![Data annotator view](011.png)
+![Data annotator view](../image/011.png)
 
 2. Click on the Instruction Manual and follow the instructions for curating the golden queries dataset. <https://annotator.superknowa.tsglwatson.buildlab.cloud/documentation>
 
-![Data annotation instruction manual](012.png)
+![Data annotation instruction manual](../image/012.png)
 
 # <a name="_toc1471206741"></a>Step 1. Data Ingestion
 
@@ -350,7 +350,7 @@ The db2_Ingestion module offers a streamlined method for inserting data from CSV
 
 1. If you don’t have delimited files for your database which also contains golden query dataset, you can use a file from the `/input/dataset` folder from the test env.
 
-    ![Sample dataset](013.png)
+    ![Sample dataset](../image/013.png)
 
 1. Now specify the file path, including the file name, in the superConfig.ini file under the `DataIngestion` section. Additionally, indicate the table name that needs to be created in the db2 database. If you are using the salary.csv, TheHistoryofBaseball is the right schema. Ensuring the right schema is important as the Golden query dataset contains this information in the column db_id. This is required to run the context retriever and the execution evaluation service.
 
@@ -386,7 +386,7 @@ Enter the name of the component you want to run:
 
 You can validate the successful execution of the dataIngestion module from the DB2 UI as well.
 
-![DB2 UI](014.png)
+![DB2 UI](../image/014.png)
 
 
 ## <a name="_toc1138956454"></a>Option 1.2. SQLite Ingestion
@@ -403,7 +403,7 @@ Configure the ContextRetriever section of superConfig.ini.
 1. db_type:  Determines the data source SQLite or db2.
 
 
-## <a name="_toc2010877930"></a>Option 2.1 Context Retrieval from db2:
+## <a name="_toc2../image/010877930"></a>Option 2.1 Context Retrieval from db2:
 
 For the db2 context retriever, there's no requirement for an input database file like SQLite, as it directly extracts the DDL schema from Db2 tables. Instead, you need to upload the Golden query dataset (input_data_file) for Db2. This Golden query dataset should be uploaded to the input/datasets/ folder. Here is a sample input_data_file named  kaggleDBQASample.csv, and ensure that db_type is mentioned as **db2**.
 
@@ -454,7 +454,7 @@ Enter the name of the component you want to run:
 
 The retrieved context file will be generated in the directory input/datasets/, with the filename exp_name_contextRetriever.csv.
 
-![Instruct dataset with golden queries](015.png)
+![Instruct dataset with golden queries](../image/015.png)
 
 # <a name="_toc347080945"></a>Step 3. Finetuning
 
@@ -599,7 +599,7 @@ Enter the name of the component you want to run:
 
 `querycorrection`
 
-# <a name="_toc577012548"></a>Step 6. Evaluation
+# <a name="_toc577../image/012548"></a>Step 6. Evaluation
 
 The evaluation service will run the corrected queries against your database and compare the results of the generated query with the golden query to calculate execution accuracy. You can configure the evaluation service using the superConfig.ini file.
 
@@ -669,7 +669,7 @@ Use one of the following ports for exposing your dashboard: 8506-8510.
 
 Please ensure that the URL is not already under use for the port you are selecting: [http://169.46.68.130:port_number]()
 
-Ex: <http://169.46.68.130:8501>
+Ex: <http://169.46.68.130:85../image/01>
 
 Then you can run the following command with the **right port number** to run the dashboard and access it in your browser.
 
