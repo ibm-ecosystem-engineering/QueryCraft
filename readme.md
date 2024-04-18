@@ -2,14 +2,12 @@
 
 Welcome to the `SuperKnowa-QueryCraft` repository, your comprehensive solution for fine-tuning Large Language Models (LLMs) for the task of generating SQL queries from natural language. This module is designed to streamline the process of adapting LLMs for Text2SQL tasks, providing a robust framework and pipeline that accelerates the initiation and fine-tuning process. Whether you're a developer or a user keen on harnessing the power of LLMs for database querying, `SuperKnowa-QueryCraft` offers the tools and infrastructure to make your journey smoother and more efficient.
 
-## Features
-
-3 Datasets 
-- To run SQL query on and to evaluate Source Set 
-- Insturct set for fine tuning (you can do it with Anniation tool)
+You need the following to run the QueryCraft pipeline:
+- Database to run SQL query on and to evaluate the generated queries
+- Instruct set for fine tuning (you can curate instruct it with Annotation tool)
   
 ---
-## Why to use ?
+## Why to use?
 - Use QueryCraft to query relational databases using natural language questions instead of writing complex SQL queries
 - Use QueryCraft to build a configurable TextToSQL pipeline on your Database
 - Use QueryCraft to to evaluate the Text To SQL pipeline on your Database
@@ -19,50 +17,39 @@ Welcome to the `SuperKnowa-QueryCraft` repository, your comprehensive solution f
 - Use QueryCraft to to analyze the generated queries on a dashboard
 
 ---
-## Features with 9 gifs
+## Features/Modules in QueryCraft
+The QueryCraft pipeline is built of 8 modules/components.
 
-===
+1. **Instruct dataset curation**: This is a UI tool to curate instruct dataset for finetuning or evaluation of TextToSQL task. Read details about this module on our blog on [Golden dataset curation for text2sql](https://medium.com/@himadricuet/138f2e77847e).
 
-Section 2
-<Getting started>
+2. **Data ingestion**: This module is used for ingesting your data to Db2 on IBM Cloud.
 
-Section3 
-Details on how to use?
-<Add some intro details and then blog link for all 9 sections > 
-< Moved too mich detaols their folder >
+    <img src= "image/Db2_ingetion.gif">
 
+3. **Context Retriever**: Context retriever is used to extract context from the instruct dataset given the instruct dataset. Read details about this module on our blog on [Diving Deep into Context Retrieval Techniques](https://medium.com/@sahil_desai/07b5f4b51273)
+<img src= "image/Context_ret.gif">
 
 
-- **superConfig.ini**: A super configuration file to manage basic level settings for data ingestion, context retriever, fine-tuning, inference, query-correction, evaluation, and the query analysis dashboard among other services.
-- **config.ini**: A configuration file to manage all settings for data ingestion, context retriever, fine-tuning, inference, query-correction, evaluation, and the query analysis dashboard among other services.
-- **db2_connector.py**: This script provides global IBM DB2 connection for all other services.
-- **db2_ingestion.py**: This script is used to insert the data into DB2 from a CSV file or any other delimiter file.
-- **context_retriever.py**: This script extracts context directly from the SQLite database to inform and improve the accuracy of generated queries.
-- **finetune.py**: Fine-tune your LLM specifically for the text-to-SQL task, optimizing its performance for your unique requirements.
-- **inference.py**: Run the inference pipeline using either a pre-trained or a fine-tuned model to generate SQL queries from natural language inputs.
-- **query_correction.py**: A script dedicated to correcting the syntax of generated SQL queries.
-- **ex_evaluator.py**: A script dedicated to calculating the execution accuracy of generated SQL queries against an SQLite database, ensuring that your fine-tuned model performs optimally.
-- **pipeline_result_csv_gen.py**: Extracts details of fine-tuning experiments and saves them to a CSV file, facilitating in-depth analysis through the query analysis dashboard.
-- **streamlit_query_analysis_dashboard.py**: A Streamlit application that provides a comprehensive dashboard for analyzing the results of your fine-tuned model and conducting comparative analyses.
+4. **Finetune**: Finetune service can be used for PEFT (Parameter Efficient Fine Tuning) for Text To SQL task. Read details about this module on our blog on [Text-to-SQL: A Deep Dive into Fine-Tuning Strategies](https://medium.com/@ak16425/59e2185b4b74)
+<img src= "image/fine_tune.gif">
 
-## Input
 
-This module uses various inputs to train, evaluate, and optimize the performance of your model:
+5. **Inference**:
+Inference service can be used to generate SQL queries either using a fine-tuned model or a pre-trained model on your NL-SQL pairs dataset. Read details about this module on our blog on [LLM inference text2sql](https://medium.com/@himadricuet/317a660de678)
+<img src= "image/Inference.gif">
 
-- **datasets/**: Contains datasets used for fine-tuning and evaluation of the Text to SQL model.
-- **prompts/**: A collection of prompts used across different models for generation and fine-tuning tasks.
-- **spider/**: The Spider database, serves as a benchmarking tool for evaluating the performance of your Text to SQL tasks.
+6. **Query Correction**:
+Inference service can be used to fix incorrect queries generated by LLM. Read details about this module on our blog on [Improving Text-To-SQL Accuracy with Query Correction Service](https://medium.com/@abhilashamangal/614cd395a85b)
 
-## Output
 
-The output directories are structured to organize the results of the different services and experiments:
+7. **Evaluation**:
+Evaluation service consists of two modules - Query correction and Execution evaluation. Read details about our Evaluation framework on our blog [Text To SQL Evaluation Framework](https://medium.com/@Shivam_Solanki/8c5f461e7b05). Execution evaluation service can be used to calculate the execution accuracy on your database. Read details about our Evaluation framework on our blog [Text To SQL Execution Accuracy](https://medium.com/@Shivam_Solanki/5d7ab8398232)
+<img src= "image/evalution.gif">
 
-- **benchmark/**: Stores benchmark results for Text to SQL tasks, allowing for performance comparison.
-- **evalResults/**: A folder dedicated to storing the results of the evaluation service.
-- **inference/**: Contains the results of the inference service, showcasing the SQL queries generated by your model.
-- **logs/**: Logs of the experiments are kept here for future reference and analysis.
-- **model/**: A directory to store model checkpoints, facilitating easy retrieval and deployment of your fine-tuned models.
-- **result/**: A folder dedicated to storing the results of logs to show the results at the Query analysis dashboard.
+
+8. **Query Analysis dashboard**
+Query Analysis dashboard service can be used to analyze the results of generated queries and compare output of multiple LLMs. Read details about our Evaluation framework on our blog [Exploring LLM performance in Text-To-SQL generation with Query Analysis Dashboard](https://medium.com/@abhilashamangal/ccd547a020fd)
+<img src= "image/Dashboard.gif">
 
 ## Getting Started
 
@@ -85,92 +72,37 @@ pip install -r requirements.txt
 
 Configure your environment and services by editing the  `superConfig.ini` and `config.ini` files. In superConfig specify the paths for datasets, models, and other services as per your setup. In `config.ini` you can change the more detailed parameters for experimentation.
 
-`QueryCraft-The-SuperKnowa-SQL-Sculptor` provides the capability to run the whole pipeline (Context Retriever -> Fine-tuning -> Inference -> Query Correction -> Evaluation -> Query Analysis dashboard) together and also you can run each component individually. 
+`SuperKnowa-QueryCraft` provides the capability to run the whole pipeline (Context Retriever -> Fine-tuning -> Inference -> Query Correction -> Evaluation -> Query Analysis dashboard) together and also you can run each component individually. 
 
-### Golden Query Annotation 
-There are three options for using your dataset to `finetune/evaluate` the Text to SQL (QueryCraft) pipeline: 
+## Step by Step instructions
+Please read the [detailed documentation](/document/readme.md) for step by step instructions
 
-1. Bring your dataset with golden queries in the following format: `question`, `query`, and `db_id` 
-Instruction for ingesting the dataset is provided in the next Step 1. 
-2. Curate the golden query dataset using our annotation tool: [Link](https://annotator.superknowa.tsglwatson.buildlab.cloud/))
-   
-* Note: You'll need an IBM account. If you don't have one, you can easily create it by clicking on the link above.
+## Step 0. Instruct dataset
 
+There are three options for using your dataset to finetune/evaluate the Text to SQL (QueryCraft) pipeline:
 
-## Step 0 - Create an Instruct Set for Text2SQL Task
-**Golden Query Annotation:**
+1. Bring your dataset with golden queries in the following format: question, query, and db_id. Instruction for ingesting the dataset is provided in the next Step 1.
+1. Curate the golden query dataset using our annotation tool: <https://annotator.superknowa.tsglwatson.buildlab.cloud/>
+1. Use the example datasets provided below for testing: Spider and KaggleDBQA
 
- * 1. Go to our annotation tool. [Link](https://annotator.superknowa.tsglwatson.buildlab.cloud/)
-      
-![annotaion_tool](https://github.com/ibm-ecosystem-engineering/SuperKnowa-QueryCraft/assets/111310676/2787a088-e849-483a-9ef5-d2ba82ece743)
- 
- * 2. Click on the Instruction Manual and follow the instructions for curating the golden queries dataset. [Link](https://annotator.superknowa.tsglwatson.buildlab.cloud/) 
+### Golden Query Annotation:
+1. Go to our annotation tool. <https://annotator.superknowa.tsglwatson.buildlab.cloud/>
 
+    ![Data annotator view](document/011.png)
 
-3. Use the example datasets provided below for testing: Spider and KaggleDBQA 
-Unzip the example datasets using the command:
+2. Click on the Instruction Manual and follow the instructions for curating the golden queries dataset. <https://annotator.superknowa.tsglwatson.buildlab.cloud/documentation>
 
-```
-cd ./input 
-unzip spider.zip 
-unzip kaggleDBQA.zip 
-cd ..
-```
+    ![Data annotation instruction manual](document/012.png)
 
-### Step 1. Data Ingestion 
-You have 3 options 
+## Step 1. Data Ingestion 
+You have 3 options for Data Ingestion.
 1. Bring Your Own Data
-  - If you ahve both source and instruct set (golden query)
-  - If you only have source and not instruct set then use above tool 
-3. Use the example set
+  - If you have both databases and instruct set (golden query)
+  - If you only have database and not instruct set then use above annotation tool 
+2. Use the example set
    This comes with both source dataset and instruct Db
 
-
-You can ingest your delimited files to DB2 on IBM cloud. Once the data is properly ingested, you can run the QueryCraft pipeline on your data. 
-
-**Prerequisites:**  
-- ***Access to IBM Cloud:*** You can create a free account. [Link](https://cloud.ibm.com/registration) 
-- ***Access to a DB2 database:*** You can provision a free instance: [Link](https://cloud.ibm.com/catalog/services/db2)
-- ***Service credentials for the DB2 database:*** Get the db2 credentials from the IBM cloud by following the steps here: [Link](https://cloud.ibm.com/docs/Db2onCloud?topic=Db2onCloud-getting-started)
-
-  
- 
-The `db2_Ingestion` module offers a streamlined method for inserting data from CSV or any delimiter file into db2 to fine-tune text to SQL pipelines.  
- 
-First, set the following credentials in the `config.ini` file under the `[DB2_Credentials]` section: 
- 
-- ***dsn_database:*** Name of the database. 
-- ***dsn_uid:*** User ID for the database. 
-- ***dsn_pwd:*** Password for the database. 
-- ***dsn_hostname:*** Hostname or IP address of the database server. 
-- ***dsn_port:*** Port number of the database server. 
-- ***dsn_protocol:*** Protocol used for communication. 
-- ***dsn_driver:*** Driver used for database connection. 
-
-<img src= "image/Db2_ingetion.gif">
-
-* 1.   If you don’t have delimited files for your database containing the golden query dataset, you can use a file from the `/input/dataset` folder from the test env. 
-
-<img src= "image/data_load.png">
-
-* 2. Now specify the file path, including the file name, in the `superConfig.ini` file under the `[DataIngestion]` section. Additionally, indicate the table name that needs to be created in the db2 database. If you are using the salary.csv, TheHistoryofBaseball is the right schema. Ensuring the right schema is important as the Golden query dataset contains this information in the column `db_id`. This is required to run the context retriever and the execution evaluation service.
-
-```
-#Relative path (from home_dir) of csv file to be ingested in db2 table 
-#CSV file for Loading 
-#filename = ../input/datasets/people.csv 
-filename = input/datasets/salary.csv 
-#Schema name - Database 
-schema_name = TheHistoryofBaseball 
-# Table name for CSV data 
-table_name= querycraft_db2_testing_13march
-```
-
-If the user needs to import a file specifying the delimiter for files other than CSV, the user can adjust the delimiter from the `config.ini` file: 
-
-```
-delimiter = , 
-```
+Read the detailed steps for Data ingestion in [documentation](/document/readme.md)
 
 Run the Data Ingestion module of the QueryCraft pipeline using the `runQueryCraft.sh`, file with the `dataIngestion` option after setting the `superConfig.ini` file to insert `salary.csv` into the `querycraft_db2_testing_13march` table in db2.  
 
@@ -181,23 +113,10 @@ Provide the option:
 ```bash
 dataIngestion
 ```
-You can validate the successful execution of the `dataIngestion` module from the DB2 UI as well. 
 
-<img src= "image/db2.png">
+## Step 2. Context Retriever
 
-### 2. Context Retriever
-
-The Context Retriever module offers a convenient solution for accessing context information like DDL schema from both SQLite and db2 databases. To run the context retriever change the required parameters according to your db_type sqlite or db2 into `superConfig.ini` file and run the below command.
-
-Configure the ContextRetriever section of superConfig.ini.  
- - input_database_folder: Relative path to the folder containing database dump in `.sqlite` format. This is required only when using SQLite  database 
- - input_data_file: Relative path to the golden dataset (CSV file) with columns: `question`, `query`, and `db_id` 
- - db_type:  Determines the data source `SQLite` or `db2` 
-
-
-<img src= "image/Context_ret.gif">
-
-After updating the `superConfig.ini` as mentioned above, execute the context retriever using the following command. 
+Execute the context retriever using the following command. 
 
 ```bash
 sh runQueryCraft.sh
@@ -209,13 +128,7 @@ Provide the option:
 contextRetriever
 ```
 
-The retrieved context file will be generated in the directory `input/datasets/`, with the
-filename `exp_name_contextRetriever.csv`
-
-<img src= "image/context_ret.png">
-
-
-### 3. Fine-Tuning
+## Step 3. Fine-Tuning
 
 To start fine-tuning your LLM for the Text to SQL task, run the below command.
 
@@ -226,11 +139,10 @@ Provide the option:
 ```bash
 finetune
 ```
-<img src= "image/fine_tune.gif">
 
 Follow the prompts to specify your dataset and model configuration.
 
-### 4. Inference
+## Step 4. Inference
 
 To generate SQL queries using your fine-tuned or pre-trained model, execute:
 
@@ -241,9 +153,8 @@ Provide the option:
 ```bash
 inference
 ```
-<img src= "image/Inference.gif">
 
-### 5. Query Correction
+## Step 5. Query Correction
 
 ```bash
 sh runQueryCraft.sh
@@ -253,7 +164,7 @@ Provide the option:
 querycorrection
 ```
 
-### 6. Evaluation
+## Step 6. Evaluation
 
 Evaluate the performance of your model against the SQLite database or DB2 by running the below command:
 
@@ -265,9 +176,8 @@ Provide the option:
 evaluation
 ```
 
-<img src= "image/evalution.gif">
 
-## 7. Query Analysis Dashboard
+## Step 7. Query Analysis Dashboard
 
 For a visual analysis of your fine-tuning experiments and generated SQL queries, launch the streamlit dashboard:
 
@@ -284,9 +194,8 @@ queryanalysisDashboard
  streamlit run streamlit_query_analysis_dashboard.py --server.port 8502 --server.fileWatcherType none
 ```
 
-<img src= "image/Dashboard.gif">
 
-## 8. Run pipeline (all)
+## Step 8. Run pipeline (all)
 To run all components together, you can change the required parameters in `superConfig.ini`. You must set the default path as shown in the designated section below. 
 
 ```

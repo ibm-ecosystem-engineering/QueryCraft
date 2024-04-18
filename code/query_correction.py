@@ -128,7 +128,7 @@ def query_processing(row):
     return g_str, p_str
 
   
-def funcQueryCorrection(exp_name ='exp_codellama-13b_spider_0412',input_dataset='/data/rlhf/amit/QueryCraft-The-SuperKnowa-SQL-Sculptor/output/inference/exp_codellama-13b_spider_0412.csv'):
+def funcQueryCorrection(exp_name ='exp_codellama-13b_spider_0412',input_dataset='/data/rlhf/amit/SuperKnowa-QueryCraft/output/inference/exp_codellama-13b_spider_0412.csv'):
     config_filePath="./../config.ini"
     config = configparser.ConfigParser()
     config.read(config_filePath)
