@@ -17,6 +17,19 @@ You need the following to run the QueryCraft pipeline:
 - Use QueryCraft to to analyze the generated queries on a dashboard
 
 ---
+Benchmark Results 
+- Add them here on various Spider across models
+- <insightful > models working bettter on complex SQL
+- Smaller fine-tuned models outperforming larger ones
+- Pre and post processing improvement
+- <>
+
+<call pout code-granite as >
+
+====
+
+======
+
 ## Features/Modules in QueryCraft
 The QueryCraft pipeline is built of 8 modules/components.
 
@@ -78,7 +91,10 @@ Before diving into fine-tuning or inference, ensure that your environment is set
 pip install -r requirements.txt
 ```
 
-### Configuration
+### Configuration Files
+- You have two options
+- config-- If you want to do xyz use this 
+- Expertconfig and if you want to specify your fine tuning use this and here is how to access 
 
 Configure your environment and services by editing the  `superConfig.ini` and `config.ini` files. In superConfig specify the paths for datasets, models, and other services as per your setup. In `config.ini` you can change the more detailed parameters for experimentation.
 
