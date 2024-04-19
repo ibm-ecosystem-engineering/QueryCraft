@@ -234,7 +234,7 @@ def funcFinetune(exp_name="expDummy",data_collator="DataCollatorForSeq2Seq",mode
             )
 
         #pytorch-related optimisation (which just make training faster but don't affect accuracy):
-        model.expertConfig.use_cache = False
+        model.config.use_cache = False
 
         if torch.__version__ >= "2" and sys.platform != "win32":
             print("compiling the model")
