@@ -6,7 +6,7 @@ You can run SuperKnowa-QueryCraft in any GPU-enabled environment, whether it's c
 
 ## Step 2. Optional: Install the JupyterLab extension
 
-You can leverage our JupyterLab extension to provision a GPU server. Please refer to the SuperKnowa Text2Infra repo to learn more about it.   
+You can leverage our JupyterLab extension to provision a GPU server. Please refer to the [SuperKnowa Text2Infra repo](https://github.com/ibm-ecosystem-engineering/SuperKnowa-Text2Infra) to learn more about it.   
 
 ## Step 3. Configuration Settings
 
