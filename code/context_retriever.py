@@ -5,11 +5,11 @@ import configparser
 import glob
 import db2_connector as dbcon
 
-config = configparser.ConfigParser()
-config.read('./../config.ini')
+expertConfig = configparser.ConfigParser()
+expertConfig.read('./../expertConfig.ini')
 
 super_config = configparser.ConfigParser()
-super_config.read('./../superConfig.ini')
+super_config.read('./../simpleConfig.ini')
 home_dir  = super_config['Default']['home_dir']
 
 def funcContextRetriever(exp_name,db_type, input_file, database_folder='../input/spider/database/'):

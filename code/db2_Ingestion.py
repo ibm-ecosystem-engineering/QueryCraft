@@ -3,12 +3,12 @@ import ibm_db
 import configparser
 import db2_connector as dbcon
 
-# Read configuration from config.ini file
-config = configparser.ConfigParser()
-config.read('./../config.ini')
+# Read configuration from expertConfig.ini file
+expertConfig = configparser.ConfigParser()
+expertConfig.read('./../expertConfig.ini')
 
 
-delimiter = config['DataIngestion']["delimiter"]
+delimiter = expertConfig['DataIngestion']["delimiter"]
 conn = dbcon.db2_connector()
 
 def load_data_into_db(filename,table_name,schema_name,delimiter = delimiter):

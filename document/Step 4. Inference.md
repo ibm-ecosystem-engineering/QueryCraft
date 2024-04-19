@@ -4,7 +4,7 @@ If you executed the Context retriever service in step 2, a test dataset was crea
 
 Ex: `input/datasets/exp_codellama7b_QATesting12Mar_validSet.csv`
 
-The inference service takes the test dataset as input and uses your finetuned/pre-trained model to generate SQL queries. You can configure the Inference service through the superConfig.ini file as shown below:
+The inference service takes the test dataset as input and uses your finetuned/pre-trained model to generate SQL queries. You can configure the Inference service through the simpleConfig.ini file as shown below:
 
 1. Provide the File path for the data to be used for inference. We expect a CSV file with the following columns: db_id, question, context
 

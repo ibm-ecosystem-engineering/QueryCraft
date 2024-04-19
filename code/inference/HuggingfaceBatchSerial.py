@@ -8,22 +8,22 @@ import torch
 
 class HuggingfaceBatchSerial(InferenceStrategy):
 
-    def infer(self, config):
+    def infer(self, expertConfig):
         ## Extract all the values from the configuration file
         ## set them in variables
-        ## config = self.infer_configuration()
-        base_model = config["base_model"]
-        finetuned_model = config["finetuned_model"]
-        input_dataset = config["input_dataset"]
-        logging_path = config["logging_path"]
-        output_location = config["output_location"]
+        ## expertConfig = self.infer_configuration()
+        base_model = expertConfig["base_model"]
+        finetuned_model = expertConfig["finetuned_model"]
+        input_dataset = expertConfig["input_dataset"]
+        logging_path = expertConfig["logging_path"]
+        output_location = expertConfig["output_location"]
 
         ## set the logging path
         logging.basicConfig(filename=logging_path+".log", level=logging.INFO)
 
         ## Model inference by creating tokenizer and model object
         device_map = "auto"
-        tokenizer = AutoTokenizer.from_pretrained(config["base_model"])
+        tokenizer = AutoTokenizer.from_pretrained(expertConfig["base_model"])
         model = AutoModelForCausalLM.from_pretrained(
             base_model,
             load_in_8bit=True,

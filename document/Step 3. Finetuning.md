@@ -2,7 +2,7 @@
 
 The finetuning service can fine-tune your base model for the specific task of SQL query generation given a natural language query. We leverage LoRA/QLoRA, a PEFT (Parameter Efficient Fine Tuning) technique, to fine-tune the LLM. You can use the existing dataset—Spider or KaggleDBQA—for fine-tuning the LLM, or you can configure your own dataset, as explained in the previous section.
 
-The parameters, dataset, and model can be configured in the superConfig.ini file, as explained below.
+The parameters, dataset, and model can be configured in the simpleConfig.ini file, as explained below.
 
 1. Provide the base model that you want to finetune. You can use any HuggingFace LLM for fine-tuning although a code based LLM is recommended for Text To SQL task.
 
@@ -43,7 +43,7 @@ You can keep one of the two lines uncommented to use one of the two datasets for
 
     `prompt_file_path =input/prompts/codellama_model.txt`
 
-If you want to change any fine-grained configurations, you can do so by making changes in the config.ini fields. 
+If you want to change any fine-grained configurations, you can do so by making changes in the expertConfig.ini fields. 
 
 To start fine-tuning your LLM for the Text to SQL task, run the below command.
 

@@ -1,7 +1,7 @@
 
 # <a name="_toc577../image/012548"></a>Step 6. Evaluation
 
-The evaluation service will run the corrected queries against your database and compare the results of the generated query with the golden query to calculate execution accuracy. You can configure the evaluation service using the superConfig.ini file.
+The evaluation service will run the corrected queries against your database and compare the results of the generated query with the golden query to calculate execution accuracy. You can configure the evaluation service using the simpleConfig.ini file.
 
 
 
@@ -9,7 +9,7 @@ The output of the QueryCorrection service is dynamically read as the input of th
 
 ## <a name="_toc1369103650"></a>Option 6.1 Evaluation on the db2 database:
 
-Configure the Evaluation service by updating the EXEvaluator section of the superConfig file for the following parameters:
+Configure the Evaluation service by updating the EXEvaluator section of the simpleConfig file for the following parameters:
 
 1. Set the database type for db2.
 
@@ -23,7 +23,7 @@ Note: You must have completed the Step 1. Data Ingestion section for DB2.
 
 ## <a name="_toc858104986"></a>Option 6.2 Evaluation on sqlite:
 
-Configure the Evaluation service by updating the EXEvaluator section of the superConfig file for the following parameters:
+Configure the Evaluation service by updating the EXEvaluator section of the simpleConfig file for the following parameters:
 
 1. Set the database type for db2.
 

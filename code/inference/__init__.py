@@ -34,17 +34,17 @@ class InferenceContext():
     def strategy(self, strategy: InferenceStrategy) -> None:
         self._strategy = strategy
     
-    def execute(self, config: dict) -> any:
-        return self._strategy.infer(config)
+    def execute(self, expertConfig: dict) -> any:
+        return self._strategy.infer(expertConfig)
 
-def executeInference(config):
-    config = InferenceConfiguration(config).build()
-    model_name = config["base_model"]
-    inference_type = config["inference_type"]
+def executeInference(expertConfig):
+    expertConfig = InferenceConfiguration(expertConfig).build()
+    model_name = expertConfig["base_model"]
+    inference_type = expertConfig["inference_type"]
 
     inference = infer_type_factory(inference_type, model_name)
     if(inference is not None):
-        rs = InferenceContext(inference).execute(config)
+        rs = InferenceContext(inference).execute(expertConfig)
         return rs
     else:
         return "No inference type found"

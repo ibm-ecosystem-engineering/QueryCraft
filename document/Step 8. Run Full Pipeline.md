@@ -2,7 +2,7 @@
 
 # <a name="_toc523711792"></a>Step 8.  Run pipeline (All)
 
-To run all components together, you can change the required parameters in `superConfig.ini`. You must set the default path as shown in the designated section below. 
+To run all components together, you can change the required parameters in `simpleConfig.ini`. You must set the default path as shown in the designated section below. 
 
 [Finetune] 
 

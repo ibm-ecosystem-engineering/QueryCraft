@@ -16,7 +16,7 @@ Note: Testers in the Build Lab team can use the [DB Warehouse-SuperKnowa](https:
 
 The db2_Ingestion module offers a streamlined method for inserting data from CSV or any delimiter file into db2 to fine-tune text to SQL pipelines. 
 
-1. First, set the following credentials in the config.ini file under the [**DB2_Credentials**] section:
+1. First, set the following credentials in the expertConfig.ini file under the [**DB2_Credentials**] section:
 
 - **dsn_database**: Name of the database.
 - **dsn_uid**: User ID for the database.
@@ -32,7 +32,7 @@ The db2_Ingestion module offers a streamlined method for inserting data from CSV
 
     ![Sample dataset](../image/013.png)
 
-1. Now specify the file path, including the file name, in the superConfig.ini file under the `DataIngestion` section. Additionally, indicate the table name that needs to be created in the db2 database. If you are using the salary.csv, TheHistoryofBaseball is the right schema. Ensuring the right schema is important as the Golden query dataset contains this information in the column db_id. This is required to run the context retriever and the execution evaluation service.
+1. Now specify the file path, including the file name, in the simpleConfig.ini file under the `DataIngestion` section. Additionally, indicate the table name that needs to be created in the db2 database. If you are using the salary.csv, TheHistoryofBaseball is the right schema. Ensuring the right schema is important as the Golden query dataset contains this information in the column db_id. This is required to run the context retriever and the execution evaluation service.
 
 Note: The table may already exist. please use a different table_name.
 
@@ -50,13 +50,13 @@ Note: The table may already exist. please use a different table_name.
     table_name= querycraft_db2_test
     
 
-If the user needs to import a file specifying the delimiter for files other than CSV, the user can adjust the delimiter from the config.ini file:
+If the user needs to import a file specifying the delimiter for files other than CSV, the user can adjust the delimiter from the expertConfig.ini file:
 
 `delimiter = ,`
 
 **Usage:**
 
-Run the Data Ingestion module of the QueryCraft pipeline using the runQueryCraft.sh, file with the dataIngestion option after setting the superConfig.ini file to insert salary.csv into the querycraft_db2_test table in db2.  
+Run the Data Ingestion module of the QueryCraft pipeline using the runQueryCraft.sh, file with the dataIngestion option after setting the simpleConfig.ini file to insert salary.csv into the querycraft_db2_test table in db2.  
 
 `sh runQueryCraft.sh`
 

@@ -6,15 +6,15 @@ import pandas as pd
 
 class GraniteInference(InferenceStrategy):
 
-    def infer(self, config):
+    def infer(self, expertConfig):
         ## Extract all the values from the configuration file
         ## set them in variables
-        ## config = self.infer_configuration()
+        ## expertConfig = self.infer_configuration()
         credentials = {
-            "url": config["watsonx_url"],
-            "apikey": config["watsonx_apikey"]
+            "url": expertConfig["watsonx_url"],
+            "apikey": expertConfig["watsonx_apikey"]
         }
-        project_id = config["watsonx_projectId"]
+        project_id = expertConfig["watsonx_projectId"]
         
         parameters = {
             GenParams.DECODING_METHOD: "greedy",
@@ -22,9 +22,9 @@ class GraniteInference(InferenceStrategy):
             GenParams.STOP_SEQUENCES: ["<end·of·code>"]
         }
 
-        base_model = config["base_model"]
-        input_dataset = config["input_dataset"]
-        output_location = config["output_location"]
+        base_model = expertConfig["base_model"]
+        input_dataset = expertConfig["input_dataset"]
+        output_location = expertConfig["output_location"]
 
         model = Model(
             model_id=base_model, 

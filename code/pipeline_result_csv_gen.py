@@ -15,22 +15,22 @@ matplotlib.use('Agg')
 
 def create_result():
     ###
-    config = configparser.ConfigParser()
-    config.read('./../config.ini')
-    config.sections()
+    expertConfig = configparser.ConfigParser()
+    expertConfig.read('./../expertConfig.ini')
+    expertConfig.sections()
     
     
-    superconfig = configparser.ConfigParser()
-    superconfig.read('./../superConfig.ini')
-    superconfig.sections()
+    simpleConfig = configparser.ConfigParser()
+    simpleConfig.read('./../simpleConfig.ini')
+    simpleConfig.sections()
 
     ### EXP FILE
-    EXP = superconfig['Default']['exp_name'] 
-    home_dir = superconfig['Default']['home_dir']
+    EXP = simpleConfig['Default']['exp_name'] 
+    home_dir = simpleConfig['Default']['home_dir']
 
 
     # Start MLflow run with a dynamic run name
-    text2sql_exp_file = home_dir+ config['QueryAnalysisDashboard']['text2sql_exp_file']
+    text2sql_exp_file = home_dir+ expertConfig['QueryAnalysisDashboard']['text2sql_exp_file']
 
     # Check if SQL_Leaderboard.csv file exists in the artifacts directory
     if os.path.isfile(text2sql_exp_file):
@@ -46,22 +46,22 @@ def create_result():
 
 
     #step-1
-    #User Config
-    trainDataset = superconfig['Finetune']['train_dataset']  
-    base_model = superconfig['Finetune']['model_name'] 
-    finetuningMethod = superconfig['Finetune']['finetune_type'] 
-    precision = config['Finetune']['precision'] 
-    LoRA_r = int(config['Finetune']['LoRA_r'])
-    LoRA_dropout = float(config['Finetune']['LoRA_dropout'])
-    batch_size = int(config['Finetune']['batch_size'])
-    per_device_train_batch_size = int(config['Finetune']['per_device_train_batch_size'])
-    output_dir =  home_dir+"output/model/"+ superconfig['Default']['exp_name']
-    target_modules = config['Finetune']['target_modules']
-    logging_path = home_dir+config['logs']['log_folder']+ superconfig['Default']['exp_name']
+    #User expertConfig
+    trainDataset = simpleConfig['Finetune']['train_dataset']  
+    base_model = simpleConfig['Finetune']['model_name'] 
+    finetuningMethod = simpleConfig['Finetune']['finetune_type'] 
+    precision = expertConfig['Finetune']['precision'] 
+    LoRA_r = int(expertConfig['Finetune']['LoRA_r'])
+    LoRA_dropout = float(expertConfig['Finetune']['LoRA_dropout'])
+    batch_size = int(expertConfig['Finetune']['batch_size'])
+    per_device_train_batch_size = int(expertConfig['Finetune']['per_device_train_batch_size'])
+    output_dir =  home_dir+"output/model/"+ simpleConfig['Default']['exp_name']
+    target_modules = expertConfig['Finetune']['target_modules']
+    logging_path = home_dir+expertConfig['logs']['log_folder']+ simpleConfig['Default']['exp_name']
 
     #step-2
     # Set the path to the directory containing checkpoint folders
-    checkpoint_dir = home_dir + "/output/model/" + superconfig['Default']['exp_name']
+    checkpoint_dir = home_dir + "/output/model/" + simpleConfig['Default']['exp_name']
 
     # Function to extract the checkpoint number from a folder name
     def get_checkpoint_number(folder_name):
@@ -120,7 +120,7 @@ def create_result():
 
     #step-3
     try:
-        log_file_path = home_dir + config['logs']['log_folder'] + superconfig['Default']['exp_name'] + ".log"
+        log_file_path = home_dir + expertConfig['logs']['log_folder'] + simpleConfig['Default']['exp_name'] + ".log"
 
         # Define a dictionary to store the parameters and their values
         parameters = {}
@@ -147,7 +147,7 @@ def create_result():
     #Step-4 Ex_accuracy
 
     try:
-        log_file_path = home_dir + config['logs']['log_folder']  + superconfig['Default']['exp_name'] + "_EX.log"
+        log_file_path = home_dir + expertConfig['logs']['log_folder']  + simpleConfig['Default']['exp_name'] + "_EX.log"
 
         Ex_accuracy = None
         PP_Ex_accuracy = None
@@ -203,8 +203,8 @@ def create_result():
         new_leaderboard = new_leaderboard.sort_values(by='Base Model')
         print(new_leaderboard)
 
-        # Get the selected columns from the config file
-        selected_columns = config['QueryAnalysisDashboard']['selected_columns'].split(', ')
+        # Get the selected columns from the expertConfig file
+        selected_columns = expertConfig['QueryAnalysisDashboard']['selected_columns'].split(', ')
         # Replace underscores with spaces in column names
         selected_columns = [column.replace('_', ' ') for column in selected_columns]
         # Filter the new_leaderboard DataFrame based on the selected columns

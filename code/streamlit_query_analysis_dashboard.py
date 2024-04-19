@@ -557,16 +557,16 @@ def getComparistionAnalysisdashboard(folder_name,select_files,finetune_data_file
     
 
 def show_dashboard(folder_name='output/evalResults/'):
-        config = configparser.ConfigParser()
-        config.read('./../config.ini')
-        config.sections()
+        expertConfig = configparser.ConfigParser()
+        expertConfig.read('./../expertConfig.ini')
+        expertConfig.sections()
 
-        superconfig = configparser.ConfigParser()
-        superconfig.read('./../superConfig.ini')
-        superconfig.sections()
-        home_dir = superconfig['Default']['home_dir']
-        ## read superconfig add path 
-        input_dataset_file = home_dir+config['QueryAnalysisDashboard']['input_dataset_file']
+        simpleConfig = configparser.ConfigParser()
+        simpleConfig.read('./../simpleConfig.ini')
+        simpleConfig.sections()
+        home_dir = simpleConfig['Default']['home_dir']
+        ## read simpleConfig add path 
+        input_dataset_file = home_dir+expertConfig['QueryAnalysisDashboard']['input_dataset_file']
         df_all = pd.read_csv(input_dataset_file)
 
 
@@ -574,9 +574,9 @@ def show_dashboard(folder_name='output/evalResults/'):
         create_result()
         
         
-        token_data_file= home_dir+config['QueryAnalysisDashboard']['token_data_file']
-        benchmark_image= home_dir+config['QueryAnalysisDashboard']['benchmark_image']
-        finetune_data_file= home_dir+config['QueryAnalysisDashboard']['text2sql_exp_file']
+        token_data_file= home_dir+expertConfig['QueryAnalysisDashboard']['token_data_file']
+        benchmark_image= home_dir+expertConfig['QueryAnalysisDashboard']['benchmark_image']
+        finetune_data_file= home_dir+expertConfig['QueryAnalysisDashboard']['text2sql_exp_file']
         files = tuple(os.listdir(folder_name))
         selected_files=[]
 
@@ -656,11 +656,11 @@ def show_dashboard(folder_name='output/evalResults/'):
             st.write("Image Credit","https://yale-lily.github.io//spider")
             st.image(benchmark_image, caption='Spider dataset banchmark')
 
-superconfig = configparser.ConfigParser()
-superconfig.read('./../superConfig.ini')
-superconfig.sections()
-home_dir  = superconfig['Default']['home_dir']
-folder_name = home_dir+superconfig['QueryAnalysisDashboard']['folder_name']
+simpleConfig = configparser.ConfigParser()
+simpleConfig.read('./../simpleConfig.ini')
+simpleConfig.sections()
+home_dir  = simpleConfig['Default']['home_dir']
+folder_name = home_dir+simpleConfig['QueryAnalysisDashboard']['folder_name']
 show_dashboard(folder_name=folder_name)
 ########################################################################################################
 

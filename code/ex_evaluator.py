@@ -435,17 +435,17 @@ def formaterAndCaller_db2(df,row):
     
 def ex_evalution(dbType='sqlite',exp_name='exp_codellama-13b_spider_0412',input_dataset='output/inference/exp_codellama-13b_spider_0412.csv',database_folder='input/KaggleDBQA/database/'):
     print("Component running-----------")
-    config_filePath="./../config.ini"
-    config = configparser.ConfigParser()
-    config.read(config_filePath)
-    config.sections()
+    config_filePath="./../expertConfig.ini"
+    expertConfig = configparser.ConfigParser()
+    expertConfig.read(config_filePath)
+    expertConfig.sections()
 
     super_config = configparser.ConfigParser()
-    super_config.read('./../superConfig.ini')
+    super_config.read('./../simpleConfig.ini')
     home_dir  = super_config['Default']['home_dir']
 
 
-    logging_path = home_dir+config['logs']['log_folder']+"/"+ exp_name +"_EX"
+    logging_path = home_dir+expertConfig['logs']['log_folder']+"/"+ exp_name +"_EX"
     logging.basicConfig(filename=logging_path+".log", level=logging.INFO)
 
     ######################################################################################################
