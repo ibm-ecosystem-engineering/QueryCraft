@@ -17,12 +17,81 @@ You need the following to run the QueryCraft pipeline:
 - Use QueryCraft to to analyze the generated queries on a dashboard
 
 ---
-Benchmark Results 
-- Add them here on various Spider across models
-- <insightful > models working bettter on complex SQL
-- Smaller fine-tuned models outperforming larger ones
-- Pre and post processing improvement
-- <>
+## Benchmark Results 
+
+### 1. QueryCraft pipeline experiment results using various LLMs
+
+| Base Model                       | Eval Dataset | Accuracy |
+| -------------------------------- | ------------ | -------- |
+| DB-chat-sql model/Codellama-13b  | Spider Dev   | 80.00%   |
+| DB-chat-sql model/Codellama-13b  | Spider Dev   | 63.60%   |
+| Granite 20B code Instruct        | Spider Dev   | 63%      |
+| CodeLlama 34B instruct           | Spider Dev   | 62.11%   |
+| CodeLlama 13B Instruct           | Spider Dev   | 57.98%   |
+| CodeLlama 7B Instruct            | Spider Dev   | 56%      |
+| CodeLlama 7B Instruct -finetune  | Spider Dev   | 55.62%   |
+| codeLlama 34B instruct           | Spider Dev   | 55.37%   |
+| CodeLlama 7B Instruct -finetune  | Spider Dev   | 55.23%   |
+| codeLlama 34B instruct           | Spider Dev   | 55.00%   |
+| CodeLlama 13B Instruct -finetune | Spider Dev   | 53.87%   |
+| Lllama-2-70B                     | Spider Dev   | 53.44%   |
+| CodeLlama 13B Instruct-finetune  | Spider Dev   | 53.29%   |
+| CodeLlama 7B Instruct -finetune  | Spider Dev   | 53.00%   |
+| Lllama-2-70B-Chat                | Spider Dev   | 52.00%   |
+| Codellama 13B Instruct           | Spider Dev   | 52.00%   |
+| Defog-sqlcoder-34b-alpha         | Spider Dev   | 51.93%   |
+| CodeLlama 7B Instruct            | Spider Dev   | 52%      |
+| sqlcoder-34b-alpha               | Spider Dev   | 51.21%   |
+| Granite 20B code Instruct        | Spider Dev   | 49%      |
+| CodeLlama 7B Instruct -finetune  | Spider Dev   | 48.06%   |
+| Llama-2-7B-Chat -finetune        | Spider Dev   | 27.00%   |
+| CodeLlama 7B Instruct -finetune  | Spider Dev   | 11.00%   |
+
+### 2. Enhanced outcomes are evident with the query correction service, as demonstrated by its post-processing accuracy.
+
+| Base Model                       | Eval Dataset | Accuracy | Post Processed Accuracy |
+| -------------------------------- | ------------ | -------- | ----------------------- |
+| DB-chat-sql model/Codellama-13b  | Spider Dev   | 80.00%   | 80.00%                  |
+| DB-chat-sql model/Codellama-13b  | Spider Dev   | 63.60%   | 70.57%                  |
+| Granite 20B code Instruct        | Spider Dev   | 63%      | 69%                     |
+| codeLlama 34B instruct           | Spider Dev   | 62.11%   | 62.11%                  |
+| CodeLlama 13B Instruct           | Spider Dev   | 57.98%   | 64.04%                  |
+| CodeLlama 7B Instruct            | Spider Dev   | 56%      | 57.00%                  |
+| CodeLlama 7B Instruct -finetune  | Spider Dev   | 55.62%   | 61.24%                  |
+| codeLlama 34B instruct           | Spider Dev   | 55.37%   | 55.37%                  |
+| CodeLlama 7B Instruct -finetune  | Spider Dev   | 55.23%   | 60.30%                  |
+| codeLlama 34B instruct           | Spider Dev   | 55.00%   | 55.00%                  |
+| CodeLlama 13B Instruct -finetune | Spider Dev   | 53.87%   | 59.96%                  |
+| Lllama-2-70B                     | Spider Dev   | 53.44%   | 53.44%                  |
+| CodeLlama 13B Instruct-finetune  | Spider Dev   | 53.29%   | 58.32%                  |
+| CodeLlama 7B Instruct -finetune  | Spider Dev   | 53.00%   | 58.27%                  |
+| Codellama 13B Instruct           | Spider Dev   | 52.00%   | 52.00%                  |
+| Lllama-2-70B-Chat                | Spider Dev   | 52.00%   | 53.04%                  |
+| CodeLlama 7B Instruct            | Spider Dev   | 52%      | 57.11%                  |
+| Defog-sqlcoder-34b-alpha         | Spider Dev   | 51.93%   | 62.92%                  |
+| sqlcoder-34b-alpha               | Spider Dev   | 51.21%   | 56.05%                  |
+| Granite 20B code Instruct        | Spider Dev   | 49%      | 57%                     |
+| CodeLlama 7B Instruct -finetune  | Spider Dev   | 48.06%   | 52.91%                  |
+| Llama-2-7B-Chat -finetune        | Spider Dev   | 27.00%   | 32%                     |
+| CodeLlama 7B Instruct -finetune  | Spider Dev   | 11.00%   | 25.96%                  |
+
+### 3. Smaller fine-tuned models outperforming larger ones
+
+| Base Model                       | Eval Dataset | Accuracy | Post Processed Accuracy |
+| -------------------------------- | ------------ | -------- | ----------------------- |
+| CodeLlama 7B Instruct -finetune  | Spider Dev   | 55.62%   | 61.24%                  |
+| codeLlama 34B instruct           | Spider Dev   | 55.37%   | 55.37%                  |
+| CodeLlama 7B Instruct -finetune  | Spider Dev   | 55.23%   | 60.30%                  |
+| CodeLlama 13B Instruct -finetune | Spider Dev   | 53.87%   | 59.96%                  |
+| Lllama-2-70B                     | Spider Dev   | 53.44%   | 53.44%                  |
+| CodeLlama 13B Instruct-finetune  | Spider Dev   | 53.29%   | 58.32%                  |
+| CodeLlama 7B Instruct -finetune  | Spider Dev   | 53.00%   | 58.27%                  |
+| Lllama-2-70B-Chat                | Spider Dev   | 52.00%   | 53.04%                  |
+| CodeLlama 7B Instruct            | Spider Dev   | 52%      | 57.11%                  |
+| sqlcoder-34b-alpha               | Spider Dev   | 51.21%   | 56.05%                  |
+| Granite 20B code Instruct        | Spider Dev   | 49%      | 57%                     |
+
+
 
 <call pout code-granite as >
 
