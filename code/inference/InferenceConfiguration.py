@@ -4,14 +4,14 @@ import os
 
 class InferenceConfiguration():
      
-     def __init__(self, config) -> None:
-         self.super_config = config
+     def __init__(self, expertConfig) -> None:
+         self.super_config = expertConfig
      
      def build(self) -> dict:
         
-        config_filePath="./../config.ini"
-        config = configparser.ConfigParser(interpolation=ExtendedInterpolation())
-        config.read(config_filePath)
+        config_filePath="./../expertConfig.ini"
+        expertConfig = configparser.ConfigParser(interpolation=ExtendedInterpolation())
+        expertConfig.read(config_filePath)
 
         ## Home directory
         home_dir  = self.super_config['Default']['home_dir']
@@ -30,13 +30,13 @@ class InferenceConfiguration():
         if(os.path.exists(finetuned_model) is False):
             finetuned_model = None
 
-        logging_path = f"{home_dir}{config['logs']['log_folder']}{exp_name}_infer"
+        logging_path = f"{home_dir}{expertConfig['logs']['log_folder']}{exp_name}_infer"
         output_location = f"{home_dir}output/inference/{exp_name}_inference.csv"
 
         ## Watsonx details
-        watsonx_url = config["Inference"]["watsonx_url"]
-        watsonx_apikey =  config["Inference"]["watsonx_apikey"]
-        watsonx_projectId = config["Inference"]["watsonx_projectID"]
+        watsonx_url = expertConfig["Inference"]["watsonx_url"]
+        watsonx_apikey =  expertConfig["Inference"]["watsonx_apikey"]
+        watsonx_projectId = expertConfig["Inference"]["watsonx_projectID"]
 
         return {
             "base_model": base_model,

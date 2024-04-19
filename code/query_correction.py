@@ -129,15 +129,15 @@ def query_processing(row):
 
   
 def funcQueryCorrection(exp_name ='exp_codellama-13b_spider_0412',input_dataset='/data/rlhf/amit/SuperKnowa-QueryCraft/output/inference/exp_codellama-13b_spider_0412.csv'):
-    config_filePath="./../config.ini"
-    config = configparser.ConfigParser()
-    config.read(config_filePath)
-    config.sections()
+    config_filePath="./../expertConfig.ini"
+    expertConfig = configparser.ConfigParser()
+    expertConfig.read(config_filePath)
+    expertConfig.sections()
     super_config = configparser.ConfigParser()
-    super_config.read('./../superConfig.ini')
+    super_config.read('./../simpleConfig.ini')
     home_dir  = super_config['Default']['home_dir']
 
-    logging_path = home_dir+config['logs']['log_folder']+"/"+ exp_name +"_EX"
+    logging_path = home_dir+expertConfig['logs']['log_folder']+"/"+ exp_name +"_EX"
     logging.basicConfig(filename=logging_path+".log", level=logging.INFO)
     df = pd.read_csv(input_dataset)
     df["model_op"] = df["model_op"].apply(lambda x : x.replace("{",""))

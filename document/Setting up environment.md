@@ -12,41 +12,41 @@ You can leverage our JupyterLab extension to provision a GPU server. Please refe
 
 There are two configuration files which can be used for tuning the QueryCraft pipeline:
 
-- superConfig.ini allows you to tune the knobs of the QueryCraft pipeline for each of the components. 
-- Config.ini provides you with fine-grained control over the parameters of the experiments.
+- simpleConfig.ini allows you to tune the knobs of the QueryCraft pipeline for each of the components. 
+- expertConfig.ini provides you with fine-grained control over the parameters of the experiments.
 
-For testing purposes, you can use the default values of config.ini and experiment with different combinations of superConfig.ini fields. The table below lists some of the important fields and values it can take. 
+For testing purposes, you can use the default values of expertConfig.ini and experiment with different combinations of simpleConfig.ini fields. The table below lists some of the important fields and values it can take. 
 
-1. Open the  `SuperKnowa-QueryCraft/superConfig.ini`. The superConfig.ini file has six sections besides the Default section: DataIngestion, ContextRetriever,Finetune, Inference, Logs, QueryCorrection, EXEvaluator, and QueryAnalysisDashboard. The file has comments that can help you understand the fields inside. We will go through each section one by one.
+1. Open the  `SuperKnowa-QueryCraft/simpleConfig.ini`. The simpleConfig.ini file has six sections besides the Default section: DataIngestion, ContextRetriever,Finetune, Inference, Logs, QueryCorrection, EXEvaluator, and QueryAnalysisDashboard. The file has comments that can help you understand the fields inside. We will go through each section one by one.
 
-   Use pwd to set the home_dir in the superConfig.
+   Use pwd to set the home_dir in the simpleConfig.
 
    `pwd`
 
     Add a `/` to the end of the home_dir.
 
-Also, set a unique experiment name by editing the exp_name variable in the [Default] section of the superConfig.ini file.
+Also, set a unique experiment name by editing the exp_name variable in the [Default] section of the simpleConfig.ini file.
 
-![Default section of superConfig](../image/010.png)
+![Default section of simpleConfig](../image/010.png)
 
 
 
 |**Filename**|**Section**|**Field**|**Supported values**|
 | :- | :- | :- | :- |
-|config.ini|DataIngestion|delimiter|,|
-|config.ini|Finetune|precision|32 or 16 or 8|
-|config.ini|Finetune|target_modules|attention_linear_layers or all_linear_layers|
-|config.ini|QueryCorrection|query_correction|0 or 1|
-|superConfig.ini|ContextRetriever|db_type|sqlite or db2|
-|superConfig.ini|Finetune|data_collator|DataCollatorForLanguageModeling, DataCollatorForSeq2Seq or DefaultDataCollator|
-|superConfig.ini|Finetune|model_name|Any causalLM model on hugging face |
-|superConfig.ini|Finetune|finetune_type|LoRA or QLoRA|
-|superConfig.ini|Inference|model_name|Any causalLM model on hugging face or IBM’s granite models|
-|superConfig.ini|Inference|finetuned_model|NA – if you want to use pretrained model weights<br>` `or <br>Path to finetuned adapter weights folder|
-|superConfig.ini|EXEvaluator|db_type|sqlite or db2|
-|config.ini|QueryAnalysisDashboard|selected_columns|Base_Model, Evaluation_set, Ex-accuracy, PP-Ex-accuracy, R, precision, Training_Set, LORA_Alpha, LORA_Dropout, Finetune_Strategy, Target_Modules, Task_Type, Epoch, Learning_Rate, Loss, Eval_Loss, Eval_Runtime, Eval Samples/Second, Eval Steps/Second, Logging_Steps, Max_Steps|
+|expertConfig.ini|DataIngestion|delimiter|,|
+|expertConfig.ini|Finetune|precision|32 or 16 or 8|
+|expertConfig.ini|Finetune|target_modules|attention_linear_layers or all_linear_layers|
+|expertConfig.ini|QueryCorrection|query_correction|0 or 1|
+|simpleConfig.ini|ContextRetriever|db_type|sqlite or db2|
+|simpleConfig.ini|Finetune|data_collator|DataCollatorForLanguageModeling, DataCollatorForSeq2Seq or DefaultDataCollator|
+|simpleConfig.ini|Finetune|model_name|Any causalLM model on hugging face |
+|simpleConfig.ini|Finetune|finetune_type|LoRA or QLoRA|
+|simpleConfig.ini|Inference|model_name|Any causalLM model on hugging face or IBM’s granite models|
+|simpleConfig.ini|Inference|finetuned_model|NA – if you want to use pretrained model weights<br>` `or <br>Path to finetuned adapter weights folder|
+|simpleConfig.ini|EXEvaluator|db_type|sqlite or db2|
+|expertConfig.ini|QueryAnalysisDashboard|selected_columns|Base_Model, Evaluation_set, Ex-accuracy, PP-Ex-accuracy, R, precision, Training_Set, LORA_Alpha, LORA_Dropout, Finetune_Strategy, Target_Modules, Task_Type, Epoch, Learning_Rate, Loss, Eval_Loss, Eval_Runtime, Eval Samples/Second, Eval Steps/Second, Logging_Steps, Max_Steps|
 
 
 
-For details on other configurable fields, one can refer to the comments across each field in the config.ini and superConfig.ini files.
+For details on other configurable fields, one can refer to the comments across each field in the expertConfig.ini and simpleConfig.ini files.
 

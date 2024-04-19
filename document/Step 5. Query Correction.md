@@ -4,7 +4,7 @@ The Query correction service is used to correct the generated queries before you
 
 The output of the inference service is dynamically read as the input of the Query correction service and the same CSV is updated.
 
-The input for the query correction can be configured (if required) in the QueryCorrection section of the superConfig.ini file:
+The input for the query correction can be configured (if required) in the QueryCorrection section of the simpleConfig.ini file:
 
 `input_dataset = ${Default:home_dir}output/inference/${Default:exp_name}_inference.csv`
 

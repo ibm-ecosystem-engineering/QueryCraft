@@ -5,7 +5,7 @@ Query analysis dashboard service can be used to analyze the generated queries, c
 
 The output of the Evaluation service is dynamically read as the input of the QueryAnalysisDashboard.
 
-The input for the query correction can be configured (if required) in the QueryAnalysisDashboard section of the superConfig.ini file:
+The input for the query correction can be configured (if required) in the QueryAnalysisDashboard section of the simpleConfig.ini file:
 
 `folder_name =output/evalResults/`
 

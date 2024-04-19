@@ -24,36 +24,36 @@ def funcFinetune(exp_name="expDummy",data_collator="DataCollatorForSeq2Seq",mode
         
     else:
         start_time = time.time()
-        config_filePath="./../config.ini"
-        config = configparser.ConfigParser()
-        config.read(config_filePath)
-        config.sections()
+        config_filePath="./../expertConfig.ini"
+        expertConfig = configparser.ConfigParser()
+        expertConfig.read(config_filePath)
+        expertConfig.sections()
 
         super_config = configparser.ConfigParser()
-        super_config.read('./../superConfig.ini')
+        super_config.read('./../simpleConfig.ini')
         home_dir  = super_config['Default']['home_dir']
 
-        #User Config
-        logging_path = home_dir+config['logs']['log_folder']+ exp_name
+        #User expertConfig
+        logging_path = home_dir+expertConfig['logs']['log_folder']+ exp_name
 
         base_model = model_name
         finetuningMethod = finetune_type
-        precision = int(config['Finetune']['precision'])
-        tokenizeMaxLength = int(config['Finetune']['tokenizeMaxLength'])
+        precision = int(expertConfig['Finetune']['precision'])
+        tokenizeMaxLength = int(expertConfig['Finetune']['tokenizeMaxLength'])
         
 
 
-        batch_size = int(config['Finetune']['batch_size'])
-        num_train_epochs = int(config['Finetune']['num_train_epochs'])
-        per_device_train_batch_size = int(config['Finetune']['per_device_train_batch_size'])
+        batch_size = int(expertConfig['Finetune']['batch_size'])
+        num_train_epochs = int(expertConfig['Finetune']['num_train_epochs'])
+        per_device_train_batch_size = int(expertConfig['Finetune']['per_device_train_batch_size'])
         output_dir =  home_dir+"output/model/"+ exp_name
         prompt_file_path = home_dir+prompt_file_path
 
-        LoRA_r = int(config['Finetune']['LoRA_r'])
-        LoRA_dropout = float(config['Finetune']['LoRA_dropout'])
-        LoRA_alpha = float(config['Finetune']['LoRA_alpha'])
-        target_modules = config['Finetune']['target_modules']
-        #LoRA_taskType = config['Finetune']['LoRA_taskType']
+        LoRA_r = int(expertConfig['Finetune']['LoRA_r'])
+        LoRA_dropout = float(expertConfig['Finetune']['LoRA_dropout'])
+        LoRA_alpha = float(expertConfig['Finetune']['LoRA_alpha'])
+        target_modules = expertConfig['Finetune']['target_modules']
+        #LoRA_taskType = expertConfig['Finetune']['LoRA_taskType']
 
         #train_dataset = home_dir+train_dataset
 
@@ -142,7 +142,7 @@ def funcFinetune(exp_name="expDummy",data_collator="DataCollatorForSeq2Seq",mode
                 bnb_4bit_use_double_quant=True,
                 bnb_4bit_quant_type="nf4",
                 bnb_4bit_compute_dtype=torch.bfloat16
-            ) # setup bits and bytes config
+            ) # setup bits and bytes expertConfig
 
             model = AutoModelForCausalLM.from_pretrained(base_model, quantization_config=bnb_config, device_map={"":0})
             
@@ -234,7 +234,7 @@ def funcFinetune(exp_name="expDummy",data_collator="DataCollatorForSeq2Seq",mode
             )
 
         #pytorch-related optimisation (which just make training faster but don't affect accuracy):
-        model.config.use_cache = False
+        model.expertConfig.use_cache = False
 
         if torch.__version__ >= "2" and sys.platform != "win32":
             print("compiling the model")

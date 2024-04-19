@@ -3,7 +3,7 @@
 
 The Context Retriever module offers a convenient solution for accessing context information like DDL schema from both SQLite and db2 databases. 
 
-Configure the ContextRetriever section of superConfig.ini. 
+Configure the ContextRetriever section of simpleConfig.ini. 
 
 1. input_database_folder: Relative path to the folder containing database dump in .sqlite format. This is required only when using SQLite database
 1. input_data_file: Relative path to the golden dataset (CSV file) with columns: question, query, and db_id
@@ -29,11 +29,11 @@ For SQLite, the context retriever service expects two inputs:
 
 The output of the context retriever service is a CSV file with the following columns: question, query, db_id, and context. Here, the context includes the DDL schema for the tables in db_id. 
 
-Configure the input data path, database input file, and database type (referred to as db_type) from the superConfig.ini file. The db_type parameter determines the data source for context retrieval, whether it's SQLite or db2.
+Configure the input data path, database input file, and database type (referred to as db_type) from the simpleConfig.ini file. The db_type parameter determines the data source for context retrieval, whether it's SQLite or db2.
 
 If you do not have a dataset of your own, we provide either of the two datasets provided as part of this repository—the Spider dataset or the KaggleDBQA dataset.
 
-To use Spider dataset, configure the ContextRetriever section of SuperConfig.ini as:
+To use Spider dataset, configure the ContextRetriever section of simpleConfig.ini as:
 
 ```
 input_database_folder =input/spider/database/
@@ -41,7 +41,7 @@ input_data_file = input/datasets/spider.csv
 db_type = sqlite
 ```
 
-To use the KaggleDBQA dataset configure it into ContextRetriever section of SuperConfig.ini as:
+To use the KaggleDBQA dataset configure it into ContextRetriever section of simpleConfig.ini as:
 
 ```
 input_database_folder =input/kaggleDBQA/database/
@@ -49,9 +49,9 @@ input_data_file = input/datasets/kaggleDBQA.csv
 db_type = sqlite
 ```
 
-From the example above, you can specify either Spider or KaggleDBQA in the superConfig.ini file.
+From the example above, you can specify either Spider or KaggleDBQA in the simpleConfig.ini file.
 
-After updating the **superConfig.ini** as mentioned above, execute the context retriever using the following command.
+After updating the **simpleConfig.ini** as mentioned above, execute the context retriever using the following command.
 
 `sh runQueryCraft.sh`
 
