@@ -114,11 +114,11 @@ There are three options for using your dataset to finetune/evaluate the Text to 
 ### Golden Query Annotation:
 1. Go to our annotation tool. <https://annotator.superknowa.tsglwatson.buildlab.cloud/>
 
-    ![Data annotator view](document/011.png)
+    ![Data annotator view](image/011.png)
 
 2. Click on the Instruction Manual and follow the instructions for curating the golden queries dataset. <https://annotator.superknowa.tsglwatson.buildlab.cloud/documentation>
 
-    ![Data annotation instruction manual](document/012.png)
+    ![Data annotation instruction manual](image/012.png)
 
 ## Step 1. Data Ingestion 
 You have 3 options for Data Ingestion.
