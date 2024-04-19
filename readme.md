@@ -97,8 +97,6 @@ You need the following to run the QueryCraft pipeline:
 
 ====
 
-======
-
 ## Features/Modules in QueryCraft
 The QueryCraft pipeline is built of 8 modules/components.
 
@@ -169,7 +167,8 @@ Configure your environment and services by editing the  `simpleConfig.ini` and `
 `SuperKnowa-QueryCraft` provides the capability to run the whole pipeline (Context Retriever -> Fine-tuning -> Inference -> Query Correction -> Evaluation -> Query Analysis dashboard) together and also you can run each component individually. 
 
 ## Step by Step instructions
-Please read the [detailed documentation](/document/Setting%20up%20environment.md) for step by step instructions
+You need a GPU environment for running and fine-tuning LLM using QueryCraft framework. Read [Setting up environment](/document/Setting%20up%20environment.md) for more details.
+Please read the [detailed documentation](/document/) for step by step instructions
 
 ## Step 0. Instruct dataset
 
@@ -179,14 +178,7 @@ There are three options for using your dataset to finetune/evaluate the Text to 
 1. Curate the golden query dataset using our annotation tool: <https://annotator.superknowa.tsglwatson.buildlab.cloud/>
 1. Use the example datasets provided below for testing: Spider and KaggleDBQA
 
-### Golden Query Annotation:
-1. Go to our annotation tool. <https://annotator.superknowa.tsglwatson.buildlab.cloud/>
-
-    ![Data annotator view](image/011.png)
-
-2. Click on the Instruction Manual and follow the instructions for curating the golden queries dataset. <https://annotator.superknowa.tsglwatson.buildlab.cloud/documentation>
-
-    ![Data annotation instruction manual](image/012.png)
+Please read the [Step 0. Golden Query Dataset Annotation](/document/Step%200.%20Golden%20Query%20Dataset%20Annotation.md) for step by step instructions for the Instruct dataset.
 
 ## Step 1. Data Ingestion 
 You have 3 options for Data Ingestion.
@@ -194,11 +186,11 @@ You have 3 options for Data Ingestion.
   - If you have both databases and instruct set (golden query)
   - If you only have database and not instruct set then use above annotation tool 
 2. Use the example set
-   This comes with both source dataset and instruct Db
+  - This comes with both source dataset and Instruct Db
 
-Read the detailed steps for Data ingestion in [documentation](/image/readme.md)
+Please read the [Step 1. Data Ingestion](/document/Step%201.%20Data%20Ingestion.md) for step by step instructions for the Instruct dataset.
 
-Run the Data Ingestion module of the QueryCraft pipeline using the `runQueryCraft.sh`, file with the `dataIngestion` option after setting the `simpleConfig.ini` file to insert `salary.csv` into the `querycraft_db2_testing_13march` table in db2.  
+Run the Data Ingestion module of the QueryCraft pipeline using the `runQueryCraft.sh`, file with the `dataIngestion` option after setting the `simpleConfig.ini` file to insert `salary.csv` into the a table in db2.  
 
 ```bash
 sh runQueryCraft.sh
@@ -209,6 +201,8 @@ dataIngestion
 ```
 
 ## Step 2. Context Retriever
+
+Please read the [Step 2. Context Retriever](/document/Step%202.%20Context%20Retriever.md) for step by step instructions for the Instruct dataset.
 
 Execute the context retriever using the following command. 
 
@@ -224,6 +218,8 @@ contextRetriever
 
 ## Step 3. Fine-Tuning
 
+Please read the [Step 3. Finetuning](/document/Step%203.%20Finetuning.md) for step by step instructions for the Instruct dataset.
+
 To start fine-tuning your LLM for the Text to SQL task, run the below command.
 
 ```bash
@@ -238,6 +234,8 @@ Follow the prompts to specify your dataset and model configuration.
 
 ## Step 4. Inference
 
+Please read the [Step 4. Inference](/document/Step%204.%20Inference.md) for step by step instructions for the Instruct dataset.
+
 To generate SQL queries using your fine-tuned or pre-trained model, execute:
 
 ```bash
@@ -250,6 +248,8 @@ inference
 
 ## Step 5. Query Correction
 
+Please read the [Step 5. Query Correction](/document/Step%205.%20Query%20Correction.md) for step by step instructions for the Instruct dataset.
+
 ```bash
 sh runQueryCraft.sh
 ```
@@ -259,6 +259,8 @@ querycorrection
 ```
 
 ## Step 6. Evaluation
+
+Please read the [Step 6. Evaluation](/document/Step%206.%20Evaluation.md) for step by step instructions for the Instruct dataset.
 
 Evaluate the performance of your model against the SQLite database or DB2 by running the below command:
 
@@ -272,6 +274,8 @@ evaluation
 
 
 ## Step 7. Query Analysis Dashboard
+
+Please read the [Step 7. Query Analysis](/document/Step%207.%20Query%20Analysis.md) for step by step instructions for the Instruct dataset.
 
 For a visual analysis of your fine-tuning experiments and generated SQL queries, launch the streamlit dashboard:
 
@@ -290,7 +294,9 @@ queryanalysisDashboard
 
 
 ## Step 8. Run pipeline (all)
-To run all components together, you can change the required parameters in `simpleConfig.ini`. You must set the default path as shown in the designated section below. 
+Please read the [Step 8. Run Full Pipeline](/document/Step%208.%20Run%20Full%20Pipeline.md) for step by step instructions for the Instruct dataset.
+
+To run all components together, you can change the required parameters in `ssimpleConfig.ini`. You must set the default path as shown in the designated section below. 
 
 ```
 [Finetune]
