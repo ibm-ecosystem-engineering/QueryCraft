@@ -104,7 +104,7 @@ The QueryCraft pipeline is built of 8 modules/components.
 
 1. **Instruct dataset curation**: This is a UI tool to curate instruct dataset for finetuning or evaluation of TextToSQL task. Read details about this module on our blog on [Golden dataset curation for text2sql](https://medium.com/@himadricuet/138f2e77847e).
 
-    <img src= "document/annotaion_tool.gif">
+    <img src= "image/annotaion_tool.gif">
 
 2. **Data ingestion**: Data ingestion module can be used for ingesting your data to Db2 on IBM Cloud.
 
@@ -161,16 +161,15 @@ pip install -r requirements.txt
 ```
 
 ### Configuration Files
-- You have two options
-- config-- If you want to do xyz use this 
-- Expertconfig and if you want to specify your fine tuning use this and here is how to access 
+Configure your environment and services by editing the  `simpleConfig.ini` and `expertConfig.ini` files. You have two options of configuring the QueryCraft pipeline
+- simpleConfig: Use this to specify the paths for datasets, models, and other services as per your setup.
+- expertConfig: Use this to configure the parameters of your experiment including fine-tuning.
 
-Configure your environment and services by editing the  `superConfig.ini` and `config.ini` files. In superConfig specify the paths for datasets, models, and other services as per your setup. In `config.ini` you can change the more detailed parameters for experimentation.
 
 `SuperKnowa-QueryCraft` provides the capability to run the whole pipeline (Context Retriever -> Fine-tuning -> Inference -> Query Correction -> Evaluation -> Query Analysis dashboard) together and also you can run each component individually. 
 
 ## Step by Step instructions
-Please read the [detailed documentation](/document/readme.md) for step by step instructions
+Please read the [detailed documentation](/document/Setting%20up%20environment.md) for step by step instructions
 
 ## Step 0. Instruct dataset
 
@@ -195,11 +194,11 @@ You have 3 options for Data Ingestion.
   - If you have both databases and instruct set (golden query)
   - If you only have database and not instruct set then use above annotation tool 
 2. Use the example set
-  - This comes with both source dataset and Instruct Db
+   This comes with both source dataset and instruct Db
 
-Read the detailed steps for Data ingestion in [documentation](/document/readme.md)
+Read the detailed steps for Data ingestion in [documentation](/image/readme.md)
 
-Run the Data Ingestion module of the QueryCraft pipeline using the `runQueryCraft.sh`, file with the `dataIngestion` option after setting the `superConfig.ini` file to insert `salary.csv` into the `querycraft_db2_testing_13march` table in db2.  
+Run the Data Ingestion module of the QueryCraft pipeline using the `runQueryCraft.sh`, file with the `dataIngestion` option after setting the `simpleConfig.ini` file to insert `salary.csv` into the `querycraft_db2_testing_13march` table in db2.  
 
 ```bash
 sh runQueryCraft.sh
@@ -291,7 +290,7 @@ queryanalysisDashboard
 
 
 ## Step 8. Run pipeline (all)
-To run all components together, you can change the required parameters in `superConfig.ini`. You must set the default path as shown in the designated section below. 
+To run all components together, you can change the required parameters in `simpleConfig.ini`. You must set the default path as shown in the designated section below. 
 
 ```
 [Finetune]
