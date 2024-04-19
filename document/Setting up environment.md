@@ -2,7 +2,7 @@
 
 ## Step 1. Create your GPU-enabled environment
 
-You can leverage any GPU-enabled environment, whether it's cloud-based, on-premises, or both. A GPU server can be easily deployed on IBM Cloud using SuperKnowa BYOM, which provides a JupyterLab extension to provision a GPU-enabled [virtual server instance (VSI) for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-about-advanced-virtual-servers) in minutes by filling out a simple form in any of your JupyterLab environments. You can also leverage [watsonx.ai](https://www.ibm.com/products/watsonx-ai) to train, validate, tune and deploy foundation and machine learning models, with both installed software and SaaS offerings.
+You can run SuperKnowa-QueryCraft in any GPU-enabled environment, whether it's cloud-based, on-premises, or both. You can leverage [watsonx.ai](https://www.ibm.com/products/watsonx-ai) to train, validate, tune and deploy foundation and machine learning models, with both installed software and SaaS offerings. Or, you can simply deploy a GPU server on IBM Cloud using SuperKnowa BYOM, which provides a JupyterLab extension to provision a GPU-enabled [virtual server instance (VSI) for VPC](https://cloud.ibm.com/docs/vpc?topic=vpc-about-advanced-virtual-servers) in minutes by filling out a simple form in any of your JupyterLab environments.
 
 ## Step 2. Optional: Install the JupyterLab extension
 
