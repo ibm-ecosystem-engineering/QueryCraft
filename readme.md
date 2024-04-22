@@ -25,15 +25,7 @@ We conducted various experiments on the Spider development dataset using differe
 
 #### Outcomes:
 1. Enhanced outcomes are evident with the query correction service, as demonstrated by its post-processing accuracy.
-2. Smaller fine-tuned models outperforms some larger ones pretrained models 
-
-
-
-
-
-<call pout code-granite as >
-
-====
+2. Smaller fine-tuned models outperforms some larger ones pretrained models.
 
 ## Features/Modules in QueryCraft
 The QueryCraft pipeline is built of 8 modules/components.
