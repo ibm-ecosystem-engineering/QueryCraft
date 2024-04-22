@@ -19,7 +19,7 @@ You need the following to run the QueryCraft pipeline:
 ---
 ## Benchmark Results 
 
-We conducted various experiments on the Spider development dataset using different pre-trained and fine-tuned language model (LLM) architectures. Below are the highest results achieved with their respective LLMs. The highest result, <strong>70.57%</strong>, was obtained with the DB-Chat SQL model, compared to <strong>69% </strong>achieved by the Granite 20B code instruction-based model.
+We conducted various experiments on the Spider development dataset using different pre-trained and fine-tuned language models (LLM). Below are the highest results achieved with their respective LLMs. The highest result, <strong>70.57%</strong>, was obtained with the DB-Chat SQL model, compared to <strong>69% </strong>achieved by the Granite 20B code instruction-based model.
 
 <img src= "image/benchmark_result.jpg">
 
