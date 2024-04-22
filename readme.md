@@ -19,42 +19,14 @@ You need the following to run the QueryCraft pipeline:
 ---
 ## Benchmark Results 
 
-### 1. QueryCraft pipeline experiment results using various LLMs
+We conducted various experiments on the Spider development dataset using different pre-trained and fine-tuned language model (LLM) architectures. Below are the highest results achieved with their respective LLMs. The highest result, <strong>70.57%</strong>, was obtained with the DB-Chat SQL model, compared to <strong>69% </strong>achieved by the Granite 20B code instruction-based model.
 
-| Base Model                       | Eval Dataset | Accuracy |
-| -------------------------------- | ------------ | -------- |
-| DB-chat-sql model/Codellama-13b  | Spider Dev   | 63.60%   |
-| Granite 20B code Instruct        | Spider Dev   | 63%      |
-| CodeLlama 34B instruct           | Spider Dev   | 62.11%   |
-| CodeLlama 13B Instruct           | Spider Dev   | 57.98%   |
-| CodeLlama 7B Instruct            | Spider Dev   | 56%      |
-| CodeLlama 7B Instruct -finetune  | Spider Dev   | 55.62%   |
-| CodeLlama 13B Instruct -finetune | Spider Dev   | 53.87%   |
-| Lllama-2-70B                     | Spider Dev   | 53.44%   |
-| Lllama-2-70B-Chat                | Spider Dev   | 52.00%   |
-| Defog-sqlcoder-34b-alpha         | Spider Dev   | 51.93%   |
-| sqlcoder-34b-alpha               | Spider Dev   | 51.21%   |
-| Llama-2-7B-Chat -finetune        | Spider Dev   | 27.00%   |
+<img src= "image/benchmark_result.jpg">
 
+#### Outcomes:
+1. Enhanced outcomes are evident with the query correction service, as demonstrated by its post-processing accuracy.
+2. Smaller fine-tuned models outperforms some larger ones pretrained models 
 
-### 2. Enhanced outcomes are evident with the query correction service, as demonstrated by its post-processing accuracy.
-
-| Base Model                       | Eval Dataset | Accuracy | Post Processed Accuracy |
-| -------------------------------- | ------------ | -------- | ----------------------- |
-| DB-chat-sql model/Codellama-13b  | Spider Dev   | 63.60%   | 70.57%                  |
-| Granite 20B code Instruct        | Spider Dev   | 63%      | 69%                     |
-| codeLlama 34B instruct           | Spider Dev   | 62.11%   | 62.11%                  |
-| CodeLlama 13B Instruct           | Spider Dev   | 57.98%   | 64.04%                  |
-| CodeLlama 7B Instruct            | Spider Dev   | 56%      | 57.00%                  |
-| CodeLlama 7B Instruct -finetune  | Spider Dev   | 55.62%   | 61.24%                  |
-| CodeLlama 13B Instruct -finetune | Spider Dev   | 53.87%   | 59.96%                  |
-| Lllama-2-70B                     | Spider Dev   | 53.44%   | 53.44%                  |
-| Lllama-2-70B-Chat                | Spider Dev   | 52.00%   | 53.04%                  |
-| Defog-sqlcoder-34b-alpha         | Spider Dev   | 51.93%   | 62.92%                  |
-| sqlcoder-34b-alpha               | Spider Dev   | 51.21%   | 56.05%                  |
-| Llama-2-7B-Chat -finetune        | Spider Dev   | 27.00%   | 32%                     |
-
-### 3. Smaller fine-tuned models outperform larger ones
 
 
 
