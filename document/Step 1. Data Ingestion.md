@@ -12,8 +12,6 @@ You can ingest your delimited files to DB2 on IBM cloud. Once the data is proper
 - Service credentials for the DB2 database. Get the db2 credentials from the IBM cloud by following the steps here: <https://cloud.ibm.com/docs/Db2onCloud?topic=Db2onCloud-getting-started>
 
 
-Note: Testers in the Build Lab team can use the [DB Warehouse-SuperKnowa](https://cloud.ibm.com/services/dashdb/crn%3Av1%3Abluemix%3Apublic%3Adashdb%3Aus-south%3Aa%2Fe65910fa61ce9072d64902d03f3d4774%3A9a36e55c-43f7-4867-8cba-b09ef55c44f9%3A%3A) instance to load their data and run the pipeline. 
-
 The db2_Ingestion module offers a streamlined method for inserting data from CSV or any delimiter file into db2 to fine-tune text to SQL pipelines. 
 
 1. First, set the following credentials in the expertConfig.ini file under the [**DB2_Credentials**] section:
