@@ -19,15 +19,17 @@ You need the following to run the QueryCraft pipeline:
 ---
 ## Benchmark Results 
 
-We conducted various experiments on the Spider development dataset using different pre-trained and fine-tuned language models (LLM). Below are the highest results achieved with their respective LLMs. The highest result, <strong>70.57%</strong>, was obtained with the DB-Chat SQL model, compared to <strong>69% </strong>achieved by the Granite 20B code instruction-based model.
-
-<img src= "image/benchmark_result.jpg">
+We conducted various experiments on the Spider development dataset using different pre-trained and fine-tuned language models (LLM) in the QueryCraft pipeline. Below are the highest results achieved with their respective LLMs. The highest result, <strong>70.57%</strong> execution accuracy, was obtained with the DB-Chat SQL model, followed by <strong>69% </strong> execution accuracy achieved by the Granite 20B code instruction-based model.
 
 #### Outcomes:
-1. Enhanced outcomes are evident with the query correction service, as demonstrated by its post-processing accuracy.
-2. Smaller fine-tuned models outperforms some larger ones pretrained models.
+1. QueryCraft evaluation module applies post processing to the generated SQL queries and significantly improve the execution accuracy by correcting the SQL queries. This can be observed for all the models used in the QueryCraft pipeline as shown below:
 
-<img src= "image/finetune_smallmodel.jpg">
+    <img src= "image/benchmark_result.jpg">
+
+
+2. Smaller fine-tuned models outperforms some larger ones pretrained models using the QueryCraft pipeline. It can be observed from the chart below QueryCraft pipeline can finetune a smaller model (7B) to outperform larger models of 34B or even 70B parameters for Text To SQL task.
+
+    <img src= "image/finetune_smallmodel.jpg">
 
 
 
