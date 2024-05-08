@@ -44,7 +44,7 @@ The QueryCraft pipeline is built of 8 modules/components.
 
 2. **Data ingestion**: Data ingestion module can be used for ingesting your data to Db2 on IBM Cloud.
 
-    <img src= "image/Db2_ingetion.gif">
+    <img src= "image/Db2_ingestion.gif">
 
 3. **Context Retriever**: Context retriever can be used to extract context from the instruct dataset given the instruct dataset. Read details about this module on our blog on [Diving Deep into Context Retrieval Techniques](https://medium.com/@sahil_desai/07b5f4b51273)
 
