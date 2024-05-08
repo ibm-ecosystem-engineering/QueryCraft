@@ -1,6 +1,6 @@
 # QueryCraft (by SuperKnowa)
 
-Welcome to the `SuperKnowa-QueryCraft` repository, your comprehensive solution for fine-tuning Large Language Models (LLMs) for the task of generating SQL queries from natural language. This module is designed to streamline the process of adapting LLMs for Text2SQL tasks, providing a robust framework and pipeline that accelerates the initiation and fine-tuning process. Whether you're a developer or a user keen on harnessing the power of LLMs for database querying, `SuperKnowa-QueryCraft` offers the tools and infrastructure to make your journey smoother and more efficient.
+Welcome to the `QueryCraft` repository, your comprehensive solution for fine-tuning Large Language Models (LLMs) for the task of generating SQL queries from natural language. This framework is designed to create a simple higher abtraction framework so that AI engineerrs can quickly construct full GenAI pipeline without having to worry about inner complexittes of full fine-tuning. It streamline the process of adapting LLMs for Text2SQL tasks, providing a robust framework and pipeline that accelerates the initiation and fine-tuning process. Whether you're a developer or a expert data scientist keen on harnessing the power of LLMs for database querying, `QueryCraft` offers the tools and infrastructure to make your journey smoother and more efficient.
 
 You need the following to run the QueryCraft pipeline:
 - Database to run SQL query on and to evaluate the generated queries
