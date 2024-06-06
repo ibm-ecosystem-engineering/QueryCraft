@@ -11,12 +11,12 @@ You need the following to run the QueryCraft pipeline:
 ---
 ## What QueryCraft comes with
 An easy frameworrk goverrned by  relational databases using natural language questions instead of writing complex SQL queries
-- Use QueryCraft to build a configurable TextToSQL pipeline on your Database
-- Use QueryCraft to to evaluate the Text To SQL pipeline on your Database
-- Use QueryCraft to to correct the LLM-generated queries
-- Use QueryCraft to to fine-tune an LLM for SQL query generation on your database
-- Use QueryCraft to to speed up inferencing for SQL query generation
-- Use QueryCraft to to analyze the generated queries on a dashboard
+- A configurable TextToSQL pipeline on your Database
+- A tool to evaluate the Text To SQL pipeline on your Database
+- Script to correct the LLM-generated queries
+- HIGHER abstraction framework to fine-tune an LLM for SQL query generation on your database
+- Tools to speed up inferencing for SQL query generation
+- Analytics Dashboard to analyze the quality of generated queries
 
 ---
 ## Benchmark Results 
