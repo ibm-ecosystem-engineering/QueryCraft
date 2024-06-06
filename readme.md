@@ -265,7 +265,7 @@ all
 ## Build Lab Team 
 
 Created & Architected By
-- [Kunal Sawarkar](), Chief Data Scientist
+- [Kunal Sawarkar](), Distinguished Engineer & Chief Data Scientist
 
 Builders
 - [Shivam Solanki](https://github.com/biharicoder)
@@ -274,6 +274,7 @@ Builders
 - [Amit Khandelwal](https://github.com/ak16425)
 - [Sahil Desai](https://github.com/sahil11129)
 - [Himadri Talukder](https://github.com/hitalukder)
+- Tyler Burns
 
 ## License
 
