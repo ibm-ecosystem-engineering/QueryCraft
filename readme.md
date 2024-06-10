@@ -274,6 +274,7 @@ Builders
 - [Amit Khandelwal](https://github.com/ak16425)
 - [Sahil Desai](https://github.com/sahil11129)
 - [Himadri Talukder](https://github.com/hitalukder)
+- Tyler Burns
 
 ## License
 
