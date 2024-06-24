@@ -22,7 +22,7 @@ class HuggingfaceBatchSerial(InferenceStrategy):
         logging.basicConfig(filename=logging_path+".log", level=logging.INFO)
 
         ## Model inference by creating tokenizer and model object
-        device_map = "cpu"
+        device_map = "auto"
         tokenizer = AutoTokenizer.from_pretrained(expertConfig["base_model"])
         model = None
         if torch.cuda.is_available():
