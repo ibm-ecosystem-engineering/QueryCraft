@@ -4,9 +4,11 @@ Welcome to the `QueryCraft` repository, your comprehensive solution for fine-tun
 
 Enterprise Text2SQL applications are complex and need lot more than just plugging in LLMs. The specific metadata make it even more challenging case of fine-tuning. 'QueryCraft' streamline the process of adapting LLMs for Text2SQL tasks, providing a robust framework and pipeline that accelerates the initiation and fine-tuning process. Whether you're a developer or a expert data scientist keen on harnessing the power of LLMs for database querying, `QueryCraft` offers the tools and infrastructure to make your journey smoother and more efficient.
 
-You need the following to run the QueryCraft pipeline:
-- Database to run SQL query on and to evaluate the generated queries
-- Instruct set for fine tuning (you can curate instruct it with Annotation tool)
+Cover Blog- https://medium.com/@KunalSavvy/querycraft-the-simplest-and-most-comprehensive-open-framework-yet-to-build-nl2sql-at-scale-474b193e902e
+
+![Presentation1](https://github.com/ibm-ecosystem-engineering/QueryCraft/assets/134647636/5d50856b-8d80-405b-bd18-b1937bd10935)
+
+
   
 ---
 ## What QueryCraft comes with
@@ -17,6 +19,10 @@ An easy frameworrk goverrned by  relational databases using natural language que
 - HIGHER abstraction framework to fine-tune an LLM for SQL query generation on your database
 - Tools to speed up inferencing for SQL query generation
 - Analytics Dashboard to analyze the quality of generated queries
+
+You need the following to run the QueryCraft pipeline:
+- Database to run SQL query on and to evaluate the generated queries
+- Instruct set for fine tuning (you can curate instruct it with Annotation tool)
 
 ---
 ## Benchmark Results 
@@ -275,6 +281,9 @@ Builders
 - [Sahil Desai](https://github.com/sahil11129)
 - [Himadri Talukder](https://github.com/hitalukder)
 - Tyler Burns
+
+Contact
+- This framework is built and tested on top of IBM watsonx platform. In case of any questions or help, you can reach out to Kunal Sawarkar (kunal@ibm.com). For any issues, please create a GH issue. 
 
 ## License
 
