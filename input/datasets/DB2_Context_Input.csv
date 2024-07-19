@@ -1,6 +1,0 @@
-question,query,db_id
-List all employees along with their IDs and departments.,"SELECT EmployeeID, FirstName, LastName, Department FROM EMPLOYEE",EMPLOYEE
-Find the total number of people in the database.,"SELECT COUNT(*) AS TotalPeople FROM PEOPLE",PEOPLE
-Get the details of the product with the highest price.,"SELECT * FROM PRODUCT WHERE Price = (SELECT MAX(Price) FROM PRODUCT)",PRODUCT
-Retrieve the list of products along with their quantities and prices available in the store with ID 1.,"SELECT P.ProductID, P.ProductName, SP.Quantity, SP.Price FROM PRODUCT P INNER JOIN STOREPRODUCT SP ON P.ProductID = SP.ProductID WHERE SP.StoreID = 1",STOREPRODUCT
-List all students who are majoring in Computer Science.,"SELECT * FROM STUDENT WHERE Major = 'Computer Science'",STUDENT

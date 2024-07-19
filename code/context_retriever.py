@@ -100,17 +100,19 @@ def contextFinderDb2(schema_name):
 
 
 def contextFinderSqlite(db,database_folder):
-
-    file_path = f"{database_folder}{db}/{db}.sqlite"
+    file_path = f"{database_folder}/{db}.sqlite"
+    print("file_path",file_path)
     con = sqlite3.connect(file_path)
     cur = con.cursor()
     query = "SELECT name FROM sqlite_master WHERE type='table';"
     table_list = [row[0] for row in cur.execute(query)]
+    print("table_list",table_list)
     tables_create_queries = []
     for table in table_list:
         cursor = con.cursor()
         cursor.execute(f"SELECT sql FROM sqlite_master WHERE type='table' AND name='{table}';")
         ddl_query = cursor.fetchone()
+        print("ddl_query",ddl_query)
         cursor.close()
         if ddl_query:
             temp = ddl_query[0].replace("\n"," ")

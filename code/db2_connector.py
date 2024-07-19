@@ -2,16 +2,16 @@ import pandas as pd
 import ibm_db
 import configparser
 
-# Read configuration from expertConfig.ini file
+# # Read configuration from expertConfig.ini file
 expertConfig = configparser.ConfigParser()
 expertConfig.read('./../expertConfig.ini')
 
-super_config = configparser.ConfigParser()
-super_config.read('./../simpleConfig.ini')
+# super_config = configparser.ConfigParser()
+# super_config.read('./../simpleConfig.ini')
 # home_dir  = super_config['Default']['home_dir']
 
 
-
+ 
 # User expertConfig
 dsn_database = expertConfig['DataIngestion']["dsn_database"]
 dsn_uid = expertConfig['DataIngestion']["dsn_uid"]

@@ -259,38 +259,41 @@ def result_eq(result1, result2, order_matters):
 
 def eval_exec_match_sqlite(db, db2, p_str, g_str):
     """
-    return 1 if the values between prediction and gold are matching
-    in the corresponding index. Currently not support multiple col_unit(pairs).
+    Return 1 if the values between prediction and gold are matching
+    in the corresponding index. Currently does not support multiple col_unit(pairs).
     """
-    print("p_str value---",p_str)
+    print("p_str value---", p_str)
     
-    error ='None'
+    error = 'None'
     result = "error"
-    conn = sqlite3.connect(db2)
-    conn.text_factory = lambda b: b.decode(errors = 'ignore')
-    cursor = conn.cursor()
+    
     try:
+        print("Connecting to database at:", db2)
+        conn = sqlite3.connect(db2)
+        conn.text_factory = lambda b: b.decode(errors='ignore')
+        cursor = conn.cursor()
         cursor.execute(p_str)
         p_res = cursor.fetchall()
     except Exception as e:
-        # import ipdb; ipdb.set_trace()
-        error =error_handling(str(e))
-        return False,error,result
+        print("SQL Error in db2:", e)
+        error = error_handling(str(e))
+        return False, error, result
 
-    conn = sqlite3.connect(db)
-    conn.text_factory = lambda b: b.decode(errors = 'ignore')
-    cursor = conn.cursor()
     try:
+        print("Connecting to database at:", db)
+        conn = sqlite3.connect(db)
+        conn.text_factory = lambda b: b.decode(errors='ignore')
+        cursor = conn.cursor()
         cursor.execute(g_str)
+        q_res = cursor.fetchall()
     except Exception as e:
-        error =error_handling(str(e))
-        return False,error,result
-    q_res = cursor.fetchall()
+        print("SQL Error in db:", e)
+        error = error_handling(str(e))
+        return False, error, result
 
-    ##orders_matter = 'order by' in g_str.lower()
     orders_matter = False
-    value,result = result_eq(p_res, q_res, order_matters=orders_matter)
-    return value,error,result
+    value, result = result_eq(p_res, q_res, order_matters=orders_matter)
+    return value, error, result
 
 def replace_cur_year(query: str) -> str:
     return re.sub(
@@ -306,6 +309,7 @@ def eval_exec_match_db2(db2_conn,db2_conn1, p_str, g_str):
     """
     error ='None'
     result = "error"
+    value=False
     try:
         stmt = ibm_db.exec_immediate(db2_conn, p_str)
         p_res = ibm_db.fetch_assoc(stmt)
@@ -322,22 +326,23 @@ def eval_exec_match_db2(db2_conn,db2_conn1, p_str, g_str):
     
     ##orders_matter = 'order by' in g_str.lower()
     orders_matter = False
-    if q_res != 'None':
-        value,result = result_eq_db2(p_res, q_res, order_matters=orders_matter)
-    return value,error,result
+    if q_res is not None and not isinstance(p_res,bool) and not isinstance(q_res,bool) :
+        value, result = result_eq_db2(p_res, q_res, order_matters=orders_matter)
 
-def query_processing(row):
+    return value, error, result
+
+def query_processing(row,expected_query_column,generated_query_column):
     g_str =''
     p_str=''
-    if ';' not in row["query"]:
-        g_str = row["query"]+" ;"
+    if ';' not in row[expected_query_column]:
+        g_str = row[expected_query_column]+" ;"
     else:
-        g_str = row["query"]
+        g_str = row[expected_query_column]
     
-    if ';' not in row["model_op"]:
-        p_str = row["model_op"]+" ;"
+    if ';' not in row[generated_query_column]:
+        p_str = row[generated_query_column]+" ;"
     else:
-        p_str = row["model_op"].split(";")[0]
+        p_str = row[generated_query_column].split(";")[0]
         
     p_str = p_str.replace("> =", ">=").replace("< =", "<=").replace("! =", "!=")
     
@@ -416,24 +421,21 @@ def formaterAndCaller_sqlite(row,database_folder):
    
     return eval_score,eval_score1,error,result
   
-def formaterAndCaller_db2(df,row):
-    conn = db2_connector.db2_connectorWithSchema(row["db_id"])
+def formaterAndCaller_db2(row,expected_query_column,generated_query_column,schema_name):
+    conn = db2_connector.db2_connectorWithSchema(schema_name)
 
-    g_str = row["query"]+";"
-    p_str =row["model_op"]
+    g_str = row[expected_query_column]
+    p_str = row[generated_query_column]
 
     eval_score1 =0
     eval_score,error,result = eval_exec_match_db2(conn,conn,p_str, g_str)
     ## For query correction:
-    if "model_op1" in df.columns:
-        p_str_p =row["model_op1"]
-        eval_score1 ,error,result = eval_exec_match_db2(conn,conn,p_str_p, g_str)
+    g_str_p1,p_str_p1 =query_processing(row,expected_query_column,generated_query_column)
+    eval_score1 ,error,result = eval_exec_match_db2(conn,conn,p_str_p1, g_str_p1)
 
     return eval_score,eval_score1,error,result
-    
-
-    
-def ex_evalution(dbType='sqlite',exp_name='exp_codellama-13b_spider_0412',input_dataset='output/inference/exp_codellama-13b_spider_0412.csv',database_folder='input/KaggleDBQA/database/'):
+       
+def ex_evalution(expected_query_column,generated_query_column,dbType='sqlite',exp_name='exp_codellama-13b_spider_0412',input_dataset='output/inference/exp_codellama-13b_spider_0412.csv',database_path='',schema_name=""):
     print("Component running-----------")
     config_filePath="./../expertConfig.ini"
     expertConfig = configparser.ConfigParser()
@@ -455,14 +457,14 @@ def ex_evalution(dbType='sqlite',exp_name='exp_codellama-13b_spider_0412',input_
         
     if dbType =='sqlite':
         for index, row in df.iterrows():
-            evalScore,value,error,result = formaterAndCaller_sqlite(row,database_folder)
+            evalScore,value,error,result = formaterAndCaller_sqlite(row,database_path,expected_query_column,generated_query_column)
             df.at[index,"evalScore"] = evalScore
             df.at[index,"evalScorePostProcessing"] = value
             df.at[index,"error_type"] = error
             df.at[index,"result"] = result
     else :
         for index, row in df.iterrows():
-            evalScore,value,error,result = formaterAndCaller_db2(df,row)
+            evalScore,value,error,result = formaterAndCaller_db2(row,expected_query_column,generated_query_column,schema_name)
             df.at[index,"evalScore"] = evalScore
             df.at[index,"evalScorePostProcessing"] = value
             df.at[index,"error_type"] = error
@@ -473,5 +475,5 @@ def ex_evalution(dbType='sqlite',exp_name='exp_codellama-13b_spider_0412',input_
     logging.info("PP EX Accuracy :"+str(EXAccuracyPP))
     print("PP EX Accuracy :",str(EXAccuracyPP))
     print("EX Accuracy :",str(EXAccuracy))
-    df.to_csv(home_dir+"output/evalResults/"+exp_name+"_exEvaluator.csv")
+    df.to_csv(home_dir+"output/co_data/"+exp_name+"_exEvaluator.csv")
     print("File saved succesfully")

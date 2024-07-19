@@ -624,7 +624,6 @@ def show_dashboard(folder_name='output/evalResults/'):
             col3.markdown("### New Query Classification")
             col3.dataframe(df_selected["classification_new"].value_counts())    
     
-
         with tab2:
             if len(files) >0:
                 getEvaluationAnalysis(folder_name,files)
@@ -637,7 +636,6 @@ def show_dashboard(folder_name='output/evalResults/'):
             else:
                 st.write("Please provide files in /output/evalResults/ folder")
     
-
         with tab4:
             if len(files) >0:
                 getQueryAnalysisdashboard(folder_name,files)

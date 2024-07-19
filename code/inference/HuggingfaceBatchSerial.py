@@ -36,6 +36,18 @@ class HuggingfaceBatchSerial(InferenceStrategy):
                 base_model,
                 device_map='cpu',
                 )
+        model = None
+        if torch.cuda.is_available():
+            model = AutoModelForCausalLM.from_pretrained(
+                base_model,
+                load_in_8bit=True,
+                device_map=device_map,
+                )
+        else:
+            model = AutoModelForCausalLM.from_pretrained(
+                base_model,
+                device_map='cpu',
+                )
         eos_token_id = tokenizer.convert_tokens_to_ids(["```"])[0]
         ## check if finetuned model is set
         if(finetuned_model is not None):
@@ -59,6 +71,7 @@ class HuggingfaceBatchSerial(InferenceStrategy):
         text =  f"""
         [INST] Write SQLite query to answer the following question given the database schema. Please wrap your code answer using ```: Schema: {context} [/INST] Here is the SQLite query to answer to the question:{question} ```
         """
+        # input_tokens = tokenizer(text, return_tensors="pt").to("cuda")
         input_tokens = None
         if torch.cuda.is_available():
             input_tokens = tokenizer(text, return_tensors="pt").to("cuda")
@@ -81,4 +94,3 @@ class HuggingfaceBatchSerial(InferenceStrategy):
         print("result: "+result)
         logging.info("*******************")
         return result
-    

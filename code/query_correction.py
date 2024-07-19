@@ -50,23 +50,26 @@ def replace_cur_year(query: str) -> str:
         "YEAR\s*\(\s*CURDATE\s*\(\s*\)\s*\)\s*", "2020", query, flags=re.IGNORECASE
     )
 
-def query_processing(row):
+def query_processing(row,expected_query_column,generated_query_column):
     g_str =''
     p_str=''
-    if ';' not in row["query"]:
-        g_str = row["query"]+" ;"
-    else:
-        g_str = row["query"]
     
-    if ';' not in row["model_op"]:
-        p_str = row["model_op"]+" ;"
+    if ';' not in row[expected_query_column]:
+        g_str = row[expected_query_column]+" ;"
     else:
-        p_str = row["model_op"].split(";")[0]
+        g_str = row[expected_query_column]
+    
+    if ';' not in str(row[generated_query_column]):
+        p_str = str(row[generated_query_column])+" ;"
+    else:
+        p_str = str(row[generated_query_column]).split(";")[0]
         
     p_str = p_str.replace("> =", ">=").replace("< =", "<=").replace("! =", "!=")
     
     g_str = g_str.replace('``` ',"").replace('`',"")
     p_str = p_str.replace('``` ',"").replace('`',"")
+    g_str = g_str.replace('" ',"")
+    p_str = p_str.replace('" ',"")
     p_str = p_str.replace('### Expected Output:   ',"").replace('`',"")
     p_str = p_str.replace('Note:',"")
     p_str = p_str.replace(' Ex',"")
@@ -136,16 +139,19 @@ def funcQueryCorrection(exp_name ='exp_codellama-13b_spider_0412',input_dataset=
     super_config = configparser.ConfigParser()
     super_config.read('./../simpleConfig.ini')
     home_dir  = super_config['Default']['home_dir']
-
+    expected_query_column = super_config['QueryCorrection']['expected_query_column']
+    generated_query_column = super_config['QueryCorrection']['generated_query_column']
     logging_path = home_dir+expertConfig['logs']['log_folder']+"/"+ exp_name +"_EX"
     logging.basicConfig(filename=logging_path+".log", level=logging.INFO)
     df = pd.read_csv(input_dataset)
-    df["model_op"] = df["model_op"].apply(lambda x : x.replace("{",""))
-    df["model_op"] = df["model_op"].apply(lambda x : x.replace("}",""))
+    df=df.dropna()
+    df[expected_query_column] = df[expected_query_column].apply(lambda x : x.replace("{",""))
+    df[generated_query_column] = df[generated_query_column].apply(lambda x : x.replace("}",""))
     for index, row in df.iterrows():
-        g_str, p_str = query_processing(row)
-        df.at[index,"query"] = g_str
-        df.at[index,"model_op1"] = p_str
+        g_str, p_str = query_processing(row,expected_query_column,generated_query_column)
+        df.at[index,"corrected_" + expected_query_column] = g_str
+        df.at[index,"corrected_" + generated_query_column] = p_str
     df.to_csv(input_dataset)
+    print(input_dataset)
     print("File saved succesfully")
 
