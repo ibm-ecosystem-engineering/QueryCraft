@@ -184,3 +184,4 @@ v11.5.9_linuxx64_server_dec.tar.gz
 *.sqlite
 *.tar.gz
 .DS_Store
+notebooks-CE
