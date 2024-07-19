@@ -574,7 +574,7 @@ def getComparistionAnalysisdashboard(folder_name,select_files,finetune_data_file
     get_evaluationscoreCheckBox(folder_name,select_files,finetune_data_file)
 
 
-def get_overall_accuracy_dict_score(base_path = "../output/inference_/accumulated_accuracy/"):
+def get_overall_accuracy_dict_score(base_path = "../output/inference_sirion/accumulated_accuracy/"):
     dict_accuracy_overall = {}
 
     model_paths = os.listdir(base_path)
@@ -589,7 +589,7 @@ def get_overall_accuracy_dict_score(base_path = "../output/inference_/accumulate
 
     return dict_accuracy_overall
 
-def get_overall_latency_dict_score(base_path = "../output/inference_/"):
+def get_overall_latency_dict_score(base_path = "../output/inference_sirion/"):
     dict_latency_overall = {}
 
     model_paths = os.listdir(base_path)
@@ -660,7 +660,7 @@ def get_overall_latency(dict_latency_overall: dict):
         # st.plotly_chart(fig)
         
 
-def get_query_analysis(input_path = "../output/inference_/"):
+def get_query_analysis(input_path = "../output/inference_sirion/"):
     AGGREGATE_RATIO = []
     GROUP_BY = []
     ORDER_BY = []
@@ -783,10 +783,10 @@ def style_dataframe(df,background_color ="#9EB1CF"):
 
 
 
-def show_dashboard(base_path = "../output/inference_/"):
+def show_dashboard(base_path = "../output/inference_sirion/"):
         #######################################################
         
-        st.header(' Text To SQL Multiple Code Models Analysis Dashboard',divider='rainbow')
+        st.header('Sirion Text To SQL Multiple Code Models Analysis Dashboard',divider='rainbow')
         # tab1, tab2, tab3,tab4,tab5,tab6 = st.tabs(["Training Data Analysis", "Evaluation Analysis","Evaluation Analysis Post Processing", "Query Classification Dashboard","Comparistion Analysis","Benchmark Analysis"])
         tab1, tab2,tab3, tab4,tab5 = st.tabs([ "Model Comparison Analysis", "Evaluation Analysis","Evaluation Analysis Post Processing","Analysis by Query Type","SQL Query Analysis"])
 

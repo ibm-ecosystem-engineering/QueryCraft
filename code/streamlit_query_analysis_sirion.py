@@ -17,7 +17,7 @@ warnings.filterwarnings('ignore')
 
 ######################################################################################################
 
-st.set_page_config(layout="wide",page_title='SQL Evaluation Demo', page_icon="https://www.ibm.com/favicon.ico")
+st.set_page_config(layout="wide",page_title='Sirion SQL Evaluation Demo', page_icon="https://www.ibm.com/favicon.ico")
 
 hide_streamlit_style = """
             <style>
@@ -50,7 +50,7 @@ st.sidebar.markdown("***")
 st.sidebar.markdown("***")
 st.sidebar.markdown("***")
 
-st.sidebar.markdown("\n\n\n\nThis dashboard shows a preliminary QUERYCRAFT evaluation results for SQL generation based on the ground truths provided by the `team` and inferencing for different models. No Fine Tuning of models have been performed and default inferece models have been used with prompts and parameters tuning.\n\n\n\n\n\n")
+st.sidebar.markdown("\n\n\n\nThis dashboard shows a preliminary QUERYCRAFT evaluation results for SQL generation based on the ground truths provided by the `Sirion team` and inferencing for different models. No Fine Tuning of models have been performed and default inferece models have been used with prompts and parameters tuning.\n\n\n\n\n\n")
 
 st.sidebar.markdown("***")
 st.sidebar.markdown("***")
@@ -63,7 +63,7 @@ show_dashboard()
 
 
 # else:
-#     st.write("Please Login into QueryCraft Evaluation Dashboard")
+#     st.write("Please Login into Sirion QueryCraft Evaluation Dashboard")
 ########################################################################################################
 
     
