@@ -2,9 +2,7 @@
 
 ## Description
 
-Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context. List any dependencies that are required for this change.
-
-Fixes # (issue)
+Please include a summary of the change and which issue is fixed. Please create a separate PR for a different feature/bug fix.
 
 ## Type of change
 
@@ -19,14 +17,13 @@ Please delete options that are not relevant.
 
 Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce. Please also list any relevant details for your test configuration
 
-- [ ] Test A
-- [ ] Test B
+- [ ] Functionality testing (include screenshots if possible) of the component modified
+- [ ] End to end testing of QueryCraft pipeline
 
 **Test Configuration**:
-* Firmware version:
-* Hardware:
-* Toolchain:
-* SDK:
+* Database:
+* LLM:
+* QueryCraft component:
 
 ## Checklist:
 
@@ -35,7 +32,7 @@ Please describe the tests that you ran to verify your changes. Provide instructi
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] I have made corresponding changes to the documentation
 - [ ] My changes generate no new warnings
-- [ ] I have added tests that prove my fix is effective or that my feature works
-- [ ] New and existing unit tests pass locally with my changes
+- [ ] I have carried out functional test and added screenshots/gifs that prove my fix is effective or that my feature works
 - [ ] Any dependent changes have been merged and published in downstream modules
 - [ ] I have checked my code and corrected any misspellings
+- [ ] I have not committed any secrets/API keys. If any secrets were committed, please delete them and create new secrets as they have been already exposed.
