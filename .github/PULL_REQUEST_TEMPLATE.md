@@ -1,4 +1,4 @@
-# Pull Request Template
+# Pull Request Template for QueryCraft
 
 ## Description
 
