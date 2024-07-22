@@ -2,7 +2,7 @@
 
 ## Description
 
-Please include a summary of the change and which issue is fixed. Please create a separate PR for a different feature/bug fix.
+Please include a summary of the change and which issue is fixed. Please create a separate PR for each feature/bug fix.
 
 ## Type of change
 
