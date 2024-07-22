@@ -12,3 +12,4 @@ output/logs/*
 output/inference/*
 output/evalResults/*
 input/.DS_Store
+.DS_Store
