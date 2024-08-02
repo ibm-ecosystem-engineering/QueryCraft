@@ -111,7 +111,9 @@ elif(component=="evaluation"):
     exp_name=expertConfig['Default']['exp_name']
     input_dataset=expertConfig['EXEvaluator']['input_dataset']
     input_database_folder = expertConfig['EXEvaluator']['input_database_folder']
-    ex_evaluator.ex_evalution(db_type,exp_name,input_dataset,input_database_folder)
+    expected_query_column= expertConfig['EXEvaluator']['expected_query_column']
+    generated_query_column= expertConfig['EXEvaluator']['generated_query_column']
+    ex_evaluator.ex_evalution(db_type,exp_name,input_dataset,input_database_folder,expected_query_column,generated_query_column)
 
 elif(component=="queryanalysisDashboard"):
     import streamlit_query_analysis_dashboard as dashboard
