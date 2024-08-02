@@ -6,7 +6,9 @@ Enterprise Text2SQL applications are complex and need lot more than just pluggin
 
 Cover Blog- https://medium.com/@KunalSavvy/querycraft-the-simplest-and-most-comprehensive-open-framework-yet-to-build-nl2sql-at-scale-474b193e902e
 
-![Presentation1](https://github.com/ibm-ecosystem-engineering/QueryCraft/assets/134647636/5d50856b-8d80-405b-bd18-b1937bd10935)
+![image](https://github.com/user-attachments/assets/fb92271e-e6ce-47e4-a5e3-764927b36053)
+
+
 
 
   
@@ -23,6 +25,8 @@ An easy frameworrk goverrned by  relational databases using natural language que
 You need the following to run the QueryCraft pipeline:
 - Database to run SQL query on and to evaluate the generated queries
 - Instruct set for fine tuning (you can curate instruct it with Annotation tool)
+
+- ![Presentation1](https://github.com/ibm-ecosystem-engineering/QueryCraft/assets/134647636/5d50856b-8d80-405b-bd18-b1937bd10935)
 
 ---
 ## Benchmark Results 
