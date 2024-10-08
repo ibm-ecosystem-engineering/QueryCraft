@@ -326,18 +326,18 @@ def eval_exec_match_db2(db2_conn,db2_conn1, p_str, g_str):
         value,result = result_eq_db2(p_res, q_res, order_matters=orders_matter)
     return value,error,result
 
-def query_processing(row):
+def query_processing(row,expected_query_column,generated_query_column):
     g_str =''
     p_str=''
-    if ';' not in row["query"]:
-        g_str = row["query"]+" ;"
+    if ';' not in row[expected_query_column]:
+        g_str = row[expected_query_column]+" ;"
     else:
-        g_str = row["query"]
+        g_str = row[expected_query_column]
     
-    if ';' not in row["model_op"]:
-        p_str = row["model_op"]+" ;"
+    if ';' not in row[generated_query_column]:
+        p_str = row[generated_query_column]+" ;"
     else:
-        p_str = row["model_op"].split(";")[0]
+        p_str = row[generated_query_column].split(";")[0]
         
     p_str = p_str.replace("> =", ">=").replace("< =", "<=").replace("! =", "!=")
     
@@ -403,24 +403,24 @@ def query_processing(row):
             p_str=p_str+' ;'
     return g_str, p_str
 
-def formaterAndCaller_sqlite(row,database_folder):
+def formaterAndCaller_sqlite(row,database_folder,expected_query_column,generated_query_column):
     db = database_folder+row["db_id"]+"/"+row["db_id"]+".sqlite"
-    g_str = row["query"]+";"
-    p_str =row["model_op"]
+    g_str = row[expected_query_column]+";"
+    p_str =row[generated_query_column]
     
     ## For query correction:
-    g_str_p1,p_str_p1 =query_processing(row)
+    g_str_p1,p_str_p1 =query_processing(row,expected_query_column,generated_query_column)
     
     eval_score,e,r = eval_exec_match_sqlite(db,db,p_str, g_str)
     eval_score1 ,error,result = eval_exec_match_sqlite(db,db,p_str_p1, g_str_p1)
    
     return eval_score,eval_score1,error,result
   
-def formaterAndCaller_db2(df,row):
+def formaterAndCaller_db2(df,row,expected_query_column,generated_query_column):
     conn = db2_connector.db2_connectorWithSchema(row["db_id"])
 
-    g_str = row["query"]+";"
-    p_str =row["model_op"]
+    g_str = row[expected_query_column]+";"
+    p_str =row[generated_query_column]
 
     eval_score1 =0
     eval_score,error,result = eval_exec_match_db2(conn,conn,p_str, g_str)
@@ -433,7 +433,7 @@ def formaterAndCaller_db2(df,row):
     
 
     
-def ex_evalution(dbType='sqlite',exp_name='exp_codellama-13b_spider_0412',input_dataset='output/inference/exp_codellama-13b_spider_0412.csv',database_folder='input/KaggleDBQA/database/'):
+def ex_evalution(dbType='sqlite',exp_name='exp_codellama-13b_spider_0412',input_dataset='output/inference/exp_codellama-13b_spider_0412.csv',database_folder='input/KaggleDBQA/database/',expected_query_column="query",generated_query_column="model_op"):
     print("Component running-----------")
     config_filePath="./../expertConfig.ini"
     expertConfig = configparser.ConfigParser()
@@ -455,14 +455,14 @@ def ex_evalution(dbType='sqlite',exp_name='exp_codellama-13b_spider_0412',input_
         
     if dbType =='sqlite':
         for index, row in df.iterrows():
-            evalScore,value,error,result = formaterAndCaller_sqlite(row,database_folder)
+            evalScore,value,error,result = formaterAndCaller_sqlite(row,database_folder,expected_query_column,generated_query_column)
             df.at[index,"evalScore"] = evalScore
             df.at[index,"evalScorePostProcessing"] = value
             df.at[index,"error_type"] = error
             df.at[index,"result"] = result
     else :
         for index, row in df.iterrows():
-            evalScore,value,error,result = formaterAndCaller_db2(df,row)
+            evalScore,value,error,result = formaterAndCaller_db2(df,row,expected_query_column,generated_query_column)
             df.at[index,"evalScore"] = evalScore
             df.at[index,"evalScorePostProcessing"] = value
             df.at[index,"error_type"] = error
