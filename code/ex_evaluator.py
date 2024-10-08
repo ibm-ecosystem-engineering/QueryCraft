@@ -433,7 +433,7 @@ def formaterAndCaller_db2(df,row,expected_query_column,generated_query_column):
     
 
     
-def ex_evalution(dbType='sqlite',exp_name='exp_codellama-13b_spider_0412',input_dataset='output/inference/exp_codellama-13b_spider_0412.csv',database_folder='input/KaggleDBQA/database/',expected_query_column="query",generated_query_column="mode_op"):
+def ex_evalution(dbType='sqlite',exp_name='exp_codellama-13b_spider_0412',input_dataset='output/inference/exp_codellama-13b_spider_0412.csv',database_folder='input/KaggleDBQA/database/',expected_query_column="query",generated_query_column="model_op"):
     print("Component running-----------")
     config_filePath="./../expertConfig.ini"
     expertConfig = configparser.ConfigParser()
